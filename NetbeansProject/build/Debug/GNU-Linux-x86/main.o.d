@@ -15,7 +15,8 @@ build/Debug/GNU-Linux-x86/main.o: main.cpp ../Libs/MatMatrix/MatMatrix.h \
  ../Libs/SOM/delete/DSNeuron.h ../Libs/SOM/delete/DSSOM.cpp \
  ../Libs/SOM/delete/DSSOM.h ../Libs/SOM/delete/DSSOMC.h \
  ../Libs/SOM/delete/DSSOMC.cpp ../Libs/SOM/delete/DSSOMC.h \
- ../Libs/SOM/delete/DSNeuron.h
+ ../Libs/SOM/delete/DSNeuron.h ../Libs/Extern/mat.h \
+ ../Libs/Extern/matrix.h ../Libs/Extern/tmwtypes.h
 
 ../Libs/MatMatrix/MatMatrix.h:
 
@@ -90,3 +91,9 @@ build/Debug/GNU-Linux-x86/main.o: main.cpp ../Libs/MatMatrix/MatMatrix.h \
 ../Libs/SOM/delete/DSSOMC.h:
 
 ../Libs/SOM/delete/DSNeuron.h:
+
+../Libs/Extern/mat.h:
+
+../Libs/Extern/matrix.h:
+
+../Libs/Extern/tmwtypes.h:

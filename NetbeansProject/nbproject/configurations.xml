@@ -43,6 +43,10 @@
         <itemPath>../Libs/Defines/StringHelper.cpp</itemPath>
         <itemPath>../Libs/Defines/StringHelper.h</itemPath>
       </logicalFolder>
+      <logicalFolder name="Extern" displayName="Extern" projectFiles="true">
+        <itemPath>../Libs/Extern/mat.h</itemPath>
+        <itemPath>../Libs/Extern/matrix.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="MatMatrix" displayName="MatMatrix" projectFiles="true">
         <itemPath>../Libs/MatMatrix/MatAlgorithms.h</itemPath>
         <itemPath>../Libs/MatMatrix/MatFunctions.h</itemPath>
@@ -103,6 +107,7 @@
             <pElem>../Libs/Data</pElem>
             <pElem>.</pElem>
             <pElem>../Libs/SOM/delete</pElem>
+            <pElem>../Libs/Extern</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
@@ -161,6 +166,10 @@
       <item path="../Libs/Defines/StringHelper.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../Libs/Defines/StringHelper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../Libs/Extern/mat.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../Libs/Extern/matrix.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../Libs/MatMatrix/MatAlgorithms.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -268,6 +277,10 @@
       <item path="../Libs/Defines/StringHelper.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="../Libs/Defines/StringHelper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../Libs/Extern/mat.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../Libs/Extern/matrix.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../Libs/MatMatrix/MatAlgorithms.h" ex="false" tool="3" flavor2="0">
       </item>

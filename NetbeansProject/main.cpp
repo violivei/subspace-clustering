@@ -22,6 +22,7 @@
 #include "LARFDSSOM.h"
 #include "DataDisplay.h"
 #include <cstdio>
+#include "mat.h"
 
 using namespace std;
 
@@ -98,7 +99,7 @@ int main(int argc, char** argv) {
     dbgOut(1) << "Running LARFDSSOM for file: " << filename << endl;
     srand(time(0));
     
-    SOM<DSNode> *dssom = (SOM<DSNode>*)&som;
+    /*SOM<DSNode> *dssom = (SOM<DSNode>*)&som;
     ClusteringMeshSOM clusteringSOM(dssom);
     
     if (clusteringSOM.readFile(filename)){
@@ -111,7 +112,7 @@ int main(int argc, char** argv) {
     }
     //DataDisplay dataDisplay(clusteringSOM.trainingData);
     //dataDisplay.display(clusteringSOM.som[0]);
-    //getchar();
+    //getchar();*/
 }
 
 
