@@ -1,6 +1,6 @@
 /* 
  * File:   randomnumbers.cpp
- * Author: hans
+ * Author: hans and victor
  *
  * Created on 23 de Setembro de 2011, 11:14
  */

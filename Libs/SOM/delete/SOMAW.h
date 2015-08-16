@@ -1,6 +1,6 @@
 /* 
  * File:   SOMAD.h
- * Author: hans
+ * Author: hans and victor
  *
  * Created on 27 de Março de 2012, 17:41
  */

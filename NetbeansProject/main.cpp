@@ -1,6 +1,6 @@
 /* 
  * File:   main.cpp
- * Author: hans
+ * Author: hans and victor
  *
  * Created on 11 de Outubro de 2010, 07:25
  */

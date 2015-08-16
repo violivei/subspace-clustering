@@ -1,6 +1,6 @@
 /* 
  * File:   NodeW.h
- * Author: hans
+ * Author: hans and victor
  *
  * Created on 29 de Março de 2012, 10:31
  */

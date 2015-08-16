@@ -1,6 +1,6 @@
 /* 
  * File:   StringHelper.h
- * Author: hans
+ * Author: hans and victor
  *
  * Created on 18 de Novembro de 2013, 09:08
  */

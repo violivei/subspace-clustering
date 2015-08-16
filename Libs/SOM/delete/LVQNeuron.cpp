@@ -1,6 +1,6 @@
 /* 
  * File:   LVQNeuron.cpp
- * Author: hans
+ * Author: hans and victor
  * 
  * Created on 28 de Fevereiro de 2012, 21:13
  */

@@ -1,6 +1,6 @@
 /* 
  * File:   TDSSOM.cpp
- * Author: hans
+ * Author: hans and victor
  * 
  * Created on 9 de Novembro de 2010, 14:48
  */

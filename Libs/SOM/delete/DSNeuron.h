@@ -1,6 +1,6 @@
 /* 
  * File:   FNeuron.h
- * Author: hans
+ * Author: hans and victor
  *
  * Created on 6 de Outubro de 2010, 17:34
  */

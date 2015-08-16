@@ -1,6 +1,6 @@
 /* 
  * File:   DebugOut.cpp
- * Author: hans
+ * Author: hans and victor
  * 
  * Created on 8 de Setembro de 2010, 15:22
  */
