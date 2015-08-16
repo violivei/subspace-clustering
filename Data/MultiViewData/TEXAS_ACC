@@ -1,0 +1,9 @@
+cluster\class |    c  l a 1  c l  a2  c la3  c l a4  c l a5  |   S um
+clu0      |      0       0        0      0       0          |    0
+clu1      |      0       0        0      0       0          |    0
+clu2      |      1       0        0      0       0          |    1
+clu3      |      3   2     1  8        103   3 1    1     |      185
+clu4      |      1       0        0      0       0          |    1
+Sums      |      3   4     1  8        103   3 1    1     |      187
+
+Random index: 0.383704
