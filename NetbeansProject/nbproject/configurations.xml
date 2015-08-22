@@ -112,7 +112,7 @@
         </ccTool>
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/netbeansproject</output>
-          <commandLine>-lX11 -lpthread</commandLine>
+          <commandLine>-lX11 -lpthread -L/usr/local/MATLAB/R2014a/bin/glnxa64 -lmat -lmx -Wl,-rpath=/usr/local/MATLAB/R2014a/bin/glnxa64</commandLine>
         </linkerTool>
       </compileType>
       <item path="../Libs/Cluster/Cluster.cpp" ex="false" tool="1" flavor2="0">

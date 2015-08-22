@@ -8,7 +8,8 @@ build/Debug/GNU-Linux-x86/_ext/1471807640/SubspaceClusteringSOM.o: \
  ../Libs/Debug/DebugOut.h ../Libs/Cluster/ClusteringMetrics.h \
  ../Libs/Cluster/ClusteringSOM.h ../Libs/SOM/SOM.h ../Libs/SOM/Mesh.h \
  ../Libs/MatMatrix/MatVectorList.h ../Libs/MatMatrix/MatVector.h \
- ../Libs/SOM/DSNode.h ../Libs/SOM/NodeW.h
+ ../Libs/SOM/DSNode.h ../Libs/SOM/NodeW.h ../Libs/Extern/mat.h \
+ ../Libs/Extern/matrix.h ../Libs/Extern/tmwtypes.h
 
 ../Libs/Cluster/SubspaceClusteringSOM.h:
 
@@ -47,3 +48,9 @@ build/Debug/GNU-Linux-x86/_ext/1471807640/SubspaceClusteringSOM.o: \
 ../Libs/SOM/DSNode.h:
 
 ../Libs/SOM/NodeW.h:
+
+../Libs/Extern/mat.h:
+
+../Libs/Extern/matrix.h:
+
+../Libs/Extern/tmwtypes.h:

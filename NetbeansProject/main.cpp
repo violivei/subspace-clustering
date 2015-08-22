@@ -99,16 +99,16 @@ int main(int argc, char** argv) {
     dbgOut(1) << "Running LARFDSSOM for file: " << filename << endl;
     srand(time(0));
     
-    /*SOM<DSNode> *dssom = (SOM<DSNode>*)&som;
+    SOM<DSNode> *dssom = (SOM<DSNode>*)&som;
     ClusteringMeshSOM clusteringSOM(dssom);
     
     if (clusteringSOM.readFile(filename)){
-        som.reset(clusteringSOM.getInputSize());
+        /*som.reset(clusteringSOM.getInputSize());
         clusteringSOM.trainSOM(epocs);
         clusteringSOM.writeClusterResults(filename + ".results");
         clusteringSOM.outConfusionMatrix(clusteringSOM.groups, clusteringSOM.groupLabels);
         dbgOut(1) << clusteringSOM.outClassInfo() << endl;
-        dbgOut(1) << "Done." << endl;
+        dbgOut(1) << "Done." << endl;*/
     }
     //DataDisplay dataDisplay(clusteringSOM.trainingData);
     //dataDisplay.display(clusteringSOM.som[0]);

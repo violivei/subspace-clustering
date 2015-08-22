@@ -74,7 +74,7 @@ LDLIBSOPTIONS=
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/netbeansproject: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/netbeansproject ${OBJECTFILES} ${LDLIBSOPTIONS} -lX11 -lpthread
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/netbeansproject ${OBJECTFILES} ${LDLIBSOPTIONS} -lX11 -lpthread -L/usr/local/MATLAB/R2014a/bin/glnxa64 -lmat -lmx -Wl,-rpath=/usr/local/MATLAB/R2014a/bin/glnxa64
 
 ${OBJECTDIR}/_ext/1471807640/Cluster.o: ../Libs/Cluster/Cluster.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1471807640

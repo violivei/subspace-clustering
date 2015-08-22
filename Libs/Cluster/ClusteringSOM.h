@@ -18,7 +18,7 @@
 #include "SOM.h"
 #include "DSNode.h"
 #include "ClusteringMetrics.h"
-
+#include "mat.h"
 
 template <class SOMType>
 class ClusteringSOM {
@@ -97,7 +97,8 @@ public:
     }
 
     bool readFile(const std::string &filename) {
-
+        MATFile *pmat;
+        mxArray *pa1, *pa2, *pa3;
         if (trainingData==NULL && !allocated) {
             trainingData = new MatMatrix<float>();
             allocated = true;
@@ -107,6 +108,13 @@ public:
                 ArffData::rescaleCols01(*trainingData);
                 return true;
         }
+        
+        pmat = matOpen(filename.c_str(), "r");
+        if (pmat != NULL) {
+          //pa1 = matGetVariable(pmat, 'x');
+        }
+        
+        
         return false;
     }
 
