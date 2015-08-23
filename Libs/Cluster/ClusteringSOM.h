@@ -7,7 +7,7 @@
 
 #ifndef CLUSTERINGSOM_H
 #define	CLUSTERINGSOM_H
-
+#include <stdio.h>
 #include <vector>
 #include <map>
 #include <iomanip>
@@ -97,8 +97,7 @@ public:
     }
 
     bool readFile(const std::string &filename) {
-        MATFile *pmat;
-        mxArray *pa1, *pa2, *pa3;
+        
         if (trainingData==NULL && !allocated) {
             trainingData = new MatMatrix<float>();
             allocated = true;
@@ -109,11 +108,102 @@ public:
                 return true;
         }
         
-        pmat = matOpen(filename.c_str(), "r");
-        if (pmat != NULL) {
-          //pa1 = matGetVariable(pmat, 'x');
+        std::vector<double> vectorX;
+        std::vector<double> vectorY;
+        // open MAT-file
+        MATFile *pmat = matOpen(filename.c_str(), "r");
+        if (pmat == NULL) return false;
+
+        // extract the specified variable
+        mxArray *arrx = matGetVariable(pmat, "x");
+        mxArray *arry = matGetVariable(pmat, "y");
+        mwSize num;
+        double *pr;
+        if (arrx != NULL && mxIsDouble(arrx) && !mxIsEmpty(arrx)) {
+            // copy data
+            num = mxGetNumberOfElements(arrx);
+            pr = mxGetPr(arrx);
+            if (pr != NULL) {
+                vectorX.resize(num);
+                vectorX.assign(pr, pr+num);
+            }
         }
         
+        int dimX = mxGetDimensions_700(arrx)[2];
+        int dimY = mxGetDimensions_700(arrx)[1];
+        int dimZ = mxGetDimensions_700(arrx)[0];
+        float*** arrayXData;    // 3D array definition;
+        // begin memory allocation
+        arrayXData = new float**[dimZ];
+        for(int x = 0; x < dimZ; ++x) {
+            arrayXData[x] = new float*[dimY];
+            for(int y = 0; y < dimY; ++y) {
+                arrayXData[x][y] = new float[dimX];
+                for(int z = 0; z < dimX; ++z) { // initialize the values to whatever you want the default to be
+                    arrayXData[x][y][z] = 0;
+                }
+            }
+        }        
+                
+        int width_index = 0, height_index = 0, depth_index = 0;
+        for (int index=0; index<vectorX.size(); ++index){
+            width_index=index/(dimY*dimZ);  //Note the integer division . This is x
+            height_index=(index-width_index*dimY*dimZ)/dimZ; //This is y
+            depth_index=index-width_index*dimY*dimZ- height_index*dimZ;//This is z
+            //printf(" %d %d %d %f \n", depth_index, height_index, width_index, v[index]);
+            arrayXData[depth_index][height_index][width_index] = vectorX[index];
+        }
+        
+        for(int y = 0; y < mxGetDimensions_700(arrx)[1]; ++y) {
+           
+            for(int x = 0; x < mxGetDimensions_700(arrx)[0]; ++x) {
+                //printf("%f " ,arrayXData[x][y][0]);
+            }
+            //printf("\n");
+        }
+        
+        if (arry != NULL && mxIsDouble(arry) && !mxIsEmpty(arry)) {
+            // copy data
+            num = mxGetNumberOfElements(arry);
+            pr = mxGetPr(arry);
+            if (pr != NULL) {
+                vectorY.resize(num);
+                vectorY.assign(pr, pr+num);
+            }
+        }
+        
+        dimX = mxGetDimensions_700(arry)[2];
+        dimY = mxGetDimensions_700(arry)[1];
+        dimZ = mxGetDimensions_700(arry)[0];
+        float*** arrayYData;
+        // begin memory allocation
+        arrayYData = new float**[dimZ];
+        for(int x = 0; x < dimZ; ++x) {
+            arrayYData[x] = new float*[dimY];
+            for(int y = 0; y < dimY; ++y) {
+                arrayYData[x][y] = new float[dimX];
+                for(int z = 0; z < dimX; ++z) { // initialize the values to whatever you want the default to be
+                    arrayYData[x][y][z] = 0;
+                }
+            }
+        }
+        
+        width_index = 0, height_index = 0, depth_index = 0;
+        for (int index=0; index<vectorY.size(); ++index){
+            width_index=index/(dimY*dimZ);  //Note the integer division . This is x
+            height_index=(index-width_index*dimY*dimZ)/dimZ; //This is y
+            depth_index=index-width_index*dimY*dimZ- height_index*dimZ;//This is z
+            //printf(" %d %d %d %f \n", depth_index, height_index, width_index, v[index]);
+            arrayYData[depth_index][height_index][width_index] = vectorY[index];
+        }
+        
+        for(int y = 0; y < mxGetDimensions_700(arry)[1]; ++y) {
+           
+            for(int x = 0; x < mxGetDimensions_700(arry)[0]; ++x) {
+                //printf("%f " ,arrayYData[x][y][0]);
+            }
+            //printf("\n");
+        }
         
         return false;
     }
