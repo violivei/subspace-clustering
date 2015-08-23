@@ -26,9 +26,6 @@
       </nativedebugger>
       <runprofile version="9">
         <runcommandpicklist>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 5000.0 -a 0.875 -d 100.0 -e 0.9 -h 0.1 -m 12.0 -s 1.0E-4 -p 0.0 -f ../Data/Databases/D05.arff</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 15000.0 -a 0.875 -d 100.0 -e 0.9 -h 0.1 -m 12.0 -s 1.0E-4 -p 0.0 -f ../Data/Databases/D05.arff</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 15000.0 -a 0.875 -d 1000.0 -e 0.9 -h 0.1 -m 12.0 -s 1.0E-4 -p 0.0 -f ../Data/Databases/D05.arff</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -n 15000.0 -a 0.875 -d 1000.0 -e 0.9 -h 0.1 -m 10.0 -s 1.0E-4 -p 0.0 -f ../Data/MultiViewData/MFEAT.arff</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -n 15000.0 -a 0.875 -d 2500.0 -e 0.9 -h 0.1 -m 17.0 -s 1.0E-4 -p 0.0 -f ../Data/MultiViewData/MOVIES.arff</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -n 15000.0 -a 0.875 -d 3300.0 -e 0.9 -h 0.1 -m 17.0 -s 1.0E-4 -p 0.0 -f ../Data/MultiViewData/TEXAS.arff</runcommandpicklistitem>
@@ -36,8 +33,11 @@
           <runcommandpicklistitem>"${OUTPUT_PATH}" -n 15000.0 -a 0.875 -d 2500.0 -e 0.9 -h 0.1 -m 5.0 -s 1.0E-4 -p 0.0 -f ../Data/MotionSegmentation/1R2RC/1R2RC_truth.mat</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -n 5000.0 -a 0.875 -d 2500.0 -e 0.9 -h 0.1 -m 3.0 -s 1.0E-4 -p 0.0 -f ../Data/MotionSegmentation/1R2RC/1R2RC_truth.mat</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -n 5000.0 -a 0.875 -d 2500.0 -e 0.3 -h 0.1 -m 3.0 -s 1.0E-6 -p 0.0 -f ../Data/MotionSegmentation/1R2RC/1R2RC_truth.mat</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 5000.0 -a 0.700 -d 500.0 -e 0.1 -h 0.01 -m 3.0 -s 1.0E-4 -p 0.0 -f ../Data/MotionSegmentation/1R2RC/1R2RC_truth.mat</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 5000.0 -a 0.900 -d 500.0 -e 0.01 -h 0.01 -m 3.0 -s 1.0E-2 -p 0.5 -f ../Data/MotionSegmentation/1R2RC/1R2RC_truth.mat</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 5000.0 -a 0.700 -d 500.0 -e 0.5 -h 0.5 -m 3.0 -s 1.0E-2 -p 0.5 -f ../Data/MotionSegmentation/1R2RC/1R2RC_truth.mat</runcommandpicklistitem>
         </runcommandpicklist>
-        <runcommand>"${OUTPUT_PATH}" -n 5000.0 -a 0.875 -d 2500.0 -e 0.3 -h 0.1 -m 3.0 -s 1.0E-6 -p 0.0 -f ../Data/MotionSegmentation/1R2RC/1R2RC_truth.mat</runcommand>
+        <runcommand>"${OUTPUT_PATH}" -n 5000.0 -a 0.700 -d 500.0 -e 0.5 -h 0.5 -m 3.0 -s 1.0E-2 -p 0.5 -f ../Data/MotionSegmentation/1R2RC/1R2RC_truth.mat</runcommand>
         <rundir></rundir>
         <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>

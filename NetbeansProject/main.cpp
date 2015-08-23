@@ -106,7 +106,7 @@ int main(int argc, char** argv) {
         som.reset(clusteringSOM.getInputSize());
         clusteringSOM.trainSOM(epocs);
         clusteringSOM.writeClusterResults(filename + ".results");
-        clusteringSOM.outConfusionMatrix(clusteringSOM.groups, clusteringSOM.groupLabels);
+        clusteringSOM.outConfusionMatrix(filename + ".outConfusionMatrix", clusteringSOM.groups, clusteringSOM.groupLabels);
         dbgOut(1) << clusteringSOM.outClassInfo() << endl;
         dbgOut(1) << "Done." << endl;
     }

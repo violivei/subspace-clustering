@@ -545,8 +545,15 @@ public:
         return out.str();
     }
     
-    std::string outConfusionMatrix(std::vector<int> &groups, std::map<int,int> &groupLabels) {
+    std::string outConfusionMatrix(const std::string filename, std::vector<int> &groups, std::map<int,int> &groupLabels) {
       
+        std::ofstream file;
+        file.open(filename.c_str(), std::ios::app);
+
+        if (!file.is_open()) {
+            dbgOut(0) << "Error openning output file" << endl;
+        }
+
         std::stringstream out;
         out << std::setprecision(2) << std::fixed;
         
@@ -581,22 +588,37 @@ public:
         rowSums.fill(0);
         colSums.fill(0);        
         dbgOut(0) << "cluster\\class\t|";
-        for (int c = 0; c < confusionMatrix.cols(); c++)
-            dbgOut(1) << "\tcla" << groupLabels[c];
+        file << "cluster\\class\t|";
+        
+        for (int c = 0; c < confusionMatrix.cols(); c++){
+             dbgOut(1) << "\tcla" << groupLabels[c];
+             file << "\tcla" << groupLabels[c];
+        }
+           
         dbgOut(0) << "\t| Sum" << endl;
+        file << "\t| Sum" << endl;
+        
         for (int r = 0; r < confusionMatrix.rows(); r++) {
             dbgOut(0) << "clu" << r << "\t\t|";
+            file << "clu" << r << "\t\t|";
             for (int c = 0; c < confusionMatrix.cols(); c++) {
                 dbgOut(0) << "\t" << confusionMatrix[r][c];
+                file << "\t" << confusionMatrix[r][c];
                 rowSums[r] += confusionMatrix[r][c];
                 colSums[c] += confusionMatrix[r][c];
             }
             dbgOut(0) << "\t| " << rowSums[r] << endl;
+            file << "\t| " << rowSums[r] << endl;
         }
         dbgOut(0) << "Sums\t\t|";
-        for (int c = 0; c < confusionMatrix.cols(); c++)
+        file << "Sums\t\t|";
+        for (int c = 0; c < confusionMatrix.cols(); c++){
             dbgOut(0) << "\t" << colSums[c];
+            file << "\t" << colSums[c];
+        }
+            
         dbgOut(0) << "\t| " << colSums.sum() << endl << endl;
+        file << "\t| " << colSums.sum() << endl << endl;
         /***/
 
         dbgOut(0) << "Random index: " << ClusteringMetrics::RANDI(confusionMatrix) << endl;
