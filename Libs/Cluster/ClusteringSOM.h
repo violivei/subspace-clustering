@@ -19,6 +19,14 @@
 #include "DSNode.h"
 #include "ClusteringMetrics.h"
 #include "mat.h"
+#include "opencv2/highgui/highgui.hpp"
+#include "opencv2/core/core.hpp" 
+#include "opencv2/imgproc/imgproc.hpp"
+#include "engine.h"
+#include <armadillo>
+
+using namespace cv;
+using namespace std;
 
 template <class SOMType>
 class ClusteringSOM {
@@ -110,6 +118,7 @@ public:
         
         std::vector<double> vectorX;
         std::vector<double> vectorY;
+        std::vector<double> vectorS;
         // open MAT-file
         MATFile *pmat = matOpen(filename.c_str(), "r");
         if (pmat == NULL) return false;
@@ -132,19 +141,17 @@ public:
         int dimX = mxGetDimensions_700(arrx)[2];
         int dimY = mxGetDimensions_700(arrx)[1];
         int dimZ = mxGetDimensions_700(arrx)[0];
-        float*** arrayXData;    // 3D array definition;
-        // begin memory allocation
-        arrayXData = new float**[dimZ];
-        for(int x = 0; x < dimZ; ++x) {
-            arrayXData[x] = new float*[dimY];
-            for(int y = 0; y < dimY; ++y) {
-                arrayXData[x][y] = new float[dimX];
-                for(int z = 0; z < dimX; ++z) { // initialize the values to whatever you want the default to be
-                    arrayXData[x][y][z] = 0;
-                }
-            }
-        }        
-                
+        vector<vector<vector<double> > > arrayXData;    // 3D array definition;
+        
+        // Set up sizes. (HEIGHT x WIDTH)
+        arrayXData.resize(dimX);
+        for (int i = 0; i < dimX; ++i) {
+          arrayXData[i].resize(dimY);
+
+          for (int j = 0; j < dimY; ++j)
+            arrayXData[i][j].resize(dimX);
+        }
+
         int width_index = 0, height_index = 0, depth_index = 0;
         for (int index=0; index<vectorX.size(); ++index){
             width_index=index/(dimY*dimZ);  //Note the integer division . This is x
@@ -175,17 +182,15 @@ public:
         dimX = mxGetDimensions_700(arry)[2];
         dimY = mxGetDimensions_700(arry)[1];
         dimZ = mxGetDimensions_700(arry)[0];
-        float*** arrayYData;
-        // begin memory allocation
-        arrayYData = new float**[dimZ];
-        for(int x = 0; x < dimZ; ++x) {
-            arrayYData[x] = new float*[dimY];
-            for(int y = 0; y < dimY; ++y) {
-                arrayYData[x][y] = new float[dimX];
-                for(int z = 0; z < dimX; ++z) { // initialize the values to whatever you want the default to be
-                    arrayYData[x][y][z] = 0;
-                }
-            }
+        vector<vector<vector<double> > > arrayYData;
+
+        // Set up sizes. (HEIGHT x WIDTH)
+        arrayYData.resize(dimX);
+        for (int i = 0; i < dimX; ++i) {
+          arrayYData[i].resize(dimY);
+
+          for (int j = 0; j < dimY; ++j)
+            arrayYData[i][j].resize(dimX);
         }
         
         width_index = 0, height_index = 0, depth_index = 0;
@@ -205,6 +210,51 @@ public:
             //printf("\n");
         }
         
+        mxArray *s = matGetVariable(pmat, "s");
+        if (s != NULL && mxIsDouble(s) && !mxIsEmpty(s)) {
+            // copy data
+            num = mxGetNumberOfElements(s);
+            pr = mxGetPr(s);
+            if (pr != NULL) {
+                vectorS.resize(num);
+                vectorS.assign(pr, pr+num);
+            }
+        }
+        
+        for(int x = 0; x < mxGetDimensions_700(s)[0]; ++x) {
+                //printf("%f \n" ,vectorS[x]);
+            }
+        
+       arrayXData.erase(arrayXData.begin() + 2);
+       //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+       for(int y = 0; y < mxGetDimensions_700(arry)[1]; ++y) {
+           
+            for(int x = 0; x < mxGetDimensions_700(arry)[0] - 1; ++x) {
+              // printf("%f " ,arrayXData[x][y][28]);
+            }
+            //printf("\n");
+        }
+       
+       arma::cube A(2,29,459);
+       
+       for(int z = 0; z < dimX; ++z) {
+            for(int y = 0; y < dimY; ++y) {
+                for(int x = 0; x < dimZ - 1; ++x) {
+                    A.at(x,z,y) = arrayXData[x][y][z];                  
+                }               
+            }
+       }
+
+       arma::mat C = reshape( arma::mat(A.memptr(), A.n_elem, 1, false), 58, 459);
+       arma::mat D = C.t();
+       
+       for(int x = 0; x < dimX*2; ++x) {
+            for(int y = 0; y < dimY; ++y) {
+                printf("%f " ,D.at(y,x));
+            }
+            printf("\n");
+        }     
+       
         return false;
     }
 

@@ -8,8 +8,11 @@ build/Debug/GNU-Linux-x86/_ext/1471807640/SubspaceClusteringSOM.o: \
  ../Libs/Debug/DebugOut.h ../Libs/Cluster/ClusteringMetrics.h \
  ../Libs/Cluster/ClusteringSOM.h ../Libs/SOM/SOM.h ../Libs/SOM/Mesh.h \
  ../Libs/MatMatrix/MatVectorList.h ../Libs/MatMatrix/MatVector.h \
- ../Libs/SOM/DSNode.h ../Libs/SOM/NodeW.h ../Libs/Extern/mat.h \
- ../Libs/Extern/matrix.h ../Libs/Extern/tmwtypes.h
+ ../Libs/SOM/DSNode.h ../Libs/SOM/NodeW.h \
+ /usr/local/MATLAB/R2014a/extern/include/mat.h \
+ /usr/local/MATLAB/R2014a/extern/include/matrix.h \
+ /usr/local/MATLAB/R2014a/extern/include/tmwtypes.h \
+ /usr/local/MATLAB/R2014a/extern/include/engine.h
 
 ../Libs/Cluster/SubspaceClusteringSOM.h:
 
@@ -49,8 +52,10 @@ build/Debug/GNU-Linux-x86/_ext/1471807640/SubspaceClusteringSOM.o: \
 
 ../Libs/SOM/NodeW.h:
 
-../Libs/Extern/mat.h:
+/usr/local/MATLAB/R2014a/extern/include/mat.h:
 
-../Libs/Extern/matrix.h:
+/usr/local/MATLAB/R2014a/extern/include/matrix.h:
 
-../Libs/Extern/tmwtypes.h:
+/usr/local/MATLAB/R2014a/extern/include/tmwtypes.h:
+
+/usr/local/MATLAB/R2014a/extern/include/engine.h:

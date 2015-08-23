@@ -102,17 +102,18 @@
             <pElem>../Libs/Parameters</pElem>
             <pElem>../Libs/Debug</pElem>
             <pElem>../Libs/Defines</pElem>
-            <pElem>../Libs/CImg</pElem>
             <pElem>../Libs/Cluster</pElem>
             <pElem>../Libs/Data</pElem>
             <pElem>.</pElem>
             <pElem>../Libs/SOM/delete</pElem>
+            <pElem>../Libs/CImg</pElem>
             <pElem>../Libs/Extern</pElem>
           </incDir>
+          <commandLine>-I/usr/include/opencv2 -I/usr/local/MATLAB/R2014a/extern/include -I/usr/include</commandLine>
         </ccTool>
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/netbeansproject</output>
-          <commandLine>-lX11 -lpthread -L/usr/local/MATLAB/R2014a/bin/glnxa64 -lmat -lmx -Wl,-rpath=/usr/local/MATLAB/R2014a/bin/glnxa64</commandLine>
+          <commandLine>-lX11 -lpthread -L/usr/local/MATLAB/R2014a/bin/glnxa64 -lmat -lmx -leng -Wl,-rpath=/usr/local/MATLAB/R2014a/bin/glnxa64 `pkg-config opencv --cflags --libs` -llapack -lblas -larmadillo</commandLine>
         </linkerTool>
       </compileType>
       <item path="../Libs/Cluster/Cluster.cpp" ex="false" tool="1" flavor2="0">
