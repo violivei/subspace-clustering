@@ -10,9 +10,7 @@
         <group>
             <file>file:/home/victor/subspace-clustering/Libs/Data/ArffData.h</file>
             <file>file:/home/victor/subspace-clustering/NetbeansProject/main.cpp</file>
-            <file>file:/home/victor/subspace-clustering/Libs/Extern/matrix.h</file>
-            <file>file:/home/victor/subspace-clustering/Libs/MatMatrix/MatUtils.h</file>
-            <file>file:/home/victor/subspace-clustering/Libs/Extern/mat.h</file>
+            <file>file:/home/victor/subspace-clustering/Libs/MatMatrix/MatVector.h</file>
             <file>file:/home/victor/subspace-clustering/Libs/Cluster/ClusteringSOM.h</file>
         </group>
     </open-files>

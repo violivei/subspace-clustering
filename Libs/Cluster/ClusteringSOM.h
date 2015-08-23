@@ -111,10 +111,10 @@ public:
             allocated = true;
         }
         
-        if (ArffData::readArff(filename, *trainingData, groupLabels, groups)) {
+        /*if (ArffData::readArff(filename, *trainingData, groupLabels, groups)) {
                 ArffData::rescaleCols01(*trainingData);
                 return true;
-        }
+        }*/
         
         std::vector<double> vectorX;
         std::vector<double> vectorY;
@@ -246,16 +246,50 @@ public:
        }
 
        arma::mat C = reshape( arma::mat(A.memptr(), A.n_elem, 1, false), 58, 459);
-       arma::mat D = C.t();
+       //arma::mat D = C.t();
        
-       for(int x = 0; x < dimX*2; ++x) {
-            for(int y = 0; y < dimY; ++y) {
-                printf("%f " ,D.at(y,x));
+       MatMatrix<float> *data = new MatMatrix<float>();
+        for(int y = 0; y < dimY; ++y) {
+       
+            MatVector<float> row;
+            for(int x = 0; x < dimX*2; ++x) {
+                row.append(C.at(x,y));  
+                //printf("%f ", C.at(x,y));                                    
             }
-            printf("\n");
-        }     
+            data->concatRows(row);
+            //printf("\n");
+            //printf("%d \n", data->size());
+        }
+        
+        //printf("%d ", data->size());
+        //printf("%d \n", trainingData->size());
+        setData(*data);
+        //printf("%d \n", trainingData->size());
+                
+        for(int x = 0; x < mxGetDimensions_700(s)[0]; ++x) {
+            //printf("%f \n" ,vectorS[x]);
+            groups.push_back(vectorS[x]);
+            bool itemFound = false;
+            int itemIndex;
+            for (std::map<int, int>::iterator it = groupLabels.begin(); it != groupLabels.end(); it++) {
+                if (it->second == vectorS[x]) {
+                    itemFound = true;
+                    itemIndex = it->first;
+                    break;
+                }
+            }
+            if (!itemFound) {
+                itemIndex = groupLabels.size();
+                groupLabels[itemIndex] = vectorS[x];
+            }
+            //printf("%d \n", groups[x]);            
+        }
        
-        return false;
+        for (std::map<int, int>::iterator it = groupLabels.begin(); it != groupLabels.end(); it++) {
+            //printf("%d %d \n", it->first, it->second);   
+        }
+        return true;
+        //return false;
     }
 
     void setData(MatMatrix<float> &data) {
