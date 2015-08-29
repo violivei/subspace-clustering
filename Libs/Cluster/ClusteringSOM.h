@@ -37,7 +37,7 @@ public:
     bool allocated;
     std::vector<int> groups;
     std::map<int, int> groupLabels; 
-
+    std::string filename;
     bool isSubspaceClustering;
     bool filterNoise;
 
@@ -83,6 +83,8 @@ public:
     virtual int getNodeId(int node_i) {
         return node_i;
     }
+    
+    virtual void trainWithErrorAnalysis(MatMatrix<float> &trainingData, int N) = 0;
 
     virtual void train(MatMatrix<float> &trainingData, int N) = 0;
     
@@ -104,8 +106,9 @@ public:
         groupLabels.clear();
     }
 
-    bool readFile(const std::string &filename) {
+    bool readFile(std::string &filename) {
         
+        this->filename = filename;
         if (trainingData==NULL && !allocated) {
             trainingData = new MatMatrix<float>();
             allocated = true;
@@ -303,7 +306,7 @@ public:
 
     void trainSOM(int N) {
 
-        train(*trainingData, N);
+        trainWithErrorAnalysis(*trainingData, N);
     }
 
     bool writeClusterResults(const std::string &filename) {
@@ -545,6 +548,76 @@ public:
         return out.str();
     }
     
+    std::string outClassError() {
+        
+        std::ofstream file;
+        file.open((filename + ".ErrorResults").c_str() , std::ios::app);
+        
+        if (!file.is_open()) {
+            dbgOut(0) << "Error openning output file" << endl;
+        }
+        
+        std::stringstream out;
+        out << std::setprecision(2) << std::fixed;
+        
+        int meshSize = getMeshSize();
+        int hits = 0;
+        int total = 0;
+        int noise = 0;
+        
+        MatVector<int> nodeHits(meshSize);
+        MatVector<int> nodeClusterSize(meshSize);
+        nodeHits.fill(0);
+        nodeClusterSize.fill(0);
+        
+        for (int k = 0; k < trainingData->rows(); k++) {
+            MatVector<float> sample;
+            trainingData->getRow(k, sample);
+            if (isNoise(sample)) {
+                noise++;
+                continue;
+            }
+
+            int classIndex = sample.size()-1;
+            int winner = getWinner(sample);
+            MatVector<float> weights;
+            getWeights(winner, weights);
+
+            if (fabs(sample[classIndex] - weights[classIndex]) < 0.5) {
+                hits++;
+                nodeHits[winner]++;
+            }
+            
+            total++;
+            nodeClusterSize[winner]++;
+        }
+        
+        for (int i = 0; i < meshSize; i++) {
+
+            MatVector<float> weights;
+            getWeights(i, weights);
+            
+            out << getNodeId(i) << ": ";
+            //file << getNodeId(i) << ": ";
+            out << "\t" << weights[weights.size()-1];
+            //file << "\t" << weights[weights.size()-1];
+            out << "\t" << nodeHits[i] << "/" << nodeClusterSize[i];
+            //file << "\t" << nodeHits[i] << "/" << nodeClusterSize[i];
+            out << "\t" << nodeHits[i]/(float)nodeClusterSize[i];
+            //file << "\t" << nodeHits[i]/(float)nodeClusterSize[i];
+            out << endl;    
+            //file << endl;    
+        }
+
+        out << "Classification Error:\t" << 1 - hits/(float)total << endl;
+        file << 1 - hits/(float)total << " ,";
+        //out << "Classification acuracy:\t" << hits/(float)total << endl;
+        out << "Total noise:\t" << noise/(float)trainingData->rows() << endl;
+        //file << "Total noise:\t" << noise/(float)trainingData->rows() << endl;
+       
+        return out.str();
+    }
+    
     std::string outConfusionMatrix(const std::string filename, std::vector<int> &groups, std::map<int,int> &groupLabels) {
       
         std::ofstream file;
@@ -622,7 +695,9 @@ public:
         /***/
 
         dbgOut(0) << "Random index: " << ClusteringMetrics::RANDI(confusionMatrix) << endl;
+        file << "Random index: " << ClusteringMetrics::RANDI(confusionMatrix) << endl;
         dbgOut(0) << "Adjusted random index: " << ClusteringMetrics::ARI(confusionMatrix) << endl << endl;
+        file << "Adjusted random index: " << ClusteringMetrics::ARI(confusionMatrix) << endl << endl;
         out << "Total noise:\t" << noise << "(" << noise/(float)trainingData->rows() << ")" << endl;
        
         return out.str();
@@ -1087,6 +1162,17 @@ public:
     int getMeshSize() {
         return som->meshNodeSet.size();
     }
+    
+    void trainWithErrorAnalysis(MatMatrix<float> &trainingData, int N) {
+        som->data = trainingData;
+
+        for (int i=0; i<N; i++){
+            som->trainningStep();
+            som->enumerateNodes();
+            dbgOut(1) << outClassError() << endl;                        
+        }
+        //som->trainning(N);
+    }
 
     void train(MatMatrix<float> &trainingData, int N) {
         som->data = trainingData;
@@ -1167,6 +1253,17 @@ public:
 
     int getMeshSize() {
         return som->meshNodeSet.size();
+    }
+    
+    void trainWithErrorAnalysis(MatMatrix<float> &trainingData, int N) {
+        som->data = trainingData;
+        for (int i=0; i<N; i++){
+            som->trainningStep();
+            som->enumerateNodes();
+            //outConfusionMatrix(filename + ".outConfusionMatrix", groups, groupLabels);
+            //dbgOut(1) << outClassInfo() << endl;
+        }
+        //som->trainning(N);
     }
 
     void train(MatMatrix<float> &trainingData, int N) {

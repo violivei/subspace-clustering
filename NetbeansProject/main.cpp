@@ -34,7 +34,7 @@ int main(int argc, char** argv) {
     LARFDSSOM som(1);
     //Default parameters
     som.a_t = 0.90; //Limiar de atividade .95
-    som.d_max = 100;
+    som.d_max = 50;
     som.epsilon = 0.9;
     som.ho_f = 0.10;
     som.maxNodeNumber = 30;
@@ -99,6 +99,16 @@ int main(int argc, char** argv) {
     dbgOut(1) << "Running LARFDSSOM for file: " << filename << endl;
     srand(time(0));
     
+    epocs = 1000;
+    som.a_t = 0.95; //Limiar de atividade .95
+    som.d_max = 50;
+    som.epsilon = 0.9;
+    som.ho_f = 0.10;
+    som.maxNodeNumber = 3;
+    //DS
+    som.dsbeta = 0.001;
+    som.epsilon_ds = 0.0;
+    
     SOM<DSNode> *dssom = (SOM<DSNode>*)&som;
     ClusteringMeshSOM clusteringSOM(dssom);
     
@@ -106,8 +116,8 @@ int main(int argc, char** argv) {
         som.reset(clusteringSOM.getInputSize());
         clusteringSOM.trainSOM(epocs);
         clusteringSOM.writeClusterResults(filename + ".results");
-        clusteringSOM.outConfusionMatrix(filename + ".outConfusionMatrix", clusteringSOM.groups, clusteringSOM.groupLabels);
-        dbgOut(1) << clusteringSOM.outClassInfo() << endl;
+        //clusteringSOM.outConfusionMatrix(filename + ".outConfusionMatrix", clusteringSOM.groups, clusteringSOM.groupLabels);
+        //dbgOut(1) << clusteringSOM.outClassInfo() << endl;
         dbgOut(1) << "Done." << endl;
     }
     //DataDisplay dataDisplay(clusteringSOM.trainingData);
