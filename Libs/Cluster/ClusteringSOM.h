@@ -238,7 +238,7 @@ public:
             //printf("\n");
         }
        
-       arma::cube A(2,29,459);
+       arma::cube A(dimZ-1, dimX,dimY);
        
        for(int z = 0; z < dimX; ++z) {
             for(int y = 0; y < dimY; ++y) {
@@ -248,7 +248,7 @@ public:
             }
        }
 
-       arma::mat C = reshape( arma::mat(A.memptr(), A.n_elem, 1, false), 58, 459);
+       arma::mat C = reshape( arma::mat(A.memptr(), A.n_elem, 1, false), 2*dimX, dimY);
        //arma::mat D = C.t();
        
        MatMatrix<float> *data = new MatMatrix<float>();
