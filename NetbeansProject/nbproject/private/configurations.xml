@@ -26,18 +26,18 @@
       </nativedebugger>
       <runprofile version="9">
         <runcommandpicklist>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 5000.0 -a 0.700 -d 500.0 -e 0.1 -h 0.01 -m 3.0 -s 1.0E-4 -p 0.0 -f ../Data/MotionSegmentation/1R2RC/1R2RC_truth.mat</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 5000.0 -a 0.900 -d 500.0 -e 0.01 -h 0.01 -m 3.0 -s 1.0E-2 -p 0.5 -f ../Data/MotionSegmentation/1R2RC/1R2RC_truth.mat</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 5000.0 -a 0.700 -d 500.0 -e 0.5 -h 0.5 -m 3.0 -s 1.0E-2 -p 0.5 -f ../Data/MotionSegmentation/1R2RC/1R2RC_truth.mat</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 4.0 -a 0.700 -d 500.0 -e 0.1 -h 0.1 -m 3.0 -s 1.0E-3 -p 0.0 -f ../Data/MotionSegmentation/1R2RC/1R2RC_truth.mat</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 100.0 -a 0.700 -d 500.0 -e 0.1 -h 0.1 -m 3.0 -s 1.0E-3 -p 0.0 -f ../Data/MotionSegmentation/1R2RC/1R2RC_truth.mat</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -n 100.0 -a 0.700 -d 500.0 -e 0.1 -h 0.1 -m 3.0 -s 1.0E-3 -p 0.0 -f ../Data/MotionSegmentation/1R2RC_g12/1R2RC_g12_truth.mat</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -n 100.0 -a 0.700 -d 500.0 -e 0.1 -h 0.1 -m 3.0 -s 1.0E-3 -p 0.0 -f ../Data/MotionSegmentation/1R2RCR/1R2RCR_truth.mat</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -n 100.0 -a 0.700 -d 500.0 -e 0.1 -h 0.1 -m 3.0 -s 1.0E-3 -p 0.0 -f ../Data/MotionSegmentation/1R2RCT_A/1R2RCT_A_truth.mat</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -n 100.0 -a 0.700 -d 500.0 -e 0.1 -h 0.1 -m 3.0 -s 1.0E-3 -p 0.0 -f ../Data/MotionSegmentation/1R2RCT_B/1R2RCT_B_truth.mat</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -n 100.0 -a 0.700 -d 500.0 -e 0.1 -h 0.1 -m 3.0 -s 1.0E-3 -p 0.0 -f ../Data/MotionSegmentation/1R2TCR/1R2TCR_truth.mat</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 100.0 -a 0.700 -d 500.0 -e 0.1 -h 0.1 -m 3.0 -s 1.0E-3 -p 0.0 -f ../Data/MotionSegmentation/1R2TCRT/1R2TCRT_truth.mat</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 100.0 -a 0.700 -d 500.0 -e 0.1 -h 0.1 -m 3.0 -s 1.0E-3 -p 0.0 -f ../Data/MotionSegmentation/1RT2RCR/1RT2RCR_truth.mat</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 100.0 -a 0.700 -d 500.0 -e 0.1 -h 0.1 -m 3.0 -s 1.0E-3 -p 0.0 -f ../Data/MotionSegmentation/1RT2RCRT/1RT2RCRT_truth.mat</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 100.0 -a 0.700 -d 500.0 -e 0.1 -h 0.1 -m 3.0 -s 1.0E-3 -p 0.0 -f ../Data/MotionSegmentation/1RT2RTCRT_A/1RT2RTCRT_A_truth.mat</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 100.0 -a 0.700 -d 500.0 -e 0.1 -h 0.1 -m 3.0 -s 1.0E-3 -p 0.0 -f ../Data/MotionSegmentation/1RT2RTCRT_B/1RT2RTCRT_B_truth.mat</runcommandpicklistitem>
         </runcommandpicklist>
-        <runcommand>"${OUTPUT_PATH}" -n 100.0 -a 0.700 -d 500.0 -e 0.1 -h 0.1 -m 3.0 -s 1.0E-3 -p 0.0 -f ../Data/MotionSegmentation/1R2TCR/1R2TCR_truth.mat</runcommand>
+        <runcommand>"${OUTPUT_PATH}" -n 100.0 -a 0.700 -d 500.0 -e 0.1 -h 0.1 -m 3.0 -s 1.0E-3 -p 0.0 -f ../Data/MotionSegmentation/1RT2RTCRT_B/1RT2RTCRT_B_truth.mat</runcommand>
         <rundir></rundir>
         <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>
