@@ -15,6 +15,35 @@
                    projectFiles="true">
     </logicalFolder>
     <logicalFolder name="Libs" displayName="Libs" projectFiles="true">
+      <logicalFolder name="bestMap" displayName="bestMap" projectFiles="true">
+        <itemPath>../Libs/bestMap/bestMap.cpp</itemPath>
+        <itemPath>../Libs/bestMap/bestMap.def</itemPath>
+        <itemPath>../Libs/bestMap/bestMap.h</itemPath>
+        <itemPath>../Libs/bestMap/bestMap_emxAPI.cpp</itemPath>
+        <itemPath>../Libs/bestMap/bestMap_emxAPI.h</itemPath>
+        <itemPath>../Libs/bestMap/bestMap_emxutil.cpp</itemPath>
+        <itemPath>../Libs/bestMap/bestMap_emxutil.h</itemPath>
+        <itemPath>../Libs/bestMap/bestMap_initialize.cpp</itemPath>
+        <itemPath>../Libs/bestMap/bestMap_initialize.h</itemPath>
+        <itemPath>../Libs/bestMap/bestMap_ref.rsp</itemPath>
+        <itemPath>../Libs/bestMap/bestMap_rtw.mk</itemPath>
+        <itemPath>../Libs/bestMap/bestMap_terminate.cpp</itemPath>
+        <itemPath>../Libs/bestMap/bestMap_terminate.h</itemPath>
+        <itemPath>../Libs/bestMap/bestMap_types.h</itemPath>
+        <itemPath>../Libs/bestMap/bipartite_matching_commented.h</itemPath>
+        <itemPath>../Libs/bestMap/buildInfo.mat</itemPath>
+        <itemPath>../Libs/bestMap/codeInfo.mat</itemPath>
+        <itemPath>../Libs/bestMap/hungarian.cpp</itemPath>
+        <itemPath>../Libs/bestMap/hungarian.h</itemPath>
+        <itemPath>../Libs/bestMap/rtGetInf.cpp</itemPath>
+        <itemPath>../Libs/bestMap/rtGetInf.h</itemPath>
+        <itemPath>../Libs/bestMap/rtGetNaN.cpp</itemPath>
+        <itemPath>../Libs/bestMap/rtGetNaN.h</itemPath>
+        <itemPath>../Libs/bestMap/rt_nonfinite.cpp</itemPath>
+        <itemPath>../Libs/bestMap/rt_nonfinite.h</itemPath>
+        <itemPath>../Libs/bestMap/rtw_proj.tmw</itemPath>
+        <itemPath>../Libs/bestMap/rtwtypes.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="Cluster" displayName="Cluster" projectFiles="true">
         <itemPath>../Libs/Cluster/Cluster.cpp</itemPath>
         <itemPath>../Libs/Cluster/Cluster.h</itemPath>
@@ -46,6 +75,12 @@
       <logicalFolder name="Extern" displayName="Extern" projectFiles="true">
         <itemPath>../Libs/Extern/mat.h</itemPath>
         <itemPath>../Libs/Extern/matrix.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="libhungarian-0.3"
+                     displayName="libhungarian-0.3"
+                     projectFiles="true">
+        <itemPath>../Libs/libhungarian-0.3/hungarian.cpp</itemPath>
+        <itemPath>../Libs/libhungarian-0.3/hungarian.h</itemPath>
       </logicalFolder>
       <logicalFolder name="MatMatrix" displayName="MatMatrix" projectFiles="true">
         <itemPath>../Libs/MatMatrix/MatAlgorithms.h</itemPath>
@@ -108,12 +143,14 @@
             <pElem>../Libs/SOM/delete</pElem>
             <pElem>../Libs/CImg</pElem>
             <pElem>../Libs/Extern</pElem>
+            <pElem>../Libs/bestMap</pElem>
+            <pElem>../Libs/libhungarian-0.3</pElem>
           </incDir>
           <commandLine>-I/usr/include/opencv2 -I/usr/local/MATLAB/R2014a/extern/include -I/usr/include</commandLine>
         </ccTool>
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/netbeansproject</output>
-          <commandLine>-lX11 -lpthread -L/usr/local/MATLAB/R2014a/bin/glnxa64 -lmat -lmx -leng -Wl,-rpath=/usr/local/MATLAB/R2014a/bin/glnxa64 `pkg-config opencv --cflags --libs` -llapack -lblas -larmadillo</commandLine>
+          <commandLine>-lX11 -lpthread -L/usr/local/MATLAB/R2014a/bin/glnxa64 -lmat -lmx -leng -Wl,-rpath=/usr/local/MATLAB/R2014a/bin/glnxa64 `pkg-config opencv --cflags --libs` -llapack -lblas -larmadillo </commandLine>
         </linkerTool>
       </compileType>
       <item path="../Libs/Cluster/Cluster.cpp" ex="false" tool="1" flavor2="0">
@@ -203,6 +240,88 @@
       <item path="../Libs/SOM/NodeW.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../Libs/SOM/SOM.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/bestMap.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/bestMap.def" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/bestMap.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/bestMap_emxAPI.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/bestMap_emxAPI.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/bestMap_emxutil.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/bestMap_emxutil.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/bestMap_initialize.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/bestMap_initialize.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/bestMap_ref.rsp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/bestMap_rtw.mk" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/bestMap_terminate.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/bestMap_terminate.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/bestMap_types.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/bipartite_matching_commented.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/buildInfo.mat" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/codeInfo.mat" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/hungarian.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/hungarian.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/rtGetInf.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/rtGetInf.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/rtGetNaN.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/rtGetNaN.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/rt_nonfinite.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/rt_nonfinite.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/rtw_proj.tmw" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/rtwtypes.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../Libs/libhungarian-0.3/hungarian.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../Libs/libhungarian-0.3/hungarian.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -314,6 +433,88 @@
       <item path="../Libs/SOM/NodeW.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../Libs/SOM/SOM.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/bestMap.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/bestMap.def" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/bestMap.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/bestMap_emxAPI.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/bestMap_emxAPI.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/bestMap_emxutil.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/bestMap_emxutil.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/bestMap_initialize.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/bestMap_initialize.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/bestMap_ref.rsp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/bestMap_rtw.mk" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/bestMap_terminate.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/bestMap_terminate.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/bestMap_types.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/bipartite_matching_commented.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/buildInfo.mat" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/codeInfo.mat" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/hungarian.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/hungarian.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/rtGetInf.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/rtGetInf.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/rtGetNaN.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/rtGetNaN.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/rt_nonfinite.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/rt_nonfinite.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/rtw_proj.tmw" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../Libs/bestMap/rtwtypes.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../Libs/libhungarian-0.3/hungarian.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="../Libs/libhungarian-0.3/hungarian.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>

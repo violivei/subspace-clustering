@@ -1,13 +1,13 @@
 /* 
  * File:   SOMType.h
- * Author: hans and victor
+ * Author: hans
  *
  * Created on 30 de Março de 2012, 13:15
  */
 
 #ifndef CLUSTERINGSOM_H
 #define	CLUSTERINGSOM_H
-#include <stdio.h>
+
 #include <vector>
 #include <map>
 #include <iomanip>
@@ -25,6 +25,15 @@
 #include "engine.h"
 #include <armadillo>
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <string.h>
+/* one of the following will define PATH_MAX */
+#include <limits.h> 
+#include <sys/param.h>
+
+
 using namespace cv;
 using namespace std;
 
@@ -37,6 +46,7 @@ public:
     bool allocated;
     std::vector<int> groups;
     std::map<int, int> groupLabels; 
+    std::vector<int> winn;
     std::string filename;
     bool isSubspaceClustering;
     bool filterNoise;
@@ -83,8 +93,6 @@ public:
     virtual int getNodeId(int node_i) {
         return node_i;
     }
-    
-    virtual void trainWithErrorAnalysis(MatMatrix<float> &trainingData, int N) = 0;
 
     virtual void train(MatMatrix<float> &trainingData, int N) = 0;
     
@@ -104,6 +112,7 @@ public:
         trainingData->clear();
         groups.clear();
         groupLabels.clear();
+        winn.clear();
     }
 
     bool readFile(std::string &filename) {
@@ -114,11 +123,11 @@ public:
             allocated = true;
         }
         
-        /*if (ArffData::readArff(filename, *trainingData, groupLabels, groups)) {
+        if (ArffData::readArff(filename, *trainingData, groupLabels, groups)) {
                 ArffData::rescaleCols01(*trainingData);
                 return true;
-        }*/
-        
+        }
+       /*
         std::vector<double> vectorX;
         std::vector<double> vectorY;
         std::vector<double> vectorS;
@@ -292,7 +301,7 @@ public:
             //printf("%d %d \n", it->first, it->second);   
         }
         return true;
-        //return false;
+        //return false;*/
     }
 
     void setData(MatMatrix<float> &data) {
@@ -306,7 +315,7 @@ public:
 
     void trainSOM(int N) {
 
-        trainWithErrorAnalysis(*trainingData, N);
+        train(*trainingData, N);
     }
 
     bool writeClusterResults(const std::string &filename) {
@@ -322,44 +331,50 @@ public:
         int meshSize = getMeshSize();
         int inputSize = getInputSize();
 
-        file << meshSize << "\t" << inputSize << endl;
+        //file << meshSize << "\t" << inputSize << endl;
 
         for (int i = 0; i < meshSize; i++) {
             MatVector<float> relevances;
             getRelevances(i, relevances);
             
-            file << i << "\t";
+            //file << i << "\t";
             for (int j = 0; j < inputSize; j++) {
-                file << relevances[j];
-                if (j != inputSize - 1)
-                    file << "\t";
+                //file << relevances[j];
+                //if (j != inputSize - 1)
+                    //file << "\t";
             }
-            file << endl;
+            //file << endl;
         }
-
+        
+        std::vector<int> newGroups;
         for (int i = 0; i < trainingData->rows(); i++) {
             MatVector<float> sample;
+            
             trainingData->getRow(i, sample);
-            if (filterNoise && isNoise(sample))
-                continue;
+            //if (filterNoise && isNoise(sample))
+            //    continue;
             
             std::vector<int> winners;
             if (isSubspaceClustering) {
                 getWinners(sample, winners);
             } else {
                 winners.push_back(getWinner(sample));
+                winn.push_back(getWinner(sample));
+                newGroups.push_back(-9999999);
             }
 
             for (int j = 0; j < winners.size(); j++) {
-                file << i << "\t";
-                file << winners[j];
-                file << endl;
+                //file << i << "\t";
+                file << winners[j] << "\t";
+                //file << winners[j];
+                //file << endl;
             }
+            file << endl;
         }
-
-        file.close();
+        
         return true;
     }
+
     
     std::string outClusters(bool printData = true) {
       
@@ -511,10 +526,10 @@ public:
         for (int k = 0; k < trainingData->rows(); k++) {
             MatVector<float> sample;
             trainingData->getRow(k, sample);
-            if (isNoise(sample)) {
+            /*if (isNoise(sample)) {
                 noise++;
                 continue;
-            }
+            }*/
 
             int classIndex = sample.size()-1;
             int winner = getWinner(sample);
@@ -618,7 +633,7 @@ public:
         return out.str();
     }
     
-    std::string outConfusionMatrix(const std::string filename, std::vector<int> &groups, std::map<int,int> &groupLabels) {
+    std::string outConfusionMatrix(const std::string filename) {
       
         std::ofstream file;
         file.open(filename.c_str(), std::ios::app);
@@ -638,10 +653,10 @@ public:
         for (int k = 0; k < trainingData->rows(); k++) {
             MatVector<float> sample;
             trainingData->getRow(k, sample);
-            if (isNoise(sample) && filterNoise) {
-                noise++;
-                continue;
-            }
+            //if (isNoise(sample) && filterNoise) {
+            //    noise++;
+            //    continue;
+            //}
 
             std::vector<int> winners;
             if (isSubspaceClustering) {
@@ -1162,21 +1177,22 @@ public:
     int getMeshSize() {
         return som->meshNodeSet.size();
     }
-    
-    void trainWithErrorAnalysis(MatMatrix<float> &trainingData, int N) {
-        som->data = trainingData;
-
-        for (int i=0; i<N; i++){
-            som->trainningStep();
-            som->enumerateNodes();
-            dbgOut(1) << outClassError() << endl;                        
-        }
-        //som->trainning(N);
-    }
 
     void train(MatMatrix<float> &trainingData, int N) {
         som->data = trainingData;
-        som->trainning(N);
+        //som->enumerateNodes();
+        //som->trainning(N);
+        //std::ofstream file;
+        //file.open((filename + ".SumOfSquaredErrors").c_str(), std::ios::app);
+
+        /*if (!file.is_open()) {
+            dbgOut(0) << "Error openning output file" << endl;
+        }*/
+        for (int i=0; i<N; i++){
+            som->trainningStep();
+            //file << sumOfSquaredError(*som) << " ,";
+            //dbgOut(1) << outClassError() << endl;
+        }
     }
     
     void getRelevances(int node_i, MatVector<float> &relevances) {
@@ -1253,17 +1269,6 @@ public:
 
     int getMeshSize() {
         return som->meshNodeSet.size();
-    }
-    
-    void trainWithErrorAnalysis(MatMatrix<float> &trainingData, int N) {
-        som->data = trainingData;
-        for (int i=0; i<N; i++){
-            som->trainningStep();
-            som->enumerateNodes();
-            //outConfusionMatrix(filename + ".outConfusionMatrix", groups, groupLabels);
-            //dbgOut(1) << outClassInfo() << endl;
-        }
-        //som->trainning(N);
     }
 
     void train(MatMatrix<float> &trainingData, int N) {

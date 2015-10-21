@@ -1,0 +1,9 @@
+gcc -O3 -Wall -I. -c hungarian.c
+hungarian.c: In function ‘hungarian_routine_two’:
+hungarian.c:432:14: warning: variable ‘newsum’ set but not used [-Wunused-but-set-variable]
+   int oldsum,newsum;
+              ^
+gcc -O3 -Wall -I.   -c -o makeprob.o makeprob.c
+ar cr libhungarian.a hungarian.o makeprob.o
+gcc -O3 -Wall -I. -o test test.c -L. -lhungarian
+gcc -O3 -Wall -I. -o timetest timetest.c -L. -lhungarian -lm

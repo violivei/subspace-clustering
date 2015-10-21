@@ -1,6 +1,6 @@
 /*
  * File:   Cluster.h
- * Author: hans and victor
+ * Author: hans
  *
  * Created on 23 de Setembro de 2011, 10:41
  */

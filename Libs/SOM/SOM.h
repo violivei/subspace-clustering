@@ -12,7 +12,7 @@
 #include <set>
 #include "Mesh.h"
 #include "MatVector.h"
-
+#include <stdio.h>
 
 template<class T> class SOM :public Mesh<T>{
 public:
@@ -121,8 +121,11 @@ public:
     SOM& trainningStep() {
         TVector v(data.cols());
         int vindex = rand()%data.rows();
-        for (uint l = 0; l < data.cols(); l++)
-                v[l] = data[vindex][l];
+        for (uint l = 0; l < data.cols(); l++){
+            v[l] = data[vindex][l];
+            //printf( " %f  ", v[l]);
+        }
+                
         
         updateMap(v);
         

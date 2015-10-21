@@ -1,0 +1,14 @@
+DLL {
+	global:
+		emxCreate_real_T;
+		emxCreateWrapper_real_T;
+		emxCreateND_real_T;
+		emxCreateWrapperND_real_T;
+		emxDestroyArray_real_T;
+		bestMap;
+		hungarian;
+		bestMap_initialize;
+		bestMap_terminate;
+	local:
+		*;
+};

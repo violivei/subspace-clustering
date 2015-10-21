@@ -1,9 +1,141 @@
 cluster\class	|	cla2	cla1	cla3	| Sum
-clu0		|	0	64	0	| 64
-clu1		|	43	25	36	| 104
-clu2		|	189	0	85	| 274
-Sums		|	232	89	121	| 442
+clu0		|	0	31	121	| 152
+clu1		|	122	16	121	| 259
+clu2		|	215	89	0	| 304
+clu3		|	130	89	81	| 300
+Sums		|	467	225	323	| 1015
 
-Random index: 0.667816
-Adjusted random index: 0.323502
+Random index: 0.627071
+Adjusted random index: 0.141864
+
+cluster\class	|	cla2	cla1	cla3	| Sum
+clu0		|	0	31	121	| 152
+clu1		|	122	16	121	| 259
+clu2		|	215	89	0	| 304
+clu3		|	130	89	81	| 300
+Sums		|	467	225	323	| 1015
+
+Random index: 0.627071
+Adjusted random index: 0.141864
+
+cluster\class	|	cla2	cla1	cla3	| Sum
+clu0		|	0	89	74	| 163
+clu1		|	118	6	121	| 245
+clu2		|	204	89	0	| 293
+Sums		|	322	184	195	| 701
+
+Random index: 0.663872
+Adjusted random index: 0.264337
+
+cluster\class	|	cla2	cla1	cla3	| Sum
+clu0		|	0	89	74	| 163
+clu1		|	118	6	121	| 245
+clu2		|	204	89	0	| 293
+Sums		|	322	184	195	| 701
+
+Random index: 0.663872
+Adjusted random index: 0.264337
+
+cluster\class	|	cla2	cla1	cla3	| Sum
+clu0		|	0	89	74	| 163
+clu1		|	118	6	121	| 245
+clu2		|	204	89	0	| 293
+Sums		|	322	184	195	| 701
+
+Random index: 0.663872
+Adjusted random index: 0.264337
+
+cluster\class	|	cla2	cla1	cla3	| Sum
+clu0		|	0	89	74	| 163
+clu1		|	118	6	121	| 245
+clu2		|	204	89	0	| 293
+Sums		|	322	184	195	| 701
+
+Random index: 0.663872
+Adjusted random index: 0.264337
+
+cluster\class	|	cla2	cla1	cla3	| Sum
+clu0		|	0	89	74	| 163
+clu1		|	118	6	121	| 245
+clu2		|	204	89	0	| 293
+Sums		|	322	184	195	| 701
+
+Random index: 0.663872
+Adjusted random index: 0.264337
+
+cluster\class	|	cla2	cla1	cla3	| Sum
+clu0		|	0	89	74	| 163
+clu1		|	118	6	121	| 245
+clu2		|	204	89	0	| 293
+Sums		|	322	184	195	| 701
+
+Random index: 0.663872
+Adjusted random index: 0.264337
+
+cluster\class	|	cla2	cla1	cla3	| Sum
+clu0		|	0	89	74	| 163
+clu1		|	118	6	121	| 245
+clu2		|	204	89	0	| 293
+Sums		|	322	184	195	| 701
+
+Random index: 0.663872
+Adjusted random index: 0.264337
+
+cluster\class	|	cla2	cla1	cla3	| Sum
+clu0		|	0	89	74	| 163
+clu1		|	118	6	121	| 245
+clu2		|	204	89	0	| 293
+Sums		|	322	184	195	| 701
+
+Random index: 0.663872
+Adjusted random index: 0.264337
+
+cluster\class	|	cla2	cla1	cla3	| Sum
+clu0		|	0	31	121	| 152
+clu1		|	122	16	121	| 259
+clu2		|	215	89	0	| 304
+clu3		|	130	89	81	| 300
+Sums		|	467	225	323	| 1015
+
+Random index: 0.627071
+Adjusted random index: 0.141864
+
+cluster\class	|	cla2	cla1	cla3	| Sum
+clu0		|	0	31	121	| 152
+clu1		|	122	16	121	| 259
+clu2		|	215	89	0	| 304
+clu3		|	130	89	81	| 300
+Sums		|	467	225	323	| 1015
+
+Random index: 0.627071
+Adjusted random index: 0.141864
+
+cluster\class	|	cla2	cla1	cla3	| Sum
+clu0		|	0	31	121	| 152
+clu1		|	122	16	121	| 259
+clu2		|	215	89	0	| 304
+clu3		|	130	89	81	| 300
+Sums		|	467	225	323	| 1015
+
+Random index: 0.627071
+Adjusted random index: 0.141864
+
+cluster\class	|	cla2	cla1	cla3	| Sum
+clu0		|	0	31	121	| 152
+clu1		|	122	16	121	| 259
+clu2		|	215	89	0	| 304
+clu3		|	130	89	81	| 300
+Sums		|	467	225	323	| 1015
+
+Random index: 0.627071
+Adjusted random index: 0.141864
+
+cluster\class	|	cla2	cla1	cla3	| Sum
+clu0		|	0	0	62	| 62
+clu1		|	57	0	59	| 116
+clu2		|	154	89	0	| 243
+Sums		|	211	89	121	| 421
+
+Random index: 0.666271
+Adjusted random index: 0.308527
 

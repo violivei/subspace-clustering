@@ -49,6 +49,16 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/918271420/Parameters.o \
 	${OBJECTDIR}/_ext/365465087/DSNode.o \
 	${OBJECTDIR}/_ext/365465087/NodeW.o \
+	${OBJECTDIR}/_ext/68743782/bestMap.o \
+	${OBJECTDIR}/_ext/68743782/bestMap_emxAPI.o \
+	${OBJECTDIR}/_ext/68743782/bestMap_emxutil.o \
+	${OBJECTDIR}/_ext/68743782/bestMap_initialize.o \
+	${OBJECTDIR}/_ext/68743782/bestMap_terminate.o \
+	${OBJECTDIR}/_ext/68743782/hungarian.o \
+	${OBJECTDIR}/_ext/68743782/rtGetInf.o \
+	${OBJECTDIR}/_ext/68743782/rtGetNaN.o \
+	${OBJECTDIR}/_ext/68743782/rt_nonfinite.o \
+	${OBJECTDIR}/_ext/579754060/hungarian.o \
 	${OBJECTDIR}/main.o
 
 
@@ -145,6 +155,56 @@ ${OBJECTDIR}/_ext/365465087/NodeW.o: ../Libs/SOM/NodeW.cpp
 	${MKDIR} -p ${OBJECTDIR}/_ext/365465087
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/365465087/NodeW.o ../Libs/SOM/NodeW.cpp
+
+${OBJECTDIR}/_ext/68743782/bestMap.o: ../Libs/bestMap/bestMap.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/68743782
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/68743782/bestMap.o ../Libs/bestMap/bestMap.cpp
+
+${OBJECTDIR}/_ext/68743782/bestMap_emxAPI.o: ../Libs/bestMap/bestMap_emxAPI.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/68743782
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/68743782/bestMap_emxAPI.o ../Libs/bestMap/bestMap_emxAPI.cpp
+
+${OBJECTDIR}/_ext/68743782/bestMap_emxutil.o: ../Libs/bestMap/bestMap_emxutil.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/68743782
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/68743782/bestMap_emxutil.o ../Libs/bestMap/bestMap_emxutil.cpp
+
+${OBJECTDIR}/_ext/68743782/bestMap_initialize.o: ../Libs/bestMap/bestMap_initialize.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/68743782
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/68743782/bestMap_initialize.o ../Libs/bestMap/bestMap_initialize.cpp
+
+${OBJECTDIR}/_ext/68743782/bestMap_terminate.o: ../Libs/bestMap/bestMap_terminate.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/68743782
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/68743782/bestMap_terminate.o ../Libs/bestMap/bestMap_terminate.cpp
+
+${OBJECTDIR}/_ext/68743782/hungarian.o: ../Libs/bestMap/hungarian.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/68743782
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/68743782/hungarian.o ../Libs/bestMap/hungarian.cpp
+
+${OBJECTDIR}/_ext/68743782/rtGetInf.o: ../Libs/bestMap/rtGetInf.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/68743782
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/68743782/rtGetInf.o ../Libs/bestMap/rtGetInf.cpp
+
+${OBJECTDIR}/_ext/68743782/rtGetNaN.o: ../Libs/bestMap/rtGetNaN.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/68743782
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/68743782/rtGetNaN.o ../Libs/bestMap/rtGetNaN.cpp
+
+${OBJECTDIR}/_ext/68743782/rt_nonfinite.o: ../Libs/bestMap/rt_nonfinite.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/68743782
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/68743782/rt_nonfinite.o ../Libs/bestMap/rt_nonfinite.cpp
+
+${OBJECTDIR}/_ext/579754060/hungarian.o: ../Libs/libhungarian-0.3/hungarian.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/579754060
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/579754060/hungarian.o ../Libs/libhungarian-0.3/hungarian.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}

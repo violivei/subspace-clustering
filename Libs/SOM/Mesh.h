@@ -564,7 +564,7 @@ template<class T1,class T2> double sumOfSquaredError(MatMatrix<T1> &data, Mesh<T
     typename Mesh<T2>::TPNodeSet::iterator it;
     
     for (int i = 0; i < data.rows(); i++) {
-        data.row2Vector(i, vdata);
+        data.getRow(i, vdata);
         
         //clusters.row2Vector(0, vcluster);
         it=clusters.meshNodeSet.begin();
@@ -581,7 +581,7 @@ template<class T1,class T2> double sumOfSquaredError(MatMatrix<T1> &data, Mesh<T
     }
     
 
-    return erro;
+    return erro/data.rows();
 }
 
 template<class T> std::ostream& operator << (std::ostream& out,const MeshStatistics<T> &mstatistics)

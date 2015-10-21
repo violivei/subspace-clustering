@@ -1,0 +1,10 @@
+cluster\class	|	cla2	cla3	cla1	| Sum
+clu0		|	0	0	0	| 0
+clu1		|	254	0	145	| 399
+clu2		|	16	74	0	| 90
+clu3		|	44	0	0	| 44
+Sums		|	314	74	145	| 533
+
+Random index: 0.619419
+Adjusted random index: 0.255994
+

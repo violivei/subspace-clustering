@@ -26,18 +26,18 @@
       </nativedebugger>
       <runprofile version="9">
         <runcommandpicklist>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 100.0 -a 0.700 -d 500.0 -e 0.1 -h 0.1 -m 3.0 -s 1.0E-3 -p 0.0 -f ../Data/MotionSegmentation/1R2RC_g12/1R2RC_g12_truth.mat</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 100.0 -a 0.700 -d 500.0 -e 0.1 -h 0.1 -m 3.0 -s 1.0E-3 -p 0.0 -f ../Data/MotionSegmentation/1R2RCR/1R2RCR_truth.mat</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 100.0 -a 0.700 -d 500.0 -e 0.1 -h 0.1 -m 3.0 -s 1.0E-3 -p 0.0 -f ../Data/MotionSegmentation/1R2RCT_A/1R2RCT_A_truth.mat</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 100.0 -a 0.700 -d 500.0 -e 0.1 -h 0.1 -m 3.0 -s 1.0E-3 -p 0.0 -f ../Data/MotionSegmentation/1R2RCT_B/1R2RCT_B_truth.mat</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 100.0 -a 0.700 -d 500.0 -e 0.1 -h 0.1 -m 3.0 -s 1.0E-3 -p 0.0 -f ../Data/MotionSegmentation/1R2TCR/1R2TCR_truth.mat</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 100.0 -a 0.700 -d 500.0 -e 0.1 -h 0.1 -m 3.0 -s 1.0E-3 -p 0.0 -f ../Data/MotionSegmentation/1R2TCRT/1R2TCRT_truth.mat</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 100.0 -a 0.700 -d 500.0 -e 0.1 -h 0.1 -m 3.0 -s 1.0E-3 -p 0.0 -f ../Data/MotionSegmentation/1RT2RCR/1RT2RCR_truth.mat</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 100.0 -a 0.700 -d 500.0 -e 0.1 -h 0.1 -m 3.0 -s 1.0E-3 -p 0.0 -f ../Data/MotionSegmentation/1RT2RCRT/1RT2RCRT_truth.mat</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 100.0 -a 0.700 -d 500.0 -e 0.1 -h 0.1 -m 3.0 -s 1.0E-3 -p 0.0 -f ../Data/MotionSegmentation/1RT2RTCRT_A/1RT2RTCRT_A_truth.mat</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 100.0 -a 0.700 -d 500.0 -e 0.1 -h 0.1 -m 3.0 -s 1.0E-3 -p 0.0 -f ../Data/MotionSegmentation/1RT2RTCRT_B/1RT2RTCRT_B_truth.mat</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 10.0 -e 5.0E-4 -g 1.0E-6 -m 20.0 -s 0.1 -p 0.001 -w 0.5 -i 10.0 -l 0.15 -v 0.985 -f /home/victor/Documentos/Validacao/MultiViewData/ANIMAL.arff</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 50.0 -e 5.0E-4 -g 1.0E-6 -m 20.0 -s 0.1 -p 0.001 -w 0.5 -i 10.0 -l 0.15 -v 0.985 -f /home/victor/Documentos/Validacao/MultiViewData/ANIMAL.arff</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 50.0 -e 5.0E-4 -g 1.0E-6 -m 20.0 -s 0.1 -p 0.001 -w 0.5 -i 10.0 -l 0.15 -v 0.985 -f /home/victor/Documentos/Validacao/MultiViewData/TEXAS.arff</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 50.0 -e 5.0E-4 -g 1.0E-6 -m 20.0 -s 0.1 -p 0.001 -w 0.5 -i 10.0 -l 0.09 -v 0.965 -f /home/victor/Documentos/Validacao/MultiViewData/TEXAS.arff</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 50.0 -e 5.0E-4 -g 1.0E-6 -m 20.0 -s 0.1 -p 0.001 -w 0.5 -i 10.0 -l 0.05 -v 0.975 -f /home/victor/Documentos/Validacao/MultiViewData/MOVIES.arff</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 50.0 -e 5.0E-4 -g 1.0E-6 -m 20.0 -s 0.1 -p 0.001 -w 0.5 -i 10.0 -l 0.05 -v 0.975 -f /home/victor/Documentos/Validacao/MultiViewData/TEXAS.arff</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 100.0 -e 5.0E-4 -g 1.0E-6 -m 20.0 -s 0.1 -p 0.001 -w 0.5 -i 10.0 -l 0.05 -v 0.975 -f /home/victor/Documentos/Validacao/MultiViewData/MFEAT.arff</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 100.0 -e 5.0E-4 -g 1.0E-6 -m 20.0 -s 0.1 -p 0.001 -w 0.5 -i 10.0 -l 0.04 -v 0.965 -f /home/victor/Documentos/Validacao/MultiViewData/MFEAT.arff</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 10.0 -e 5.0E-4 -g 1.0E-6 -m 20.0 -s 0.1 -p 0.001 -w 0.5 -i 10.0 -l 0.07 -v 0.945 -f /home/victor/Documentos/Validacao/MultiViewData/ANIMAL.arff</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 10.0 -e 5.0E-4 -g 1.0E-6 -m 20.0 -s 0.1 -p 0.001 -w 0.5 -i 10.0 -l 0.07 -v 0.945 -f /home/victor/Documentos/Validacao/MultiViewData/MOVIES.arff</runcommandpicklistitem>
         </runcommandpicklist>
-        <runcommand>"${OUTPUT_PATH}" -n 100.0 -a 0.700 -d 500.0 -e 0.1 -h 0.1 -m 3.0 -s 1.0E-3 -p 0.0 -f ../Data/MotionSegmentation/1RT2RTCRT_B/1RT2RTCRT_B_truth.mat</runcommand>
+        <runcommand>"${OUTPUT_PATH}" -n 10.0 -e 5.0E-4 -g 1.0E-6 -m 20.0 -s 0.1 -p 0.001 -w 0.5 -i 10.0 -l 0.07 -v 0.945 -f /home/victor/Documentos/Validacao/MultiViewData/MOVIES.arff</runcommand>
         <rundir></rundir>
         <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>

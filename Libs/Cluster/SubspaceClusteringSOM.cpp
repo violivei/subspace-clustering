@@ -1,6 +1,6 @@
 /* 
  * File:   SubspaceClusteringSOM.cpp
- * Author: hans and victor
+ * Author: hans
  * 
  * Created on 4 de Outubro de 2011, 16:49
  */

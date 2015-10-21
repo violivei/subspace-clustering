@@ -1,247 +1,453 @@
-/* 
- * File:   LARFDSSOM.h
- * Author: daniel
+/*
+ * LARFDSSOM.h
  *
- * Created on 21 de Fevereiro de 2009, 19:26
+ *  Created on: 2014
+ *      Author: hans
  */
 
-#ifndef _LARFDSSOM_H
-#define	_LARFDSSOM_H
-
-#define qrt(x) ((x)*(x))
+#ifndef LARFDSSOM_H_
+#define LARFDSSOM_H_
 
 #include <set>
 #include <map>
 #include <vector>
-#include <iomanip>
 #include "Mesh.h"
 #include "MatUtils.h"
 #include "MatVector.h"
 #include "MatMatrix.h"
+#include "SOM.h"
 #include "DSNode.h"
 
-#include "SOM.h"
+#define qrt(x) ((x)*(x))
 
 using namespace std;
 
-class LARFDSNode;
+class GDSNodeMW;
 
-class LARFDSConnection : public Connection<LARFDSNode> {
+class GDSConnectionMW : public Connection<GDSNodeMW> {
 public:
-
     int age;
 
-    LARFDSConnection(TNode *node0, TNode *node1) : Connection<LARFDSNode>(node0, node1), age(0) {
+    GDSConnectionMW(TNode *node0, TNode *node1) : Connection<GDSNodeMW>(node0, node1), age(0) {
     }
 };
 
-class LARFDSNode : public DSNode {
+class GDSNodeMW : public DSNode {
 public:
 
-    typedef LARFDSConnection TConnection;
-    typedef std::map<LARFDSNode*, TConnection*> TPNodeConnectionMap; //Para mapeamento local dos n�s e conex�es ligadas a this
-    TPNodeConnectionMap nodeMap;
+    typedef GDSConnectionMW TConnection;
+    typedef std::map<GDSNodeMW*, TConnection*> TPNodeConnectionMap; //Para mapeamento local dos n�s e conex�es ligadas a this
 
-    int d; //Contador de vitórias do nó
+    int wins;
+    TPNodeConnectionMap nodeMap;
+    TNumber act;
 
     inline int neighbors() {
         return nodeMap.size();
     }
 
-    LARFDSNode(int idIn, const TVector &v) : DSNode(idIn, v), d(0) {
+    GDSNodeMW(int idIn, const TVector &v) : DSNode(idIn, v), wins(0), act(0) {
     };
 
-    ~LARFDSNode() {
+    ~GDSNodeMW() {
     };
 };
 
-class LARFDSSOM : public SOM<LARFDSNode> {
+class LARFDSSOM : public SOM<GDSNodeMW> {
 public:
     uint maxNodeNumber;
-    int d_max;
+    float minwd;
+    float e_b;
+    float e_n;
+    int nodesCounter;
 
-    TNumber a_t; //Limiar de atividade
-    TNumber epsilon; //Modulador da taxa de aprendizagem
-    TNumber ho_f; //Taxa de aprendizagem
-    TNumber dsbeta; //Taxa histórico
-    TNumber epsilon_ds; //Relevância mínima
+    TNumber dsbeta; //Taxa de aprendizagem
+    TNumber epsilon_ds; //Taxa de aprendizagem
+    float age_wins;       //period to remove nodes
+    float lp;           //remove percentage threshold
+    float a_t;
 
-    //Fun��es utilizadas no treinamento
+    int nodesLeft;
+    int nodeID;
+    int groundTruthNodes;
 
-    inline float dist(const LARFDSNode &node, const TVector &w) {
+    inline float activation(const TNode &node, const TVector &w) {
+
         float distance = 0;
 
         for (uint i = 0; i < w.size(); i++) {
             distance += node.ds[i] * qrt((w[i] - node.w[i]));
+            //dbgOut(3) <<  node.a[i] << "\t" << w[i] << "\t" << node.w[i] << endl;
         }
 
-        //return sqrt(distance/(node.ds.sum()+ 0.0000001));
-        return distance;
+        float sum = node.ds.sum();
+        return (sum / (sum + distance + 0.0000001));
+
+        //float r = node.ds.sum();
+//        float e = (1/(qrt(node.ds.norm()) + 0.0000001));
+//        float r = distance;
+//        return (1 / (1 + e*r));
+        
+        //return exp(-qrt(e*r));
+        //return (1 / (1 + qrt(e*r)));
+        //return (1 / sqrt(1 + qrt(e*r)));
+    }
+
+    inline float getWinnerActivation(const TVector &w) {
+        TNode* winner = getWinner(w);        
+        float a = activation(*winner, w);
+        dbgOut(2) << winner->getId() << "\t" << a << endl;
+        return a;
     }
     
-     inline float distEucl(const LARFDSNode &node, const TVector &w) {
-        float distance = 0;
-
-        for (uint i = 0; i < w.size(); i++) {
-            distance += qrt((w[i] - node.w[i]));
-        }
-
-        //return sqrt(distance/(node.ds.sum()+ 0.0000001));
-        return distance;
-    }
-
-    inline float activation(TNode &node, const TVector &w, TNumber r) {
-
-        float distance = 0;
+    inline float dist2(const TNode &node, const TVector &w) {
+        /*float distance = 0;
 
         for (uint i = 0; i < w.size(); i++) {
             distance += node.ds[i] * qrt((w[i] - node.w[i]));
         }
 
-        return exp(-dist(node,w))/r;
-        //return (node.ds.sum() / (node.ds.sum() + distance + 0.0000001))/r;
+        return distance / (node.ds.sum() + 0.0000001);*/
+        return 1/activation(node, w);
     }
 
-    inline void updateNode(TNode &node, const TVector &w) {
+    inline float dist(const TNode &node, const TVector &w) {
+        return sqrt(dist2(node, w));
+    }
+    
+    inline float wdist(const TNode &node1, const TNode &node2) {
+        float distance = 0;
 
+        for (uint i = 0; i < node1.ds.size(); i++) {
+            distance +=  qrt((node1.ds[i] - node2.ds[i]));
+        }
+        
+        return sqrt(distance);
+    }
+
+    inline void updateNode(TNode &node, const TVector &w, TNumber e) {
+        
         //update averages
         for (uint i = 0; i < node.a.size(); i++) {
             //update neuron weights
             float distance = fabs(w[i] - node.w[i]);
-            node.a[i] = dsbeta * distance + (1 - dsbeta) * node.a[i];
+            node.a[i] = e*dsbeta* distance + (1 - e*dsbeta) * node.a[i];
         }
 
         float max = node.a.max();
+        float min = node.a.min();
+        float average = node.a.mean();
+        //float dsa = node.ds.mean();
+
 
         //update neuron ds weights
         for (uint i = 0; i < node.a.size(); i++) {
-            if (max != 0)
-                node.ds[i] = 1 - (node.a[i] / max);
+            if ((max - min) != 0) {
+                //node.ds[i] = 1 - (node.a[i] - min) / (max - min);
+                node.ds[i] = 1/(1+exp((node.a[i]-average)/((max - min)*epsilon_ds)));
+            }
             else
                 node.ds[i] = 1;
 
-            if (node.ds[i] < epsilon_ds)
-                node.ds[i] = epsilon_ds;
+//            if (node.ds[i] < 0.95*dsa)
+//                node.ds[i] = epsilon_ds;
+
+//            if (node.ds[i] < epsilon_ds)
+//                node.ds[i] = epsilon_ds;
+            
         }
 
-        /*
-        float sumds = node.ds.sum();
-        for (uint i = 0; i < node.a.size(); i++)
-            node.ds[i] = node.ds[i] / sumds;
-        /**/
-
-        //update w
-        TNumber ho;
-        if (node.d <= d_max) {
-            ho = epsilon * pow(ho_f, (double) (node.d / d_max));
-        } else {
-            ho = epsilon*ho_f;
-        }
-
-        node.w = node.w + ho * (w - node.w);
+        //Passo 6.1: Atualiza o peso do vencedor
+        //Atualiza o nó vencedor
+        node.w = node.w + e * (w - node.w);
     }
 
-    inline LARFDSSOM& updateMap(const TVector &w) {
-
-        using namespace std;
-
-        TNode *winner1 = 0;
-        TNode *winner2 = 0;
-
-        //Passo 3 : encontra os dois n�s vencedores
-        getWinners(w, winner1, winner2); //winner
-        winner1->d++;
-
-        //Passo 4: Se os vencedores n�o est�o conectados conecta eles e com uma
-        // aresta de age igual a zero
-        if (!isConnected(winner1, winner2)) {
-            //Se os n�s n�o est�o conectado cria uma conex�o entre os n�s com age igual a zero
-            connect(winner1, winner2);
-        }
-
-        //Passo 5: Calcula o campo receptivo
-        TNumber r = distEucl(*winner1, winner2->w);
-
-        //Passo 6: Calcula a atividade do nó vencedor
-
-        TNumber a = activation(*winner1, w, r); //DS activation
-
-        /*Passo 6: Se a atividade for menor que o limiar de atividade e o
-         * contador de disparo for menor que o limiar de disparo então
-         *um novo nó pode ser adicionado entre o neurônio vencedor e o segundo
-         *vencedor;
-         */
-
-        if ((a < a_t) && (meshNodeSet.size() < maxNodeNumber)) {
-
-            TVector wNew(w);
-            TNode *nodeNew = createNode(0, wNew);
-
-            //disconnect(winner1, winner2);
-            TNumber d12 = dist(*winner1, winner2->w);
-            TNumber d1New = dist(*winner1,w);
-            TNumber d2New = dist(*winner2,w);
-
-            if ((d12 < d1New) && (d12 < d2New)) {
-                //Não disconecta wiiner1 de winner2, pois já estão com a menor distância
-                if (d1New < d2New)//Conecta a segunda menor distância
-                {
-                    connect(winner1, nodeNew);
+    LARFDSSOM& updateConnections(TNode *node) {
+        
+        TPNodeSet::iterator itMesh = meshNodeSet.begin();
+            
+        while (itMesh != meshNodeSet.end()) {
+            if (*itMesh != node) {
+                if (wdist(*node, *(*itMesh))<minwd) {
+                    if (!isConnected(node, *itMesh))
+                    connect(node, *itMesh);
                 } else {
-                    connect(winner2, nodeNew);
+                    if (isConnected(node, *itMesh))
+                        disconnect(node, *itMesh);
                 }
-            } else
-                if ((d1New < d12) && (d1New < d2New)) {
-                connect(winner1, nodeNew);
-                if (d2New < d12) {//Segunda menor distância
-                    disconnect(winner1, winner2);
-                    connect(winner2, nodeNew);
-                }//Se não não faz nada pois winner1 e winner2 já estão conectados
-
-            } else
-                if ((d2New < d12) && (d2New < d1New)) {
-                connect(winner2, nodeNew);
-                if (d1New < d12) {
-                    disconnect(winner1, winner2);
-                    connect(winner1, nodeNew);
-                }//Se não faz nada pois winner1 e winner2 já estão conectados
             }
+            itMesh++;
+        }
+        return *this;
+    }
+    
+    LARFDSSOM& updateAllConnections() {
 
-        } else {
-            //Passo 7: Se nenhum nó for adicionado adapte a posição do vencedor
-            //e dos seus vizinhos
-
-            //Passo 7.1:Atualiza o nó vencedor
-            updateNode(*winner1, w);
-
-            /* Atualização dos vizinhos
-            TPNodeConnectionMap &nodeMap = winner1->nodeMap;
-            TPNodeConnectionMap::iterator it;
-            for (it = nodeMap.begin(); it != nodeMap.end(); it++) {
-                //Passo 7.2: Atualiza o peso dos vizinhos
-                TNode* node = it->first;
-
-                updateNode(*node, w);
-
-                //Passo 8: Incrementa a age de todas as conex�es do n� vencedor
-                it->second->age++;
+        //Conecta todos os nodos semelhantes
+        TPNodeSet::iterator itMesh1 = meshNodeSet.begin();
+        while (itMesh1 != meshNodeSet.end()) {
+            TPNodeSet::iterator itMesh2 = meshNodeSet.begin();
+            
+            while (itMesh2 != meshNodeSet.end()) {
+                if (*itMesh1!= *itMesh2) {
+                    if (wdist(*(*itMesh1), *(*itMesh2))<minwd) {
+                        if (!isConnected(*itMesh1, *itMesh2))
+                        connect(*itMesh1, *itMesh2);
+                    } else {
+                        if (isConnected(*itMesh1, *itMesh2))
+                            disconnect(*itMesh1, *itMesh2);
+                    }
+                }
+                itMesh2++;
             }
-            */
+            
+            itMesh1++;
         }
 
-        //Passo 9:Remove todos os n�s sem conex�o
+        return *this;
+    }
+
+    LARFDSSOM& removeLoosers() {
+
+        //enumerateNodes();
+
         TPNodeSet::iterator itMesh = meshNodeSet.begin();
         while (itMesh != meshNodeSet.end()) {
-            if ((*itMesh)->neighbors() == 0) {
+            if (meshNodeSet.size()<2)
+                break;
+            //dbgOut(1) << (*itMesh)->getId() << ": " << (*itMesh)->wins << "\t\t" << step*lp << endl;
+            if ((*itMesh)->wins < step*lp) {
+                //dbgOut(1) << (*itMesh)->getId() << ": " << (*itMesh)->wins << "\t<\t" << step*lp << endl;
+                if (meshNodeSet.size()<= groundTruthNodes)
+                {
+                    dbgOut(1) << meshNodeSet.size() << "\t <<< \t" << endl;
+                     break;
+                }
+                   
                 eraseNode((*itMesh));
                 itMesh = meshNodeSet.begin();
-                cout << "Nodo removida\n";
-            } else
+            } else {
+                //dbgOut(1) << (*itMesh)->getId() << ": " << (*itMesh)->wins << "\t>=\t" << step*lp << endl;
                 itMesh++;
+            }
+        }
+
+        //printWinners();
+        return *this;
+    }
+
+    //*
+    LARFDSSOM& finishMap() {
+
+        dbgOut(1) << "Finishing map..." << endl;
+        do {
+            resetWins();
+            maxNodeNumber = meshNodeSet.size();
+            trainning(age_wins);
+            
+            resetWins();
+
+            TVector v;
+            for (int i=0; i<data.rows(); i++) {
+                data.getRow(i, v);
+                TNode *winner = getWinner(v);
+                if (activation(*winner, v)>= a_t) {
+                    winner->wins++;
+                    //step++;
+                }
+            }
+            step = data.rows();
+
+            int prefMeshSize = meshNodeSet.size();
+            removeLoosers();
+            updateAllConnections();
+            dbgOut(1) << "Finishing: " << prefMeshSize << "\t->\t" << meshNodeSet.size() << endl;
+
+            if (maxNodeNumber == meshNodeSet.size() || meshNodeSet.size()==1)
+                break;
+        } while (true);
+        
+        return *this;
+    }
+    /**/
+    
+    LARFDSSOM& finishMapFixed() {
+
+        dbgOut(1) << "Finishing map with: " << meshNodeSet.size() << endl;
+        while (step!=1) { // finish the previous iteration
+            trainningStep();
+        }
+        maxNodeNumber = meshNodeSet.size(); //fix mesh max size
+        
+        dbgOut(1) << "Finishing map with: " << meshNodeSet.size() << endl;
+        
+        trainningStep();//step equal to 2
+        while (step!=1) {
+            trainningStep();
+        }
+        
+        dbgOut(1) << "Finishing map with: " << meshNodeSet.size() << endl;
+        
+        return *this;
+    }
+    
+    void printWinners() {
+
+        TPNodeSet::iterator itMesh = meshNodeSet.begin();
+        while (itMesh != meshNodeSet.end()) {
+            
+            int count = 0;
+            for (int i=0; i<data.rows(); i++) {
+                TVector row;
+                data.getRow(i, row);
+                TNumber a = activation(*(*itMesh), row);
+                
+                if (a>=a_t) {
+                        dbgOut(1) << i << " ";
+                        count++;
+                }
+            }
+            dbgOut(1) << "\t" << (*itMesh)->getId() << "\t" << (*itMesh)->wins << "\t" << count << endl;
+            itMesh++;
+        }
+    }
+
+    /*
+    LARFDSSOM& finishMap() {
+        resetWins();
+
+        TVector v;
+        for (int i=0; i<data.rows(); i++) {
+            data.getRow(i, v);
+            TNode *winner = getWinner(v);
+            if (activation(*winner, v)>= a_t) {
+                winner->wins++;
+                //step++;
+            }
+        }
+
+        step = data.rows();
+        //if (step==0) step = 1;
+
+        removeLoosers();
+        updateAllConnections();
+
+        maxNodeNumber = meshNodeSet.size();
+        trainning(age_wins);
+    }/**/
+
+    LARFDSSOM& resetWins() {
+
+        //Remove os perdedores
+        TPNodeSet::iterator itMesh = meshNodeSet.begin();
+        while (itMesh != meshNodeSet.end()) {
+             (*itMesh)->wins = 0;
+             itMesh++;
+        }
+
+        step = 0;
+
+        return *this;
+    }
+
+    LARFDSSOM& updateMap(const TVector &w) {
+
+        using namespace std;
+        TNode *winner1 = 0;
+
+        //Passo 3 : encontra o nó vencedor
+        winner1 = getWinner(w); //winner
+        winner1->wins++;
+        
+        //Passo 6: Calcula a atividade do nó vencedor
+        TNumber a = activation(*winner1, w); //DS activation
+        //Se a ativação obtida pelo primeiro vencedor for menor que o limiar
+        //e o limite de nodos não tiver sido atingido
+
+        if ((a < a_t) && (meshNodeSet.size() < maxNodeNumber)) {
+            //dbgOut(2) << a << "\t<\t" << a_t << endl;
+            //Cria um novo nodo no local do padrão observado
+            TVector wNew(w);
+            TNode *nodeNew = createNode(nodeID++, wNew);
+            nodeNew->wins = 0;//step/meshNodeSet.size();
+
+            //Conecta o nodo
+            updateConnections(nodeNew);
+
+        } else if (a >= a_t) { // caso contrário
+            // Atualiza o peso do vencedor
+            updateNode(*winner1, w, e_b);
+
+            //Passo 6.2: Atualiza o peso dos vizinhos
+            TPNodeConnectionMap::iterator it;
+            for (it = winner1->nodeMap.begin(); it != winner1->nodeMap.end(); it++) {            
+                TNode* node = it->first;
+                updateNode(*node, w, e_n);
+            }
+        }
+
+        //Passo 9:Se atingiu age_wins
+        if (step >= age_wins) {
+
+            int size = meshNodeSet.size();
+            //remove os perdedores
+            removeLoosers();
+            dbgOut(1) << size << "\t->\t" << meshNodeSet.size() << endl;
+            //reseta o número de vitórias
+            resetWins();
+            //Passo 8.2:Adiciona conexões entre nodos semelhantes
+            updateAllConnections();
+            step = 0;
         }
 
         step++;
         return *this;
+    }
+
+    virtual TNode *getFirstWinner(const TVector &w){
+        TNode *winner = 0;
+        TNumber temp = 0;
+        TNumber d = dist(*(*Mesh<TNode>::meshNodeSet.begin()), w);
+        winner = (*Mesh<TNode>::meshNodeSet.begin());
+        winner->act = activation(*winner, w);
+
+        TPNodeSet::iterator it;
+        it = Mesh<TNode>::meshNodeSet.begin();
+        it++;
+        for (; it != Mesh<TNode>::meshNodeSet.end(); it++) {
+            (*it)->act = activation(*(*it), w);
+            temp = dist(*(*it), w);
+            if (d > temp) {
+                d = temp;
+                winner = (*it);
+            }
+        }
+
+        return winner;
+    }
+
+    virtual TNode *getNextWinner(TNode *previowsWinner) {
+        previowsWinner->act = 0;
+        
+        TNode *winner = 0;
+        winner = (*Mesh<TNode>::meshNodeSet.begin());
+        TNumber winnerAct = winner->act;
+
+        TPNodeSet::iterator it;
+        it = Mesh<TNode>::meshNodeSet.begin();
+        it++;
+        for (; it != Mesh<TNode>::meshNodeSet.end(); it++) {
+
+            if ((*it)->act > winnerAct) {
+                winnerAct = (*it)->act;
+                winner = (*it);
+            }
+        }
+        
+        if (winnerAct < a_t)
+            return NULL;
+
+        return winner;
     }
 
     inline TNode* getWinner(const TVector &w) {
@@ -266,112 +472,120 @@ public:
 
     inline LARFDSSOM& getWinners(const TVector &w, TNode* &winner1, TNode* &winner2) {
         TPNodeSet::iterator it = Mesh<TNode>::meshNodeSet.begin();
-        TNumber temp = 0;
-        TNumber d2, d1 = dist(*(*it), w);
+        TNumber minDist = dist2(*(*it), w);
+        
+        //find first winner
         winner1 = (*it);
-        it++;
-        if (dist(*(*it), w) < d1) {
-            winner2 = winner1;
-            d2 = d1;
-            winner1 = (*it);
-            d1 = dist(*(*it), w);
-        } else {
-            winner2 = (*it);
-            d2 = dist(*(*it), w);
-        }
-        it++;
         for (; it != Mesh<TNode>::meshNodeSet.end(); it++) {
-            temp = dist(*(*it), w);
-            if (d1 > temp) {
-                d2 = d1;
-                d1 = temp;
-                winner2 = winner1;
+            TNumber dist = dist2(*(*it), w);
+            if (dist<minDist) {
+                minDist = dist;
                 winner1 = (*it);
-            } else
-                if (d2 > temp) {
-                winner2 = (*it);
-                d2 = temp;
             }
         }
+        
+        //find second winner
+        it = Mesh<TNode>::meshNodeSet.begin();
+        winner2 = (*it);
+        minDist = dist2(*(*it), w);
+        TNode* distWinner = NULL;
+        for (; it != Mesh<TNode>::meshNodeSet.end(); it++) {
+            if (*it!=winner1) {
+                TNumber dist = dist2(*(*it), w);
+                if (dist<minDist) {
+                    minDist = dist;
+                    winner2 = (*it);
+                    if (wdist(*winner1, *(*it)) <= minwd)
+                        distWinner = winner2;
+                }
+            }
+        }
+        
+        if (distWinner!=NULL)
+            winner2 = distWinner;
 
         return *this;
     }
-
-    /*
-     *Seleciona dois pontos iniciais do conjunto de dados
-     */
-    inline LARFDSSOM& initialize(const TMatrix &m) {
-        destroyMesh();
-        data = m;
-        int vSize = data.cols();
-        int N = data.rows();
-        TVector v0(vSize);
-        TVector v1(vSize);
-        TNumber r;
-        TNumber a;
-
-        for (uint j = 0; j < vSize; j++)
-            v0[j] = data[0][j];
-
-        for (int i = 1; i < N; i++) {
-
-            for (uint j = 0; j < vSize; j++)
-                v1[j] = data[i][j];
-
-            r = v0.dist(v1);
-            a = exp(-r) / r;
-
-            if (a < a_t)
-                break;
+    
+    void getActivationVector(const TVector &sample, TVector &actVector) {
+        actVector.size(Mesh<TNode>::meshNodeSet.size());
+        
+        int i=0;
+        for (it = Mesh<TNode>::meshNodeSet.begin(); it != Mesh<TNode>::meshNodeSet.end(); it++) {
+            actVector[i] = activation(*(*it), sample);
+            i++;
         }
-
-        makeBinaryGrid(v0, v1);
-        return *this;
+    }
+    
+    bool isNoise(const TVector &w) {
+        TNode *winner = getWinner(w);
+        double a = activation(*winner, w);
+        return (a<a_t);
     }
 
     void resetToDefault(int dimw = 2) {
         LARFDSSOM::dimw = dimw;
-        maxNodeNumber = 1000;
-        d_max = 100;
-        a_t = 3; //Limiar de atividade
-        epsilon = 0.4; //Modulador da taxa de aprendizagem
-        ho_f = 0.06; //Taxa de aprendizagem
-
         step = 0;
+        nodesLeft = 1;
+
+        maxNodeNumber = 100;
+        e_b = 0.05;
+        e_n = 0.0006;
         counter_i = 0;
         aloc_node = 0;
         aloc_con = 0;
-        TVector v0(dimw), v1(dimw);
-        v0.random();
-        v1.random();
+        nodesCounter = 1;
+        nodeID = 0;
+
         destroyMesh();
-        makeBinaryGrid(v0, v1);
+        TVector v(dimw);
+        v.random();
+        TVector wNew(v);
+        createNode(0, wNew);
     }
 
     void reset(int dimw) {
         LARFDSSOM::dimw = dimw;
         step = 0;
+        nodesLeft = 1;
+
         counter_i = 0;
         aloc_node = 0;
         aloc_con = 0;
-        TVector v0(dimw), v1(dimw);
-        v0.random();
-        v1.random();
+        nodesCounter = 1;
+        nodeID = 0;
+
         destroyMesh();
-        makeBinaryGrid(v0, v1);
+        TVector v(dimw);
+        v.random();
+        TVector wNew(v);
+        createNode(0, wNew);
+    }
+    
+    void binarizeRelevances() {
+        
+        TPNodeSet::iterator it;
+        for (it = Mesh<TNode>::meshNodeSet.begin(); it != Mesh<TNode>::meshNodeSet.end(); it++) {
+            TNode *node = *it;
+            float average = node->ds.mean();
+            for (int i=0; i<node->ds.size(); i++) {
+                if (node->ds[i]>average)
+                    node->ds[i] = 1;
+                else
+                    node->ds[i] = 0;
+            }
+        }
     }
 
-    void reset() {
+    void reset(void) {
         reset(dimw);
     }
 
     LARFDSSOM(int dimw) {
-        using namespace std;
         resetToDefault(dimw);
     };
 
     ~LARFDSSOM() {
-
     }
 
     template<class Number> LARFDSSOM& outputCentersDs(MatMatrix<Number> &m) {
@@ -391,8 +605,36 @@ public:
 
         return *this;
     }
+    
+    virtual bool saveParameters(std::ofstream &file) {
+        
+        file << maxNodeNumber << "\t";
+        file << minwd << "\t";
+        file << e_b << "\t";
+        file << e_n << "\t";
+        file << dsbeta << "\t"; //Taxa de aprendizagem
+        file << epsilon_ds << "\t"; //Taxa de aprendizagem
+        file << age_wins << "\t";       //period to remove nodes
+        file << lp << "\t";          //remove percentage threshold
+        file << a_t << "\n";
+        return true;
+    }
+    
+    virtual bool readParameters(std::ifstream &file) {
+        
+        file >> maxNodeNumber;
+        file >> minwd;
+        file >> e_b;
+        file >> e_n;
+        file >> dsbeta; //Taxa de aprendizagem
+        file >> epsilon_ds; //Taxa de aprendizagem
+        file >> age_wins;       //period to remove nodes
+        file >> lp;           //remove percentage threshold
+        file >> a_t;
+        file.get();//skip line end
+        
+        return true;
+    }
 };
 
-
-#endif	/* _LARFDSSOM_H */
-
+#endif /* LARFDSSOM_H_ */
