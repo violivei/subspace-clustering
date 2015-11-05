@@ -1,0 +1,61 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package setup;
+
+/**
+ *
+ * @author hans
+ */
+public class SOM2DParameters extends MethodParameters {
+
+    SOM2D som;
+    
+    SOM2DParameters(SOM2D som) {
+        this.som = som;
+        setupParameterRanges();
+    }    
+
+    @Override
+    void setupParameterValues() {
+    }
+        
+    @Override
+    void setupParameterRanges() {
+
+        /*
+        addParameter(som.alpha, 0.1, 0.9, 0.4, ClusteringParameter.StepType.SUM);
+        addParameter(som.lambda1, 0.05, 0.2, 0.075, ClusteringParameter.StepType.SUM);
+        addParameter(som.sigma, 0.1, 0.9, 0.4, ClusteringParameter.StepType.SUM);
+        addParameter(som.lambda2, 0.05, 0.2, 0.075, ClusteringParameter.StepType.SUM);
+        addParameter(som.ny, 8, 64, 2, ClusteringParameter.StepType.MULT);
+        */
+        
+        addLHSParameter(som.seed, 0, 10);
+        addLHSParameter(som.alpha, 0.001, 0.99);
+        addLHSParameter(som.lambda2, 0.1, 2);
+        addLHSParameter(som.sigma, 0.001, 0.99);
+        addLHSParameter(som.lambda1, 0.1, 2);
+        
+        addLHSParameter(som.ny, 2, 18);
+        
+        initLHS(500);
+    }
+
+    public static void main(String args[]) {
+
+        SOM2D som = new SOM2D();
+        SOM2DParameters som2dParameters = new SOM2DParameters(som);
+        som2dParameters.printParameterRanges();
+        System.out.print("Exp\t");
+        som2dParameters.printParameterNames();
+        System.out.println();
+        while (!som2dParameters.hasFinished()) {
+            System.out.print(som2dParameters.getExperimentNumber() + "\t");
+            som2dParameters.printParameterValues();
+            System.out.println();
+            som2dParameters.setupNextParameters();
+        }
+    }
+}

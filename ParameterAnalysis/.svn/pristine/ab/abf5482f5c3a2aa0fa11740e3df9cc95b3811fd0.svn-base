@@ -1,0 +1,61 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package setup;
+
+
+/**
+ *
+ * @author hans
+ */
+public class LARFDSSOMParameters extends MethodParameters{
+
+    LARFDSSOM larfdssom;
+
+
+    public LARFDSSOMParameters(LARFDSSOM larfdssom) {
+        this.larfdssom = larfdssom;
+        setupParameterRanges();
+    }
+    
+        @Override
+    void setupParameterValues() {
+        
+    }
+        
+    @Override
+    void setupParameterRanges() {
+        larfdssom.a_t.setupRanges(0.85, 0.9501, 0.025, ClusteringParameter.StepType.SUM);
+        larfdssom.ho_f.setupRanges(0.1, 0.5, 0.2, ClusteringParameter.StepType.SUM);
+        larfdssom.dsbeta.setupRanges(0.0001, 0.01, 10, ClusteringParameter.StepType.MULT);
+
+        parameterList.add(larfdssom.a_t);
+        parameterList.add(larfdssom.ho_f);
+        parameterList.add(larfdssom.dsbeta);
+    }
+    
+    public static void main(String args[]) {
+
+        /*
+         * From	Offset	Op	Steps	To
+         * avgerageDimensions	1	2	+	38	75
+         * alpha	2	2	*	6	64
+         * Total number of experiments: 228
+         */
+        LARFDSSOM som = new LARFDSSOM();
+        LARFDSSOMParameters dssomParameters = new LARFDSSOMParameters(som);
+
+        dssomParameters.printParameterRanges();
+        System.out.print("Exp\t");
+        dssomParameters.printParameterNames();
+        System.out.println();
+        while (!dssomParameters.hasFinished()) {
+            System.out.print(dssomParameters.getExperimentNumber()+"\t");
+            dssomParameters.printParameterValues();
+            System.out.println();
+            dssomParameters.setupNextParameters();
+        }
+    }
+}

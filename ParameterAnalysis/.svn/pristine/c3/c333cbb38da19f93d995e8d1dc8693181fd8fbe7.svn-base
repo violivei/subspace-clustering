@@ -1,0 +1,248 @@
+package weka.clusterquality;
+
+import i9.subspace.base.Cluster;
+
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Random;
+
+import weka.classifiers.Classifier;
+import weka.classifiers.Evaluation;
+import weka.classifiers.trees.J48;
+import weka.core.Attribute;
+import weka.core.FastVector;
+import weka.core.Instance;
+import weka.core.Instances;
+
+public class CEntropy extends ClusterQualityMeasure{
+	
+	private double conditionalEntropy = 0.0;
+	
+	public void calculateQuality(ArrayList<Cluster> clusterList,
+			Instances instances, ArrayList<Cluster> trueclusterList) {
+
+           Map<Integer,Integer> X = new HashMap<Integer,Integer>();
+           Map<Integer,Integer> Y = new HashMap<Integer,Integer>();
+           
+           for (int i=0; i<clusterList.size(); i++) {
+                Cluster cluster = clusterList.get(i);
+                 for (Integer j: cluster.m_objects) {
+                     X.put(j, i);
+                 }
+           }
+           
+           for (int i=0; i<trueclusterList.size(); i++) {
+                Cluster cluster = trueclusterList.get(i);
+                 for (Integer j: cluster.m_objects) {
+                     Y.put(j, i);
+                 }                
+            }
+
+            int ny = Math.max(clusterList.size(), trueclusterList.size());
+            double[] py = new double[ny];
+            double[][] pxDy = new double[ny][ny];
+            
+            for (int i=0; i<ny; i++) {
+                py[i] = 0;
+                for (int j=0; j<ny; j++)
+                    pxDy[i][j] = 0;
+            }
+
+            //Count y and (x,y) ocurrences
+            for (int i=0; i<Y.size(); i++) {
+                Integer x = X.get(i);
+                Integer y = Y.get(i);
+                if (x != null && y!= null) {
+                    pxDy[x][y]++;
+                    py[y]++;
+                }                 
+            }
+
+            //Calculate p(x|y)
+            for (int x=0; x<ny; x++) {
+                for (int y=0; y<ny; y++) {
+                    if (py[y]>0)
+                        pxDy[x][y]/=py[y];
+                    else 
+                        pxDy[x][y] = 0;
+                }
+            }
+
+            //Calculate p(y)
+            for (int y=0; y<ny; y++) {
+                py[y]/=Y.size();
+            }
+
+            //dbgOut(0) << py.toString() << endl;
+            //Compute conditional entropy: H(X|Y) = sum_y{py*sum_x[p(x|y)*log(1/p(x|y))]}
+            double hxDy = 0;
+            for (int y=0; y<ny; y++) {
+
+                float sum_pxDylog1_pxDy = 0;
+                for (int x=0; x<ny; x++) {
+                    if (pxDy[x][y]>0)
+                        sum_pxDylog1_pxDy += pxDy[x][y]*log2(1/pxDy[x][y]);
+                }
+                hxDy += py[y]*sum_pxDylog1_pxDy;
+            }
+
+            conditionalEntropy = hxDy;	
+	}
+        
+        static double log2(double x) {
+            return Math.log(x)/Math.log(2);
+        }
+
+	public static void main(String[] args) throws Exception {
+		FastVector atts;
+		FastVector attVals;
+		Instances data;
+		double[] vals;
+		int i;
+
+		atts = new FastVector();
+		atts.addElement(new Attribute("att1"));
+		attVals = new FastVector();
+		for (i = 0; i < 8; i++)
+			attVals.addElement("val" + (i + 1));
+		atts.addElement(new Attribute("att2", attVals));
+
+		data = new Instances("MyRelation", atts, 0);
+
+                int nInstances = 0;
+                i=0;                
+
+//                int[] size = new int[20];
+//                size[i++] = 96; nInstances += size[i-1];
+//                size[i++] = 117; nInstances += size[i-1];
+//                size[i++] = 98; nInstances += size[i-1];
+//                size[i++] = 110; nInstances += size[i-1];
+//                size[i++] = 84; nInstances += size[i-1];
+//                size[i++] = 99; nInstances += size[i-1];
+//                size[i++] = 92; nInstances += size[i-1];
+//                size[i++] = 111; nInstances += size[i-1];
+//                size[i++] = 88; nInstances += size[i-1];
+//                size[i++] = 190; nInstances += size[i-1];
+//                size[i++] = 93; nInstances += size[i-1];
+//                size[i++] = 798; nInstances += size[i-1];
+//                size[i++] = 105; nInstances += size[i-1];
+//                size[i++] = 84; nInstances += size[i-1];
+//                size[i++] = 83; nInstances += size[i-1];
+//                size[i++] = 91; nInstances += size[i-1];
+//                size[i++] = 90; nInstances += size[i-1];
+//                size[i++] = 95; nInstances += size[i-1];
+//                size[i++] = 799; nInstances += size[i-1];
+//                size[i++] = 435; nInstances += size[i-1];
+
+                int[] size = new int[32];
+                size[i++] = 493; nInstances += size[i-1];
+                size[i++] = 331; nInstances += size[i-1];
+                size[i++] = 196; nInstances += size[i-1];
+                size[i++] = 392; nInstances += size[i-1];
+                size[i++] = 513; nInstances += size[i-1];
+                size[i++] = 614; nInstances += size[i-1];
+                size[i++] = 32; nInstances += size[i-1];
+                size[i++] = 459; nInstances += size[i-1];
+                size[i++] = 383; nInstances += size[i-1];
+                size[i++] = 578; nInstances += size[i-1];
+                size[i++] = 182; nInstances += size[i-1];
+                size[i++] = 476; nInstances += size[i-1];
+                size[i++] = 191; nInstances += size[i-1];
+                size[i++] = 486; nInstances += size[i-1];
+                size[i++] = 109; nInstances += size[i-1];
+                size[i++] = 631; nInstances += size[i-1];
+                size[i++] = 522; nInstances += size[i-1];
+                size[i++] = 624; nInstances += size[i-1];
+                size[i++] = 213; nInstances += size[i-1];
+                size[i++] = 340; nInstances += size[i-1];
+                size[i++] = 173; nInstances += size[i-1];
+                size[i++] = 37; nInstances += size[i-1];
+                size[i++] = 384; nInstances += size[i-1];
+                size[i++] = 707; nInstances += size[i-1];
+                size[i++] = 108; nInstances += size[i-1];
+                size[i++] = 218; nInstances += size[i-1];
+                size[i++] = 175; nInstances += size[i-1];
+                size[i++] = 441; nInstances += size[i-1];
+                size[i++] = 315; nInstances += size[i-1];
+                size[i++] = 300; nInstances += size[i-1];
+                size[i++] = 54; nInstances += size[i-1];
+                size[i++] = 118; nInstances += size[i-1];
+                
+                boolean[] subspace = {true, true};
+                ArrayList<Cluster> trueClusters = new ArrayList<Cluster>();
+                ArrayList<Cluster> obtained = new ArrayList<Cluster>();
+                
+                i=0;
+                for (int j=0; j<size.length; j++) {
+                    
+                    ArrayList<Integer> tcl = new ArrayList<Integer>();
+                    
+                    for (int k=0; k<size[j]; k++) {
+                        data.add(new Instance(i));
+                        tcl.add(i);
+                        i++;
+                    }
+                    
+                    Cluster tClus = new Cluster(subspace, tcl);
+                    trueClusters.add(tClus);
+                    
+                    ArrayList<Integer> ocl = new ArrayList<Integer>();
+                    Cluster oClus = new Cluster(subspace, ocl);
+                    obtained.add(oClus);
+                }
+                
+                Random rand = new Random();
+                for (i=0; i<nInstances; i++) {
+                    int rc = rand.nextInt(size.length);
+                    obtained.get(rc).m_objects.add(i);
+                }
+
+//                for (i = 0; i<7; i++)
+//                    data.add(new Instance(i));
+//                ArrayList<Integer> tcl = new ArrayList<Integer>();
+//                tcl.add(0);
+//                tcl.add(1);
+//                tcl.add(2);
+//                Cluster tClus = new Cluster(subspace, tcl);
+//                trueClusters.add(tClus);
+//                tcl = new ArrayList<Integer>();
+//                tcl.add(3);
+//                tcl.add(4);
+//                tcl.add(5);
+//                tcl.add(6);
+//                tClus = new Cluster(subspace, tcl);
+//                trueClusters.add(tClus);
+//                
+//                ArrayList<Integer> ocl = new ArrayList<Integer>();
+//                ocl.add(0);
+//                ocl.add(3);
+//                ocl.add(6);
+//                ocl.add(4);                
+//                Cluster oClus = new Cluster(subspace, ocl);
+//                obtained.add(oClus);
+//                ocl = new ArrayList<Integer>();
+//                ocl.add(1);
+//                ocl.add(5);
+//                ocl.add(2);
+//                oClus = new Cluster(subspace, ocl);
+//                obtained.add(oClus);
+                
+                CEntropy ce = new CEntropy();
+                ce.calculateQuality(obtained, data, trueClusters);
+                System.out.println("Conditional entropy: " + ce.getOverallValue());
+	}
+
+	
+	@Override
+	public Double getOverallValue(){
+		return conditionalEntropy;
+	}
+
+	public String getName() {
+		return "CEntropy";
+	}
+
+}

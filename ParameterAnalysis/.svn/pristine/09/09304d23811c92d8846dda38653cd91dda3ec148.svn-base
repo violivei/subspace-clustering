@@ -1,0 +1,60 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package dssomjava;
+
+/**
+ *
+ * @author hans
+ */
+public class SOMAWParameters extends MethodParameters {
+    
+    SOMAW somaw;
+    
+    SOMAWParameters(SOMAW somaw) {
+        this.somaw = somaw;
+        setupParameterRanges();
+    }
+    
+    @Override
+    void setupParameterValues() {
+    }
+    
+    @Override
+    void setupParameterRanges() {
+        
+        addParameter(somaw.alpha, 0.1, 0.9, 0.8, ClusteringParameter.StepType.SUM);
+        addParameter(somaw.lambda1, 0.05, 0.25, 0.2, ClusteringParameter.StepType.SUM);
+        addParameter(somaw.sigma, 0.1, 0.9, 0.8, ClusteringParameter.StepType.SUM);
+        addParameter(somaw.lambda2, 0.05, 0.25, 0.2, ClusteringParameter.StepType.SUM);
+        addParameter(somaw.ny, 8, 64, 2, ClusteringParameter.StepType.MULT);
+        //addParameter(somaw.k1, 0.0001, 0.0009, 0.0008, ClusteringParameter.StepType.SUM);
+        addParameter(somaw.k2, 0.9, 0.99, 0.09, ClusteringParameter.StepType.SUM);
+        addParameter(somaw.k3, 1.02, 1.09, 0.07, ClusteringParameter.StepType.SUM);
+    }
+
+    public static void main(String args[]) {
+
+        /*
+         * From	Offset	Op	Steps	To
+         * avgerageDimensions	1	2	+	38	75
+         * alpha	2	2	*	6	64
+         * Total number of experiments: 228
+         */
+        SOMAW somaw = new SOMAW();
+        SOMAWParameters somawParameters = new SOMAWParameters(somaw);
+
+        somawParameters.printParameterRanges();
+        System.out.print("Exp\t");
+        somawParameters.printParameterNames();
+        System.out.println();
+        while (!somawParameters.hasFinished()) {
+            System.out.print(somawParameters.getExperimentNumber()+"\t");
+            somawParameters.printParameterValues();
+            System.out.println();
+            somawParameters.setupNextParameters();
+        }
+    }
+}

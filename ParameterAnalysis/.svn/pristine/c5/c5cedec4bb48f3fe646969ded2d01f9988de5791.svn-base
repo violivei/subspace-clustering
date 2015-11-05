@@ -1,0 +1,5 @@
+#!/bin/sh
+export PATH=$PATH:/home/hans/Programas/Matlab/bin/
+#export PATH=$PATH:/Applications/MATLAB_R2012a.app/bin/
+cd "/home/hans/Dropbox/Doutorado/Projetos/MotionSegmentation/Run"
+matlab -nodesktop -nosplash -r "classificationError('$1', '$2');quit;"

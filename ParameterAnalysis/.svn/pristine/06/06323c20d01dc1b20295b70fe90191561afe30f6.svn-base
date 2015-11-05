@@ -1,0 +1,148 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package setup;
+
+/**
+ *
+ * @author hans
+ */
+public class ClusteringParameter {
+
+    private double value;
+
+    private double start;
+    private double end;
+    private double step;
+    private boolean finished;
+    private String name = "param";
+   
+    public enum StepType {
+        SUM, MULT, LHS;
+    }
+    StepType stepType;
+
+    ClusteringParameter(double defaultValue, String name) {
+        this.start = this.end = this.value = defaultValue;
+        this.step = 0;
+        this.stepType = StepType.SUM;
+        this.name = name;
+        finished = true;
+    }
+
+    ClusteringParameter(double start, double end, double step, StepType stepType) {
+        this.start = start;
+        this.end = end;
+        this.step = step;
+        this.stepType = stepType;
+        restart();
+    }
+    
+    ClusteringParameter(double start, double end, double step, StepType stepType, String name) {
+        this.start = start;
+        this.end = end;
+        this.step = step;
+        this.stepType = stepType;
+        this.name = name;
+        restart();
+    }
+    
+    void setup(double start, double end, double step, StepType stepType, String name) {
+        this.start = start;
+        this.end = end;
+        this.step = step;
+        this.stepType = stepType;
+        this.name = name;
+        restart();
+    }
+        
+    void setupRanges(double start, double end, double step, StepType stepType) {
+        this.start = start;
+        this.end = end;
+        this.step = step;
+        this.stepType = stepType;
+        restart();
+    }
+
+    public void setEnd(double end) {
+        this.end = end;
+    }
+
+    public void setStart(double start) {
+       this.start = start;
+    }
+    
+    public void setValue(double value) {
+       this.value = value;
+    }
+
+    public void setStep(double step) {
+        this.step = step;
+    }
+
+    public void setStepType(StepType stepType) {
+        this.stepType = stepType;
+    }
+
+    public double getEnd() {
+        return end;
+    }
+
+    public double getStart() {
+        return start;
+    }
+    
+    public double getStep() {
+        return step;
+    }
+
+    public StepType getStepType() {
+        return stepType;
+    }
+
+    public double getValue() {
+        return value;
+    }
+    
+    public long getIntValue() {
+        return Math.round(value);
+    }
+
+    private void nextSum() {
+        value = value + step;
+    }
+
+    private void nextMult() {
+        value = value * step;
+    }
+
+    void next() {
+
+        if (!finished)
+        switch (stepType) {
+            case SUM: nextSum(); break;
+            case MULT: nextMult(); break;
+        }
+        if (value>=end)
+            finished = true;
+    }
+    
+    final void restart() {
+        finished = false;
+        value = start;
+    }
+
+    boolean hasFinished() {
+        return finished;
+    }
+    
+    void setName(String name) {
+        this.name = name;
+    }
+    
+    String getName() {
+        return name;
+    }
+}

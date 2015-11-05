@@ -77,10 +77,12 @@ public:
 
         for (uint i = 0; i < w.size(); i++) {
             distance += node.ds[i] * qrt((w[i] - node.w[i]));
-            //dbgOut(3) <<  node.a[i] << "\t" << w[i] << "\t" << node.w[i] << endl;
+            //dbgOut(1) <<  node.ds[i] << "\t" << w[i] << "\t" << round(node.w[i]) << endl;
         }
-
+        
+        
         float sum = node.ds.sum();
+        //dbgOut(1) << sum / (sum + distance + 0.0000001) << "\t" << endl;
         return (sum / (sum + distance + 0.0000001));
 
         //float r = node.ds.sum();
@@ -96,7 +98,7 @@ public:
     inline float getWinnerActivation(const TVector &w) {
         TNode* winner = getWinner(w);        
         float a = activation(*winner, w);
-        dbgOut(2) << winner->getId() << "\t" << a << endl;
+        dbgOut(1) << winner->getId() << "\t" << a << endl;
         return a;
     }
     
@@ -210,7 +212,8 @@ public:
     LARFDSSOM& removeLoosers() {
 
         //enumerateNodes();
-
+        //printWinners();
+        
         TPNodeSet::iterator itMesh = meshNodeSet.begin();
         while (itMesh != meshNodeSet.end()) {
             if (meshNodeSet.size()<2)
@@ -218,11 +221,11 @@ public:
             //dbgOut(1) << (*itMesh)->getId() << ": " << (*itMesh)->wins << "\t\t" << step*lp << endl;
             if ((*itMesh)->wins < step*lp) {
                 //dbgOut(1) << (*itMesh)->getId() << ": " << (*itMesh)->wins << "\t<\t" << step*lp << endl;
-                if (meshNodeSet.size()<= groundTruthNodes)
+                /*if (meshNodeSet.size()<= groundTruthNodes)
                 {
                     dbgOut(1) << meshNodeSet.size() << "\t <<< \t" << endl;
                      break;
-                }
+                }*/
                    
                 eraseNode((*itMesh));
                 itMesh = meshNodeSet.begin();
@@ -303,11 +306,12 @@ public:
                 TNumber a = activation(*(*itMesh), row);
                 
                 if (a>=a_t) {
-                        dbgOut(1) << i << " ";
+                        //dbgOut(1) << i << " ";
+                        dbgOut(1) << (*itMesh)->getId() << "\t" << a << endl;
                         count++;
                 }
             }
-            dbgOut(1) << "\t" << (*itMesh)->getId() << "\t" << (*itMesh)->wins << "\t" << count << endl;
+            //dbgOut(1) << "\t" << (*itMesh)->getId() << "\t" << (*itMesh)->wins << "\t" << count << endl;
             itMesh++;
         }
     }

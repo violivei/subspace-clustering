@@ -1,0 +1,139 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package setup;
+
+import i9.subspace.base.Cluster;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Locale;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ *
+ * @author hans
+ */
+public abstract class ExternalClusteringMethod {
+
+        private int numClusters = 0;
+        
+        public abstract String generateCommandString(String filename);
+
+        abstract public String getName();
+        
+        public int getNumClusters() {
+            return numClusters;
+        }
+        
+        public ArrayList<Cluster> runSOM(String fileName, boolean allTrue) {
+
+        String commandString = generateCommandString(fileName);
+
+        //System.out.println(commandString);
+
+        String s;
+        try {
+            Process p = Runtime.getRuntime().exec(commandString);
+            BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+
+//            BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+//            read the output from the command
+//            System.out.println("Running:" + commandString);
+//            while ((s = stdInput.readLine()) != null) {
+//                System.out.println(s);
+//            }
+
+            // read any errors from the attempted command
+            boolean error = false;
+            while ((s = stdError.readLine()) != null) {
+                System.out.println(s);
+                error = true;
+            }
+
+            stdError.close();
+            if (error) return null;
+
+            ArrayList<Cluster> results = readResults(new File(fileName+".results"), allTrue);
+            p.waitFor();
+            p.getInputStream().close(); 
+            p.getOutputStream().close(); 
+            p.getErrorStream().close();             
+            return results;
+
+        } catch (Exception ex) {
+            Logger.getLogger(LARFDSSOM.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
+
+    public ArrayList<Cluster> readResults(File file, boolean allTrue) {
+        Scanner sc;
+        try {
+            sc = new Scanner(file);
+            sc.useLocale(Locale.ENGLISH);
+        } catch (IOException ex) {
+            Logger.getLogger(LARFDSSOM.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+
+        //Read clusters info
+        numClusters = sc.nextInt();
+        int numAttributes = sc.nextInt();
+
+        //Create clusters
+        ArrayList<Cluster> clusterList = new ArrayList<Cluster>();
+        for (int i=0; i<numClusters; i++) {
+           sc.nextInt(); //skip cluster number
+           double dsWs[] = new double[numAttributes];
+           double average = 0;
+           for (int j=0; j<numAttributes; j++) {
+               dsWs[j] = sc.nextFloat();
+               average+=dsWs[j];
+           }
+           average = average/numAttributes;
+           
+           /*
+           double deviation = 0;
+           for (int j=0; j<numAttributes; j++) {
+               deviation += Math.abs(average-dsWs[j]);
+           }
+           deviation = deviation/numAttributes;
+           average = average - deviation;
+           /**/
+
+           boolean[] subspace = new boolean[numAttributes];
+           for (int j=0; j<numAttributes; j++) {
+               if (allTrue) {
+                   subspace[j] = true;
+               } else {
+               if (dsWs[j]>=average)
+                   subspace[j] = true;
+               else
+                   subspace[j] = false;
+               }
+           }
+           
+           Cluster cluster = new Cluster(subspace, new ArrayList<Integer>());
+           clusterList.add(cluster);
+        }
+
+        //Read clusters data
+        while (sc.hasNext()) {
+            int index = sc.nextInt();
+            int cluster = sc.nextInt();
+            if (cluster>=0)
+                clusterList.get(cluster).m_objects.add(index);
+        }
+        /**/
+
+       return clusterList;
+    }
+}

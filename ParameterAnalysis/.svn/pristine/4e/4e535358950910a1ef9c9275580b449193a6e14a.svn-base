@@ -1,0 +1,90 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package setup;
+
+import java.util.ArrayList;
+
+/**
+ *
+ * @author hans
+ */
+public abstract class MethodParameters {
+    int experimentNumber = 1;
+    ArrayList<ClusteringParameter> parameterList = new ArrayList<ClusteringParameter>();
+    boolean finished = false;
+
+    abstract void setupParameterRanges();
+    
+    void addParameter(ClusteringParameter parameter, double start, double end, double step, ClusteringParameter.StepType stepType) {
+        parameter.setupRanges(start, end, step, stepType);
+        parameterList.add(parameter);
+    }
+    
+    abstract void setupParameterValues();
+
+    void setupNextParameters() {
+
+       if (parameterList.isEmpty()) {
+           finished=true;
+           return;
+       }
+       
+       int i=0;
+       while (parameterList.get(i).hasFinished()) {
+           parameterList.get(i).restart();
+           i++;
+           if (i>=parameterList.size()) {
+                finished=true;
+                return;
+           }
+       }
+       parameterList.get(i).next();
+       experimentNumber++;
+       setupParameterValues();
+    }
+
+    boolean hasFinished() {
+        return finished;
+    }
+     
+    void restartAllValues() {
+         for (ClusteringParameter cp: parameterList) {
+             cp.restart();
+         }
+         experimentNumber = 1;
+     }
+     
+    void printParameterNames() {
+        for (ClusteringParameter p:parameterList) {
+            System.out.print(p.getName() + "\t");
+        }
+    }
+    
+    void printParameterRanges() {
+        for (ClusteringParameter p:parameterList) {
+            double value = p.getStart();
+            System.out.print(p.getName() + ":      \t[\t");
+            while (value<=p.getEnd()+0.00000000001d) {
+                System.out.print(value+"\t");
+                if (p.getStepType()==ClusteringParameter.StepType.SUM) {
+                    value += p.getStep();
+                } else {
+                    value *= p.getStep();
+                }
+            }
+            System.out.println("]");
+        }
+    }
+        
+    void printParameterValues() {
+        for (ClusteringParameter p:parameterList) {
+            System.out.print(p.getValue()+"\t");
+        }
+    }
+
+    public int getExperimentNumber() {
+        return experimentNumber;
+    }
+}

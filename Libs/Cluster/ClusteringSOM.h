@@ -33,6 +33,8 @@
 #include <limits.h> 
 #include <sys/param.h>
 
+#include "DataDisplay.h"
+
 
 using namespace cv;
 using namespace std;
@@ -124,7 +126,7 @@ public:
         }
         
         if (ArffData::readArff(filename, *trainingData, groupLabels, groups)) {
-                ArffData::rescaleCols01(*trainingData);
+                //ArffData::rescaleCols01(*trainingData);
                 return true;
         }
        /*
@@ -331,19 +333,19 @@ public:
         int meshSize = getMeshSize();
         int inputSize = getInputSize();
 
-        //file << meshSize << "\t" << inputSize << endl;
+        file << meshSize << "\t" << inputSize << endl;
 
         for (int i = 0; i < meshSize; i++) {
             MatVector<float> relevances;
             getRelevances(i, relevances);
             
-            //file << i << "\t";
+            file << i << "\t";
             for (int j = 0; j < inputSize; j++) {
-                //file << relevances[j];
-                //if (j != inputSize - 1)
-                    //file << "\t";
+                file << relevances[j];
+                if (j != inputSize - 1)
+                    file << "\t";
             }
-            //file << endl;
+            file << endl;
         }
         
         std::vector<int> newGroups;
@@ -364,12 +366,12 @@ public:
             }
 
             for (int j = 0; j < winners.size(); j++) {
-                //file << i << "\t";
-                file << winners[j] << "\t";
-                //file << winners[j];
-                //file << endl;
+                file << i << "\t";
+                //file << winners[j] << "\t";
+                file << winners[j];
+                file << endl;
             }
-            file << endl;
+            //file << endl;
         }
         
         return true;
@@ -1180,6 +1182,25 @@ public:
 
     void train(MatMatrix<float> &trainingData, int N) {
         som->data = trainingData;
+        
+        //Compute group averages (optional)
+        MatMatrix<float> averages;
+        //ArffData::getGroupAverages(clusteringSOM->trainingData, clusteringSOM->groups, clusteringSOM->groupLabels, averages);
+
+        DataDisplay dataDisplay(&trainingData);
+
+         //dataDisplay.loadTrueClustersData(filename);
+         //dataDisplay.setGitter(GITTER);
+         //dataDisplay.setPadding(PADDING);
+
+         //*Step-by-step
+         for (int i=0; i < 200; i++) {
+             som->trainningStep();
+             som->enumerateNodes();
+             dataDisplay.display(*som);
+             //som->printMesh();
+         }
+        som->printMesh();
         //som->enumerateNodes();
         //som->trainning(N);
         //std::ofstream file;
@@ -1188,11 +1209,12 @@ public:
         /*if (!file.is_open()) {
             dbgOut(0) << "Error openning output file" << endl;
         }*/
-        for (int i=0; i<N; i++){
+        /*for (int i=0; i<N; i++){
             som->trainningStep();
+            //som->printMesh();
             //file << sumOfSquaredError(*som) << " ,";
             //dbgOut(1) << outClassError() << endl;
-        }
+        }*/
     }
     
     void getRelevances(int node_i, MatVector<float> &relevances) {

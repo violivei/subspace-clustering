@@ -1,0 +1,58 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package setup;
+
+import weka.subspaceClusterer.Statpc;
+
+
+/**
+ *
+ * @author hans
+ */
+public class STATPCParameters extends MethodParameters {
+
+    ClusteringParameter alphah;
+    ClusteringParameter alpha0;
+    ClusteringParameter alphak;
+    Statpc statpc;
+
+    public STATPCParameters(Statpc statpc) {
+        this.statpc = statpc;
+        setupParameterRanges();
+    }
+
+    @Override
+    void setupParameterRanges() {
+        alphah = new ClusteringParameter(0.001, 0.1, 10.0, ClusteringParameter.StepType.MULT, "alphah");
+        alpha0 = new ClusteringParameter(0.1, 0.4, 0.1, ClusteringParameter.StepType.SUM, "alpha0");
+        alphak = new ClusteringParameter(1024, 1024, 0, ClusteringParameter.StepType.SUM, "alphak");
+
+        parameterList.add(alphah);
+        parameterList.add(alpha0);
+        parameterList.add(alphak);
+    }
+
+    void setupParameterValues() {
+        statpc.setALPHA_h(alphah.getValue());
+        statpc.setALPHA_0(alpha0.getValue());
+        statpc.setALPHA_k(alphak.getValue());
+    }
+
+    public static void main(String args[]) {
+        Statpc statpc = new Statpc();
+        STATPCParameters statpcParameters = new STATPCParameters(statpc);
+
+        System.out.print("Exp\t");
+        statpcParameters.printParameterNames();
+        System.out.println();
+        while (!statpcParameters.hasFinished()) {
+            System.out.print(statpcParameters.getExperimentNumber()+"\t");
+            statpcParameters.printParameterValues();
+            System.out.println();
+            statpcParameters.setupNextParameters();
+        }
+    }
+}

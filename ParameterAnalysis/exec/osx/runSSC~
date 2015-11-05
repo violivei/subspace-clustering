@@ -1,0 +1,4 @@
+#!/bin/sh
+export PATH=$PATH:/Applications/MATLAB_R2012a.app/bin/
+cd $1
+matlab -nodesktop -nosplash -r "RunSSCArff('$2', $3);quit;"

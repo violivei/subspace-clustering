@@ -457,15 +457,15 @@ build/Debug/GNU-Linux-x86/main.o: main.cpp \
  /usr/local/MATLAB/R2014a/extern/include/mat.h \
  /usr/local/MATLAB/R2014a/extern/include/matrix.h \
  /usr/local/MATLAB/R2014a/extern/include/tmwtypes.h \
- /usr/local/MATLAB/R2014a/extern/include/engine.h ../Libs/SOM/LARFDSSOM.h \
- ../Libs/SOM/SOM.h ../Libs/SOM/DSNode.h ../Libs/CImg/DataDisplay.h \
- ../Libs/CImg/CImg.h ../Libs/SOM/delete/SOM2D.h \
- ../Libs/SOM/delete/Neuron.h ../Libs/SOM/delete/SOM2D.cpp \
- ../Libs/SOM/delete/SOM2D.h ../Libs/SOM/delete/DSSOM.h \
- ../Libs/SOM/delete/DSNeuron.h ../Libs/SOM/delete/DSSOM.cpp \
- ../Libs/SOM/delete/DSSOM.h ../Libs/SOM/delete/DSSOMC.h \
- ../Libs/SOM/delete/DSSOMC.cpp ../Libs/SOM/delete/DSSOMC.h \
- ../Libs/SOM/delete/DSNeuron.h \
+ /usr/local/MATLAB/R2014a/extern/include/engine.h \
+ ../Libs/CImg/DataDisplay.h ../Libs/CImg/CImg.h \
+ ../Libs/SOM/delete/SOM2D.h ../Libs/SOM/delete/Neuron.h \
+ ../Libs/SOM/delete/SOM2D.cpp ../Libs/SOM/delete/SOM2D.h \
+ ../Libs/SOM/delete/DSSOM.h ../Libs/SOM/delete/DSNeuron.h \
+ ../Libs/SOM/delete/DSSOM.cpp ../Libs/SOM/delete/DSSOM.h \
+ ../Libs/SOM/delete/DSSOMC.h ../Libs/SOM/delete/DSSOMC.cpp \
+ ../Libs/SOM/delete/DSSOMC.h ../Libs/SOM/delete/DSNeuron.h \
+ ../Libs/SOM/LARFDSSOM.h ../Libs/SOM/SOM.h ../Libs/SOM/DSNode.h \
  ../Libs/bestMap/bipartite_matching_commented.h
 
 ../Libs/MatMatrix/../dlib/optimization/max_cost_assignment.h:
@@ -1406,12 +1406,6 @@ build/Debug/GNU-Linux-x86/main.o: main.cpp \
 
 /usr/local/MATLAB/R2014a/extern/include/engine.h:
 
-../Libs/SOM/LARFDSSOM.h:
-
-../Libs/SOM/SOM.h:
-
-../Libs/SOM/DSNode.h:
-
 ../Libs/CImg/DataDisplay.h:
 
 ../Libs/CImg/CImg.h:
@@ -1439,5 +1433,11 @@ build/Debug/GNU-Linux-x86/main.o: main.cpp \
 ../Libs/SOM/delete/DSSOMC.h:
 
 ../Libs/SOM/delete/DSNeuron.h:
+
+../Libs/SOM/LARFDSSOM.h:
+
+../Libs/SOM/SOM.h:
+
+../Libs/SOM/DSNode.h:
 
 ../Libs/bestMap/bipartite_matching_commented.h:

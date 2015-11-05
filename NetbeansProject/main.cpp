@@ -32,6 +32,63 @@
 using namespace std;
 using namespace dlib;
 
+
+
+void printTruth(const std::string &filename, ClusteringMeshSOM *clusteringSOM) {
+
+    std::ofstream file;
+    file.open(filename.c_str()); 
+    std::vector<int> groupQuantity;    
+    int count;
+    
+    for (int j = 0; j < clusteringSOM->groupLabels.size(); j++) {
+        count = 0;
+        for (int i = 0; i < clusteringSOM->groups.size(); i++) {
+            
+            if(clusteringSOM->groups[i] == clusteringSOM->groupLabels[j] - 1){
+                count++;
+            }            
+        }
+        groupQuantity.push_back(count);
+    }
+    
+    
+    file << "DIM=" << clusteringSOM->getInputSize() << ";";
+    file << endl;
+    
+    for (int j = 0; j < clusteringSOM->groupLabels.size(); j++) {
+        
+        for (int k = 0; k < clusteringSOM->getInputSize(); k++) {
+            file << "1 ";
+        }
+        
+        if(groupQuantity[j] > 1){
+            file << groupQuantity[j]<< " ";
+        }else{
+            file << groupQuantity[j];
+        }
+        
+        count = 0;
+        for (int i = 0; i < clusteringSOM->groups.size(); i++) {
+            
+            if(clusteringSOM->groups[i] == clusteringSOM->groupLabels[j] - 1){
+                count++;
+                if(groupQuantity[j] > 1){
+                    if(count < groupQuantity[j])
+                       file << i << " ";
+                    else
+                       file << i ;
+                }else{
+                    file << i ;
+                }
+                    
+            }
+        }
+        file << endl;
+    }    
+    
+}
+
 int main(int argc, char** argv) {
 
     int seed = 0;
@@ -120,7 +177,15 @@ int main(int argc, char** argv) {
         return -1;
     }
         
-    while(count < 10){
+    istringstream iss(filename);
+    std::vector<std::string> tokens;
+    std::string token;
+    while (std::getline(iss, token, '.')) {
+        if (!token.empty())
+            tokens.push_back(token);
+    }    
+        
+    while(count < 1){
     
         dbgOut(1) << "Running LARFDSSOM for file: " << filename << endl;
 
@@ -153,7 +218,7 @@ int main(int argc, char** argv) {
             somDef.minwd = somDef.minwd*sqrt(clusteringSOM->getInputSize());
             somDef.age_wins = round(somDef.age_wins*clusteringSOM->getNumSamples());
                         
-            typedef matrix<double, 5000, 1> sample_type;       
+            /*typedef matrix<double, 5000, 1> sample_type;       
             vector_normalizer<sample_type> normalizer;
             std::vector<sample_type> samples;
             
@@ -192,9 +257,12 @@ int main(int argc, char** argv) {
                     //printf(" %f ", clusteringSOM->trainingData->get(i,j));
                 }
                 //printf("\n\n\n");
-            }
+            }*/
             
             somDef.reset(clusteringSOM->getInputSize());
+            
+            //printTruth(tokens[0] + ".true", clusteringSOM);
+            
             clusteringSOM->trainSOM(epocs*clusteringSOM->getNumSamples());
             //clusteringSOM.trainSOM(3000);
             somDef.finishMapFixed();
@@ -286,6 +354,8 @@ int main(int argc, char** argv) {
     fprintf(stderr, " Acc: %f \n", totalAccuracy/count);
 
 }
+
+
 
 
 /*

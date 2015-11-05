@@ -1,0 +1,70 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package setup;
+
+import weka.subspaceClusterer.MineClus;
+
+
+/**
+ *
+ * @author hans
+ */
+public class MineClusParameters extends MethodParameters {
+
+    ClusteringParameter alpha;
+    ClusteringParameter beta;
+    ClusteringParameter maxout;
+    ClusteringParameter k;
+    ClusteringParameter numbins;
+    ClusteringParameter w;
+    MineClus mineClus;
+
+    public MineClusParameters(MineClus mineClus) {
+        this.mineClus = mineClus;
+        setupParameterRanges();
+    }
+
+    @Override
+    void setupParameterRanges() {
+        alpha = new ClusteringParameter(0.001, 0.1, 10.0, ClusteringParameter.StepType.MULT, "alpha");
+        beta = new ClusteringParameter(0.1, 0.4, 0.1, ClusteringParameter.StepType.SUM, "beta");
+        maxout = new ClusteringParameter(-1, -1, 0, ClusteringParameter.StepType.SUM, "maxout");
+        k = new ClusteringParameter(2, 64, 2, ClusteringParameter.StepType.MULT, "k");
+        numbins = new ClusteringParameter(1.0, 1.0, 0, ClusteringParameter.StepType.SUM, "numBins");
+        w = new ClusteringParameter(50, 200, 2, ClusteringParameter.StepType.MULT, "w");
+
+        parameterList.add(alpha);
+        parameterList.add(beta);
+        //parameterList.add(maxout);
+        parameterList.add(k);
+        //parameterList.add(numbins);
+        parameterList.add(w);
+    }
+
+    void setupParameterValues() {
+        mineClus.setALPHA(alpha.getValue());
+        mineClus.setBETA(beta.getValue());
+        mineClus.setMAXOUT((int)maxout.getValue());
+        mineClus.setk((int)k.getValue());
+        mineClus.setnumBins((int)numbins.getValue());
+        mineClus.setw(w.getValue());
+    }
+
+    public static void main(String args[]) {
+        MineClus mineclus = new MineClus();
+        MineClusParameters mineClusParameters = new MineClusParameters(mineclus);
+
+        System.out.print("Exp\t");
+        mineClusParameters.printParameterNames();
+        System.out.println();
+        while (!mineClusParameters.hasFinished()) {
+            System.out.print(mineClusParameters.getExperimentNumber()+"\t");
+            mineClusParameters.printParameterValues();
+            System.out.println();
+            mineClusParameters.setupNextParameters();
+        }
+    }
+}
