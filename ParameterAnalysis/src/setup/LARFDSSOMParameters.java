@@ -35,26 +35,26 @@ public class LARFDSSOMParameters extends MethodParameters{
         parameterList.add(som.ho_f);
         parameterList.add(som.dsbeta);*/
         
-        som.maxNodeNumber.setupRanges(10, 100, 10, ClusteringParameter.StepType.SUM);
-        som.e_b.setupRanges(0.0000001, 0.0005, 10, ClusteringParameter.StepType.MULT);
-        som.e_n.setupRanges(0.001, 0.1, 10, ClusteringParameter.StepType.MULT);
-        som.dsbeta.setupRanges(0.1, 1.00, 0.025, ClusteringParameter.StepType.SUM);
-        som.epsilon_ds.setupRanges(0.001, 0.1, 0.025, ClusteringParameter.StepType.SUM);
-        som.minwd.setupRanges(0.5, 1.00, 0.025, ClusteringParameter.StepType.SUM);
-        som.age_wins.setupRanges(2, 20, 5, ClusteringParameter.StepType.SUM);
-        som.lp.setupRanges(0.04, 1.00, 0.025, ClusteringParameter.StepType.SUM);
-        som.a_t.setupRanges(0.975, 1.0, 0.025, ClusteringParameter.StepType.SUM);
+        //som.maxNodeNumber.setupRanges(10, 100, 10, ClusteringParameter.StepType.SUM);
+        //som.e_b.setupRanges(0.05, 1, 0.05, ClusteringParameter.StepType.SUM);
+        //som.e_n.setupRanges(0.05, 1, 0.05, ClusteringParameter.StepType.SUM);
+        //som.dsbeta.setupRanges(0.1, 1.00, 0.025, ClusteringParameter.StepType.SUM);
+        //som.epsilon_ds.setupRanges(0.001, 0.1, 0.025, ClusteringParameter.StepType.SUM);
+        //som.minwd.setupRanges(0.5, 1.00, 0.025, ClusteringParameter.StepType.SUM);
+        //som.age_wins.setupRanges(2, 20, 5, ClusteringParameter.StepType.SUM);
+        som.lp.setupRanges(0.001, 0.1, 0.005, ClusteringParameter.StepType.SUM);
+        //som.a_t.setupRanges(0.975, 1.0, 0.001, ClusteringParameter.StepType.SUM);
         //som.epocs.setupRanges(10, 10, 0, ClusteringParameter.StepType.SUM);
         
-        parameterList.add(som.maxNodeNumber);
-        parameterList.add(som.e_b);
-        parameterList.add(som.e_n);
-        parameterList.add(som.dsbeta);
-        parameterList.add(som.epsilon_ds);
-        parameterList.add(som.minwd);
-        parameterList.add(som.age_wins);
+        //parameterList.add(som.maxNodeNumber);
+        //parameterList.add(som.e_b);
+        //parameterList.add(som.e_n);
+        //parameterList.add(som.dsbeta);
+        //parameterList.add(som.epsilon_ds);
+        //parameterList.add(som.minwd);
+        //parameterList.add(som.age_wins);
         parameterList.add(som.lp);
-        parameterList.add(som.a_t);        
+        //parameterList.add(som.a_t);        
         //parameterList.add(som.epocs);
         
     }

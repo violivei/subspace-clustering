@@ -95,8 +95,12 @@ public:
     virtual int getNodeId(int node_i) {
         return node_i;
     }
+    
+    virtual float getDimRel(int index) {};
 
     virtual void train(MatMatrix<float> &trainingData, int N) = 0;
+    
+    virtual void getMeans(int node_i, MatVector<float> &means) = 0;
     
     virtual void getRelevances(int node_i, MatVector<float> &relevances) = 0;
     
@@ -126,7 +130,7 @@ public:
         }
         
         if (ArffData::readArff(filename, *trainingData, groupLabels, groups)) {
-                //ArffData::rescaleCols01(*trainingData);
+                ArffData::rescaleCols01(*trainingData);
                 return true;
         }
        /*
@@ -319,8 +323,93 @@ public:
 
         train(*trainingData, N);
     }
+    
+     void printDataByGroup(const std::string &filename) {
 
-    bool writeClusterResults(const std::string &filename) {
+        std::ofstream file;
+        file.open(filename.c_str());
+        for (int k = 0; k < groupLabels.size(); k++) {
+
+            for (int i = 0; i < trainingData->rows(); i++) {
+                MatVector<float> sample;    
+                trainingData->getRow(i, sample);
+                if(groupLabels[k] == groupLabels[groups[i]]){
+                    //file << sample.sum() << ",";
+                    for (int j = 0; j < sample.size(); j++) {
+                        file << sample[j] << ",";
+                    }
+                    file << groupLabels[groups[i]];
+                    file << endl;
+                }
+            }
+            file << endl << endl; 
+        }
+        
+    }
+    
+    void printData(const std::string &filename) {
+
+        std::ofstream file;
+        file.open(filename.c_str());
+        
+        for (int i = 0; i < trainingData->rows(); i++) {
+            /*MatVector<float> sample;    
+            trainingData->getRow(i, sample);
+            for (int j = 0; j < sample.size(); j++) {
+                file << sample[j] << " ";
+            }
+            file << endl;*/
+            file << groups[i] << "," << endl;
+        }
+        
+    }
+    
+    void printDataInverse(const std::string &filename) {
+
+        std::ofstream file;
+        file.open(filename.c_str());
+        
+        for (int i = 0; i < trainingData->cols(); i++) {
+            MatVector<float> sample;    
+            trainingData->getCol(i, sample);
+            for (int j = 0; j < sample.size(); j++) {
+                file << sample[j] << " ";
+            }
+            file << endl;
+        }
+        
+    }
+    
+    void printDataByGroupInverse(const std::string &filename) {
+
+        std::ofstream file;
+        file.open(filename.c_str());
+        for (int k = 0; k < groupLabels.size(); k++) {
+            MatMatrix<float> matrix;
+            
+            for (int i = 0; i < trainingData->rows(); i++) {
+                MatVector<float> sample;    
+                trainingData->getRow(i, sample);
+                if(groupLabels[k] == groupLabels[groups[i]]){
+                    matrix.concatRows(sample);
+                } 
+            }
+            
+            for (int i = 0; i < matrix.cols(); i++) {
+                for (int j = 0; j < matrix.rows(); j++) {
+                    
+                    file << matrix[j][i] << " ";                
+                }
+                file << endl; 
+            }
+            
+            file << endl; 
+        }
+        
+    }
+
+
+    bool writeClusterResults(const std::string &filename, MatVector<float> globalDimensionRelevances) {
 
         std::ofstream file;
         file.open(filename.c_str());
@@ -334,6 +423,21 @@ public:
         int inputSize = getInputSize();
 
         file << meshSize << "\t" << inputSize << endl;
+        
+        for (int i = 0; i < meshSize; i++) {
+            MatVector<float> means;
+            getMeans(i, means);
+            
+            file << i << "\t";
+            for (int j = 0; j < inputSize; j++) {
+                file << std::fixed << std::setprecision(5) << means[j];
+                if (j != inputSize - 1)
+                    file << "\t";
+            }
+            file << endl;
+        }
+        
+        file << endl;
 
         for (int i = 0; i < meshSize; i++) {
             MatVector<float> relevances;
@@ -341,7 +445,22 @@ public:
             
             file << i << "\t";
             for (int j = 0; j < inputSize; j++) {
-                file << relevances[j];
+                file << std::fixed << std::setprecision(5) << relevances[j];
+                if (j != inputSize - 1)
+                    file << "\t";
+            }
+            file << endl;
+        }
+        
+        file << endl;
+        
+        for (int i = 0; i < meshSize; i++) {
+            MatVector<float> weights;
+            getWeights(i, weights);
+            
+            file << i << "\t";
+            for (int j = 0; j < inputSize; j++) {
+                file << std::fixed << std::setprecision(5) << weights[j];
                 if (j != inputSize - 1)
                     file << "\t";
             }
@@ -350,7 +469,7 @@ public:
         
         std::vector<int> newGroups;
         for (int i = 0; i < trainingData->rows(); i++) {
-            MatVector<float> sample;
+            MatVector<float> sample;    
             
             trainingData->getRow(i, sample);
             //if (filterNoise && isNoise(sample))
@@ -367,7 +486,6 @@ public:
 
             for (int j = 0; j < winners.size(); j++) {
                 file << i << "\t";
-                //file << winners[j] << "\t";
                 file << winners[j];
                 file << endl;
             }
@@ -1172,8 +1290,9 @@ public:
 
 #ifdef SOM_H_
 class ClusteringMeshSOM: public ClusteringSOM<SOM<DSNode> > {
-
+    
 public:
+    
     ClusteringMeshSOM(SOM<DSNode> *som) : ClusteringSOM<SOM<DSNode> >(som){};
     
     int getMeshSize() {
@@ -1187,20 +1306,81 @@ public:
         MatMatrix<float> averages;
         //ArffData::getGroupAverages(clusteringSOM->trainingData, clusteringSOM->groups, clusteringSOM->groupLabels, averages);
 
-        DataDisplay dataDisplay(&trainingData);
-
+        //DataDisplay dataDisplay(&trainingData);
+        
+        //std::map<int, int> groupLavelsVector;
+        //for (int j=0; j < groupLabels.size(); j++) {
+        //    groupLavelsVector.push_back(groupLabels[j]);
+        //}
+        
+        std::vector<int> classes;
+        for (int j=0; j < groups.size(); j++) {
+            classes.push_back(groups[j]);
+        }
+        som->classes = classes;
+        som->groupLavelsVector = groupLabels;
+        
+        //som->setStartNode();
+        
+        //som->getDimensionRelevancesVector(); 
+        
+        //som->createStartNodes(groups, groupLabels);    
+        
+        //som->printDistanceMetricBtwCentroids(filename + ".MOVIES_MEDIA_BEFORE.distanceBtwCentroids");
+        
+        
+        //som->createStartNodesRandom(groups, groupLavelsVector);
+        //som->createStartNodesPCA(groups, groupLavelsVector);
+        
          //dataDisplay.loadTrueClustersData(filename);
          //dataDisplay.setGitter(GITTER);
          //dataDisplay.setPadding(PADDING);
-
+        //som->setStartNode();
          //*Step-by-step
-         for (int i=0; i < 200; i++) {
-             som->trainningStep();
-             som->enumerateNodes();
-             dataDisplay.display(*som);
+        
+        //som->printMeshFile(filename + ".mesh", 0);
+        
+        
+        
+        int inter = 1;
+        int elm = 0;
+        int classIndex = 0;
+        int vindex = 0;
+        som->totalEpochs = N;
+         for (int i=0; i <= N; i++) {
+             
+           /* while(groupLabels[groups[vindex]] != groupLabels[classIndex]){
+                vindex = rand()%trainingData.rows();
+            }
+            som->trainningStep(vindex);
+            if(classIndex < groupLabels.size() - 1)
+                classIndex++;
+            else
+                classIndex=0;*/
+            //som->trainningStep(elm);
+            som->trainningStep();
+             
+             //som->printMeshFile(filename + ".mesh", i);
+             //som->printMeshFile(filename + ".mesh", i);
+             //writeClusterResults(filename + ".resultsAfter"); 
+             //som->enumerateNodes();
+             elm++;
+             int size = trainingData.rows();
+             if(i > 0 && i % (size - 1) == 0){                 
+                //dataDisplay.display(*som);
+                //som->printMeshFile(filename + ".mesh", inter);
+                inter++;
+                elm = 0;
+             }
              //som->printMesh();
          }
-        som->printMesh();
+        
+        //som->resetNodeVectors();
+        //som->appendSamplesToWinners();
+        //som->printEucMeanNodes(filename + ".euc");
+        //som->printMeshFile(filename + ".mesh", 0);
+        //som->printWinners();
+        //som->printMesh();
         //som->enumerateNodes();
         //som->trainning(N);
         //std::ofstream file;
@@ -1215,6 +1395,18 @@ public:
             //file << sumOfSquaredError(*som) << " ,";
             //dbgOut(1) << outClassError() << endl;
         }*/
+    }
+    
+    void getMeans(int node_i, MatVector<float> &relevances) {
+        SOM<DSNode>::TPNodeSet::iterator it = som->meshNodeSet.begin();
+        int i=0;
+        for (; it != som->meshNodeSet.end(); it++, i++) {
+            if (i==node_i) {
+                relevances = (*it)->a;
+                return;
+            }
+        }
+        return;
     }
     
     void getRelevances(int node_i, MatVector<float> &relevances) {

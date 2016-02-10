@@ -5,6 +5,7 @@
  * Created on 11 de Outubro de 2010, 07:25
  */
 
+#include <armadillo>
 #include "../dlib/optimization/max_cost_assignment.h"
 #include "../dlib/svm.h"
 #include <stdlib.h>
@@ -31,10 +32,10 @@
 
 using namespace std;
 using namespace dlib;
+using namespace arma;
 
 
-
-void printTruth(const std::string &filename, ClusteringMeshSOM *clusteringSOM) {
+/*void printTruth(const std::string &filename, ClusteringMeshSOM *clusteringSOM) {
 
     std::ofstream file;
     file.open(filename.c_str()); 
@@ -87,7 +88,7 @@ void printTruth(const std::string &filename, ClusteringMeshSOM *clusteringSOM) {
         file << endl;
     }    
     
-}
+}*/
 
 int main(int argc, char** argv) {
 
@@ -177,13 +178,13 @@ int main(int argc, char** argv) {
         return -1;
     }
         
-    istringstream iss(filename);
+    /*istringstream iss(filename);
     std::vector<std::string> tokens;
     std::string token;
     while (std::getline(iss, token, '.')) {
         if (!token.empty())
             tokens.push_back(token);
-    }    
+    }    */
         
     while(count < 1){
     
@@ -195,6 +196,8 @@ int main(int argc, char** argv) {
         somDef.maxNodeNumber = som.maxNodeNumber;
         somDef.e_b = som.e_b;
         somDef.e_n = som.e_n;
+        somDef.e_b0 = som.e_b;
+        somDef.e_n0 = som.e_n;
         somDef.dsbeta = som.dsbeta;
         somDef.epsilon_ds = som.epsilon_ds;
 
@@ -217,8 +220,54 @@ int main(int argc, char** argv) {
             clusteringSOM->setFilterNoise(filterNoise);
             somDef.minwd = somDef.minwd*sqrt(clusteringSOM->getInputSize());
             somDef.age_wins = round(somDef.age_wins*clusteringSOM->getNumSamples());
-                        
-            /*typedef matrix<double, 5000, 1> sample_type;       
+            //somDef.minwd = 30;
+            
+            // Input matrix of type float
+            /*fmat inMat(clusteringSOM->trainingData->rows(), clusteringSOM->trainingData->cols(), arma::fill::zeros);;
+
+            // Output matrices
+            fmat U;
+            fvec S;
+            fmat V;
+
+            
+            
+            for (unsigned long i = 0; i < clusteringSOM->trainingData->rows(); ++i){
+                
+                for (unsigned long j = 0; j < clusteringSOM->trainingData->cols(); ++j){                    
+                    inMat(i,j) = clusteringSOM->trainingData->get(i,j); 
+                    //printf(" %f ", inMat(i,j));
+                }
+                //printf("\n");
+            }
+            
+            // Perform SVD
+            arma::svd(U, S, V, inMat);
+            clusteringSOM->trainingData = new MatMatrix<float>();
+            
+            for (unsigned long i = 0; i < U.n_rows; ++i){
+                MatVector<float> row;
+                for (unsigned long j = 0; j < U.n_cols; ++j){  
+                    row.append(U(i,j));
+                    //printf(" %f ", clusteringSOM->trainingData->get(i,j));
+                }
+                clusteringSOM->trainingData->concatRows(row);
+                row.clear();
+                //printf("\n");
+            }
+            
+             for (unsigned long i = 0; i < clusteringSOM->trainingData->rows(); ++i){
+                
+                for (unsigned long j = 0; j < clusteringSOM->trainingData->cols(); ++j){                    
+                    inMat(i,j) = clusteringSOM->trainingData->get(i,j); 
+                    //printf(" %f ", inMat(i,j));
+                }
+                //printf("\n");
+            }*/
+            
+            
+             /*   
+            typedef matrix<double, 5000, 1> sample_type;       
             vector_normalizer<sample_type> normalizer;
             std::vector<sample_type> samples;
             
@@ -246,9 +295,13 @@ int main(int argc, char** argv) {
                      MatVector<float> row;
                      for (unsigned long j = 0; j < dataCols; ++j){ 
                          //printf(" %f ", samples[i](j));
-                         row.append(samples[i](j));
+                         //if(samples[i](j) > 0)
+                            row.append(samples[i](j));
+                         //else
+                            //row.append(0);
                      }
                      clusteringSOM->trainingData->concatRows(row);
+                     row.clear();
             }
                         
             for (unsigned long i = 0; i < dataRows; ++i){
@@ -259,24 +312,40 @@ int main(int argc, char** argv) {
                 //printf("\n\n\n");
             }*/
             
+            //ArffData::rescaleColsSparse(*clusteringSOM->trainingData);
+            //clusteringSOM->printDataByGroup(filename + ".ones");
+            clusteringSOM->printData(filename + ".data");  
             somDef.reset(clusteringSOM->getInputSize());
             
             //printTruth(tokens[0] + ".true", clusteringSOM);
             
             clusteringSOM->trainSOM(epocs*clusteringSOM->getNumSamples());
+            //clusteringSOM->trainSOM(epocs);
+            
             //clusteringSOM.trainSOM(3000);
-            somDef.finishMapFixed();
-
+            //somDef.finishMapFixed(filename);
+            //somDef.finishMap(epocs*clusteringSOM->getNumSamples());
+            
+            //somDef.printDistanceMetricBtwCentroids("MOVIES.distanceBtwCentroids");
+            clusteringSOM->som->outAccuracy();
+            
+            //DataDisplay dataDisplay(clusteringSOM->trainingData);
+            //dataDisplay.setGitter(GITTER);
+            //dataDisplay.setPadding(PADDING);
+            //dataDisplay.display(*clusteringSOM->som);
+            
             //if(clusteringSOM->getMeshSize() == clusteringSOM->groupLabels.size())
             {
-                clusteringSOM->writeClusterResults(filename + ".results");    
+                clusteringSOM->writeClusterResults(filename + ".results", somDef.globalDimensionRelevances);    
                 //clusteringSOM.groups.clear();
-                clusteringSOM->outConfusionMatrix(filename + ".outConfusionMatrix");
+                //dbgOut(1) << endl;
+                //clusteringSOM->outConfusionMatrix(filename + ".outConfusionMatrix");
                 
                 //dbgOut(1) << clusteringSOM->printConditionalEntropy(clusteringSOM->groups);
-                //dbgOut(1) << clusteringSOM.outClassInfo() << endl;
+                //clusteringSOM->som->appendSamplesToWinners();
+                //dbgOut(1) << clusteringSOM->outClassInfo() << endl;
                 //fprintf(stderr, "%s", clusteringSOM->outClassInfo().c_str());
-                matrix<int> cost(clusteringSOM->groupLabels.size(),clusteringSOM->groupLabels.size());
+                /*matrix<int> cost(clusteringSOM->groupLabels.size(),clusteringSOM->groupLabels.size());
                 int counter;
                 
                 for (int l = 0; l < clusteringSOM->groupLabels.size(); l++) { 
@@ -285,7 +354,7 @@ int main(int argc, char** argv) {
                         
                         counter = 0;
                         for (int j = 0; j < clusteringSOM->groups.size(); j++) {
-                            if(clusteringSOM->groupLabels[l] - 1  == clusteringSOM->groups[j]){
+                            if(clusteringSOM->groupLabels[l] == clusteringSOM->groupLabels[clusteringSOM->groups[j]]){
                                 if(k  == clusteringSOM->winn[j]){
                                     counter++;
                                 }
@@ -320,13 +389,14 @@ int main(int argc, char** argv) {
                     for(int x=0; x < clusteringSOM->groups.size() ;x++)
                     {
                         //printf("  %d = %d | %d  \n", clusteringSOM->groups[x], (int)assignment[l], clusteringSOM->groupLabels[l]);
-                        if(clusteringSOM->groups[x] == clusteringSOM->groupLabels[l] - 1){ 
+                        if(clusteringSOM->groupLabels[clusteringSOM->groups[x]] == clusteringSOM->groupLabels[l]){ 
                             //printf("  %d = %d | %d  \n", clusteringSOM->groups[x], (int)assignment[l], clusteringSOM->groupLabels[l]-1);
                             newArray[x] = assignment[l];
                         }
                     }
                 }
                 
+                std::map<int, int> accPerGroup;
                 
                 int hits = 0;
                 for(int x=0; x < clusteringSOM->winn.size() ;x++)
@@ -334,6 +404,7 @@ int main(int argc, char** argv) {
                     //printf("%d  %d  %d \n", clusteringSOM->winn[x], newArray[x], clusteringSOM->groups[x]);
                     if(clusteringSOM->winn[x] == newArray[x])
                     {
+                        accPerGroup[newArray[x]]++; 
                         hits++;
                     }          
                 }
@@ -341,7 +412,7 @@ int main(int argc, char** argv) {
                 fprintf(stderr, " Temp Acc: %f \n", (double)hits/clusteringSOM->winn.size());
                 //if((double)hits/clusteringSOM->winn.size() > totalAccuracy)
                     //totalAccuracy = (double)hits/clusteringSOM->winn.size();
-                totalAccuracy += (double)hits/clusteringSOM->winn.size();
+                totalAccuracy += (double)hits/clusteringSOM->winn.size();*/
                 count++;
             }
         }

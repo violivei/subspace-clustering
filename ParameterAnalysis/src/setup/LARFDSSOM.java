@@ -22,16 +22,16 @@ public class LARFDSSOM extends ExternalClusteringMethod {
     
     ClusteringParameter epochs = new ClusteringParameter(50,"epochs");*/
     
-    ClusteringParameter maxNodeNumber = new ClusteringParameter(5, "maxNodeNumber");
-    ClusteringParameter e_b = new ClusteringParameter(0.0005, "e_b");
-    ClusteringParameter e_n = new ClusteringParameter(0.000001, "e_n");
+    ClusteringParameter maxNodeNumber = new ClusteringParameter(17, "maxNodeNumber");
+    ClusteringParameter e_b = new ClusteringParameter(0.55, "e_b");
+    ClusteringParameter e_n = new ClusteringParameter(0.01, "e_n");
     ClusteringParameter dsbeta = new ClusteringParameter(0.1, "dsbeta");
     ClusteringParameter epsilon_ds = new ClusteringParameter(0.001, "epsilon_ds");
     ClusteringParameter minwd = new ClusteringParameter(0.5, "minwd");
-    ClusteringParameter age_wins = new ClusteringParameter(2, "age_wins");
-    ClusteringParameter lp = new ClusteringParameter(0.1, "lp");
-    ClusteringParameter a_t = new ClusteringParameter(0.700, "a_t");
-    ClusteringParameter epocs = new ClusteringParameter(10, "epocs");
+    ClusteringParameter age_wins = new ClusteringParameter(20, "age_wins");
+    ClusteringParameter lp = new ClusteringParameter(0.001, "lp");
+    ClusteringParameter a_t = new ClusteringParameter(0.978, "a_t");
+    ClusteringParameter epocs = new ClusteringParameter(1, "epocs");
 
     @Override
     public String generateCommandString(String fileName) {

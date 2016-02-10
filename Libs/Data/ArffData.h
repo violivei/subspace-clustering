@@ -733,6 +733,24 @@ public:
 
         return true;
     }
+    
+    static void rescaleColsSparse(MatMatrix<float> &data) {
+        MatVector<float> sum(data.cols());
+        sum.fill(0);
+        
+        for (int i = 0; i < data.cols(); i++) {
+            for (int j = 0; j < data.rows(); j++) {
+                sum[i] += data[j][i];
+            }
+            //dbgOut(1) << sum[i] << " ";
+        }
+        
+        for (int i = 0; i < data.cols(); i++) {
+            for (int j = 0; j < data.rows(); j++) {
+                data[j][i] = data[j][i]/sum[i];
+            }
+        }
+    }
 
     static void rescaleCols01(MatMatrix<float> &data) {
 

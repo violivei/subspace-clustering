@@ -27,14 +27,27 @@ public:
     TPNodeConnectionMap nodeMap;
 
     TVector a;
+    TVector mean;
+    TVector min;
+    TVector max;
     TVector ds;
-
+            
     DSNode(int idIn, const TVector &v) : NodeW(idIn, v) {
         ds.size(v.size());
         ds.fill(1);
 
         a.size(v.size());
         a.fill(0);
+
+        mean.size(v.size());
+        mean.fill(0);
+        
+        min.size(v.size());
+        min.fill(0);
+        
+        max.size(v.size());
+        max.fill(0);
+        
     };    
     
     void write(std::ofstream &file) {

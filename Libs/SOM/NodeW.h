@@ -24,7 +24,12 @@ public:
     typedef std::map<NodeW*, TConnection*> TPNodeConnectionMap; //Para mapeamento local dos n�s e conex�es ligadas a this
     TPNodeConnectionMap nodeMap;
 
-    TVector w;
+    TVector w;    
+    MatMatrix<float> *previousNodes = new MatMatrix<float>();
+    std::vector<int> *classes = new std::vector<int>();
+    double maxEucDist;
+    double minEucDist;
+    double meanEucDist;
 
     NodeW(int idIn, const TVector &v) : NodeLb(idIn), w(v) {
     };

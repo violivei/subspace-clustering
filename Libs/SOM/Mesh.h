@@ -197,6 +197,20 @@ public:
 
         return false;
     }
+    
+    void setStartNode() {
+        using namespace std;
+
+        uint wSize = (*meshNodeSet.begin())->w.size();
+         
+        int i = 0;
+        typename TPNodeSet::iterator it;
+        for (it = meshNodeSet.begin(); it != meshNodeSet.end(); it++) {
+            for (uint j = 0; j < wSize; j++)
+                (*it)->w[j] = 0;
+            i++;
+        }        
+    }
 
     void destroyMesh() {
         //std::cout << "Destrutor de Mesh sendo chamado\n";
