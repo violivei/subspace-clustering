@@ -518,8 +518,8 @@ public:
     LARFDSSOM& removeLoosers() {
 
         //outAccuracy();
-        printWinners();
-        dbgOut(1) << "CORTE: " << age_wins*lp << endl;
+        
+        //dbgOut(1) << "CORTE: " << age_wins*lp << endl;
         
         TPNodeSet::iterator itMesh = meshNodeSet.begin();
         while (itMesh != meshNodeSet.end()) {
@@ -542,7 +542,7 @@ public:
                 (*it)->classes = new std::vector<int>();
                 (*it)->previousNodes = new MatMatrix<float>();
         }
-               
+        //printWinners();       
         //outAccuracy();
         return *this;
     }
@@ -871,48 +871,7 @@ public:
     
     LARFDSSOM& createStartNodesPCA(std::vector<int> groups, std::vector<int> groupLabels) {
                 
-        // Input mat: 100 6-dimensional points
-        // Rows: 100 Cols: 6 Type: CV_F32
-        MatVector<TVector> allNodes;
-        Mat pt_mat(data.rows(), data.cols(), CV_64F, Scalar(0));
-               
-        for (int i=0; i < data.rows(); i++) {
-            for (int j=0; j < data.cols(); j++) {
-                pt_mat.at<double>(i,j)= (double)data[i][j];
-            }
-        }
-
-        cv::PCA pt_pca(pt_mat, cv::Mat(), CV_PCA_DATA_AS_ROW, 0);
-
-        // Mean
-        // Rows: 1 Cols: 6
-        cv::Mat pt_mean = pt_pca.mean;
-
-        // Eigen values
-        // In highest to lowest order
-        // Rows: 6 Cols: 1
-
-        // Eigen vectors
-        cv::Mat pt_eig_vecs = pt_pca.eigenvectors;
-               
-        //std::cout << pt_eig_vecs.cols << pt_eig_vecs.rows << std::endl;
         
-        cv::Mat pt_eig_vals = pt_pca.eigenvalues;
-
-        //for (int i = 0; i < 6; ++i)
-            //std::cout << pt_eig_vals.at<float>(i, 0) << std::endl;
-        
-        for (int k = 0; k < groupLabels.size() ; k++) {
-            TVector a(pt_eig_vecs.cols);
-            a.fill(0);
-            
-            for (int i = 0; i < pt_eig_vecs.cols; i++) {
-                a[i] = pt_eig_vecs.at<double>(k,i);
-            }
-            
-            TNode *nodeNew = createNode(k, a);            
-            updateConnections(nodeNew);
-        }
         
         return *this;
     }
@@ -1045,7 +1004,7 @@ public:
         
     }
     
-    void outAccuracy() {
+    double outAccuracy() {
       
         float hits = 0;
         float total = 0;
@@ -1062,11 +1021,12 @@ public:
             total++;            
         }
         
-        dbgOut(1) << "ACC: " << endl;
-        dbgOut(1) << hits << endl;
-        dbgOut(1) << total << endl;
-        dbgOut(1) << float(hits/total) << endl;
-        
+        //dbgOut(1) << "ACC: " << endl;
+        //dbgOut(1) << hits << endl;
+        //dbgOut(1) << total << endl;
+        dbgOut(1) << "ACC: " << float(hits/total) << endl;
+        //dbgOut(1) << "ACC: " << 1 - float(hits/total) << endl;
+        return float(hits/total);
     }
 
     LARFDSSOM& updateMap(const TVector &w, int cla) {
@@ -1086,7 +1046,7 @@ public:
             nodeNew->previousNodes->concatRows(w);
             nodeNew->classes->push_back(groupLavelsVector[classes[cla]]);
             updateConnections(nodeNew);
-            
+            //printWinners();
             std::ofstream file;
             file.open("MOVIES.depuracao", std::ios::app);
 

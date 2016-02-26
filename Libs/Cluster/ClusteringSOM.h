@@ -38,6 +38,7 @@
 
 using namespace cv;
 using namespace std;
+using namespace arma;
 
 template <class SOMType>
 class ClusteringSOM {
@@ -98,7 +99,7 @@ public:
     
     virtual float getDimRel(int index) {};
 
-    virtual void train(MatMatrix<float> &trainingData, int N) = 0;
+    virtual void train(MatMatrix<float> &trainingData, int N, bool random) = 0;
     
     virtual void getMeans(int node_i, MatVector<float> &means) = 0;
     
@@ -120,20 +121,15 @@ public:
         groupLabels.clear();
         winn.clear();
     }
-
-    bool readFile(std::string &filename) {
+    
+    bool readFileMat(std::string &filename) {
         
         this->filename = filename;
         if (trainingData==NULL && !allocated) {
             trainingData = new MatMatrix<float>();
             allocated = true;
         }
-        
-        if (ArffData::readArff(filename, *trainingData, groupLabels, groups)) {
-                ArffData::rescaleCols01(*trainingData);
-                return true;
-        }
-       /*
+           
         std::vector<double> vectorX;
         std::vector<double> vectorY;
         std::vector<double> vectorS;
@@ -253,7 +249,7 @@ public:
             //printf("\n");
         }
        
-       arma::cube A(dimZ-1, dimX,dimY);
+       cube A(dimZ-1, dimX,dimY);
        
        for(int z = 0; z < dimX; ++z) {
             for(int y = 0; y < dimY; ++y) {
@@ -263,7 +259,7 @@ public:
             }
        }
 
-       arma::mat C = reshape( arma::mat(A.memptr(), A.n_elem, 1, false), 2*dimX, dimY);
+       mat C = reshape( mat(A.memptr(), A.n_elem, 1, false), 2*dimX, dimY);
        //arma::mat D = C.t();
        
        MatMatrix<float> *data = new MatMatrix<float>();
@@ -298,7 +294,8 @@ public:
             }
             if (!itemFound) {
                 itemIndex = groupLabels.size();
-                groupLabels[itemIndex] = vectorS[x];
+                //groupLabels[itemIndex] = vectorS[x];
+                groupLabels[vectorS[x]] = vectorS[x];
             }
             //printf("%d \n", groups[x]);            
         }
@@ -307,7 +304,22 @@ public:
             //printf("%d %d \n", it->first, it->second);   
         }
         return true;
-        //return false;*/
+    }
+
+    bool readFile(std::string &filename) {
+        
+        this->filename = filename;
+        if (trainingData==NULL && !allocated) {
+            trainingData = new MatMatrix<float>();
+            allocated = true;
+        }
+        
+        if (ArffData::readArff(filename, *trainingData, groupLabels, groups)) {
+                ArffData::rescaleCols01(*trainingData);
+                //ArffData::rescaleColsSparse(*trainingData);
+                return true;
+        }
+
     }
 
     void setData(MatMatrix<float> &data) {
@@ -319,9 +331,9 @@ public:
         trainingData = &data;
     }
 
-    void trainSOM(int N) {
+    void trainSOM(int N, bool random) {
 
-        train(*trainingData, N);
+        train(*trainingData, N, random);
     }
     
      void printDataByGroup(const std::string &filename) {
@@ -353,15 +365,20 @@ public:
         file.open(filename.c_str());
         
         for (int i = 0; i < trainingData->rows(); i++) {
-            /*MatVector<float> sample;    
+            MatVector<float> sample;    
             trainingData->getRow(i, sample);
             for (int j = 0; j < sample.size(); j++) {
                 file << sample[j] << " ";
             }
-            file << endl;*/
-            file << groups[i] << "," << endl;
+            file << endl;
+            //file << groups[i] << "," << endl;
+        }
+        file << endl;
+        for (int i = 0; i < groups.size(); i++) {
+            file << groups[i] << " ";
         }
         
+        file << endl;        
     }
     
     void printDataInverse(const std::string &filename) {
@@ -409,7 +426,7 @@ public:
     }
 
 
-    bool writeClusterResults(const std::string &filename, MatVector<float> globalDimensionRelevances) {
+    bool writeClusterResults(string filename, MatVector<float> globalDimensionRelevances) {
 
         std::ofstream file;
         file.open(filename.c_str());
@@ -491,7 +508,7 @@ public:
             }
             //file << endl;
         }
-        
+        file.close();
         return true;
     }
 
@@ -1299,7 +1316,7 @@ public:
         return som->meshNodeSet.size();
     }
 
-    void train(MatMatrix<float> &trainingData, int N) {
+    void train(MatMatrix<float> &trainingData, int N, bool random) {
         som->data = trainingData;
         
         //Compute group averages (optional)
@@ -1357,9 +1374,13 @@ public:
                 classIndex++;
             else
                 classIndex=0;*/
-            //som->trainningStep(elm);
-            som->trainningStep();
+            //
              
+            if(random)
+                som->trainningStep();
+            else
+                som->trainningStep(elm);
+            
              //som->printMeshFile(filename + ".mesh", i);
              //som->printMeshFile(filename + ".mesh", i);
              //writeClusterResults(filename + ".resultsAfter"); 
@@ -1435,7 +1456,8 @@ public:
 
     int getWinner(const MatVector<float> &sample) {
         DSNode *winner = som->getWinner(sample);
-        return getNodeIndex(*winner);
+        return winner->getId();
+        //return getNodeIndex(*winner);
     }
         
     void getWinners(const MatVector<float> &sample, std::vector<int> &winners) {
