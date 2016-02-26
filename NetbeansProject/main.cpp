@@ -5,7 +5,7 @@
  * Created on 11 de Outubro de 2010, 07:25
  */
 
-#include <armadillo>
+
 #include "../dlib/optimization/max_cost_assignment.h"
 #include "../dlib/svm.h"
 #include <stdlib.h>
@@ -108,7 +108,7 @@ int runMatFile(SOM<DSNode> *dssom, string dirname, LARFDSSOM *somDef, int epocs,
         
         ClusteringMeshSOM *clusteringSOM = new ClusteringMeshSOM(dssom);
     
-        if (clusteringSOM->readFileMat(filename) && filename.find(".mat") != std::string::npos){
+        if (clusteringSOM->readFile(filename) && filename.find(".mat") != std::string::npos){
             
             printf ("%s\n", filename.c_str());
             

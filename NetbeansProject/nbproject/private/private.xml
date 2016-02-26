@@ -7,15 +7,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/victor/subspace-clustering/Libs/Cluster/ClusteringSOM.h</file>
-            <file>file:/home/victor/subspace-clustering/NetbeansProject/main.cpp</file>
-            <file>file:/home/victor/subspace-clustering/Libs/SOM/SOM.h</file>
-            <file>file:/home/victor/subspace-clustering/Libs/SOM/Mesh.h</file>
-            <file>file:/home/victor/subspace-clustering/Libs/Data/ArffData.h</file>
-            <file>file:/home/victor/subspace-clustering/Libs/CImg/DataDisplay.h</file>
-            <file>file:/home/victor/subspace-clustering/Libs/SOM/NodeW.h</file>
-            <file>file:/home/victor/subspace-clustering/Libs/SOM/DSNode.h</file>
-            <file>file:/home/victor/subspace-clustering/Libs/SOM/LARFDSSOM.h</file>
+            <file>file:/home/victor/Documentos/subspace-clustering/NetbeansProject/main.cpp</file>
+            <file>file:/home/victor/Documentos/subspace-clustering/Libs/Cluster/ClusteringSOM.h</file>
+            <file>file:/home/victor/Documentos/subspace-clustering/Libs/Cluster/ClusteringMetrics.h</file>
+            <file>file:/home/victor/Documentos/subspace-clustering/Libs/CImg/CImg.h</file>
+            <file>file:/home/victor/Documentos/subspace-clustering/Libs/SOM/LARFDSSOM.h</file>
+            <file>file:/home/victor/Documentos/subspace-clustering/Libs/MatMatrix/MatUtils.h</file>
+            <file>file:/home/victor/Documentos/subspace-clustering/Libs/SOM/NodeW.h</file>
+            <file>file:/home/victor/Documentos/subspace-clustering/Libs/Cluster/ClusteringSOM.cpp</file>
+            <file>file:/home/victor/Documentos/subspace-clustering/Libs/MatMatrix/MatUtils.cpp</file>
         </group>
     </open-files>
 </project-private>

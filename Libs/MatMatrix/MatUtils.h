@@ -8,7 +8,6 @@
 #include <sys/time.h>
 #include <time.h>
 #include <math.h>
-#include "opencv2/core/core.hpp" 
 
 #define DefaultNumberType float
 #define INVALID_DIMENSION_SIZE "Dimensao invalida"
@@ -28,9 +27,9 @@ typedef const int cint32;
 typedef const short cint16;
 typedef int int32;
 typedef const unsigned int cuint32;
-//typedef unsigned long long uint64;
+typedef unsigned long long uint64;
 typedef const unsigned long long cuint64;
-//typedef long long int64;
+typedef long long int64;
 typedef const long long cint64;
 
 

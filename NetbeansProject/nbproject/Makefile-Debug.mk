@@ -66,8 +66,8 @@ OBJECTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=-m64 -I/usr/include/opencv2 -I/usr/local/MATLAB/R2014a/extern/include -I/usr/include
-CXXFLAGS=-m64 -I/usr/include/opencv2 -I/usr/local/MATLAB/R2014a/extern/include -I/usr/include
+CCFLAGS=-I/usr/include/opencv2 -I/usr/local/MATLAB/R2014a/extern/include -I/usr/include
+CXXFLAGS=-I/usr/include/opencv2 -I/usr/local/MATLAB/R2014a/extern/include -I/usr/include
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -84,132 +84,132 @@ LDLIBSOPTIONS=
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/netbeansproject: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/netbeansproject ${OBJECTFILES} ${LDLIBSOPTIONS} -lX11 -lpthread -L/usr/local/MATLAB/R2014a/bin/glnxa64 -lmat -lmx -leng -Wl,-rpath=/usr/local/MATLAB/R2014a/bin/glnxa64 `pkg-config opencv --cflags --libs` -llapack -lblas -larmadillo 
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/netbeansproject ${OBJECTFILES} ${LDLIBSOPTIONS} -lX11 -lpthread
 
 ${OBJECTDIR}/_ext/a845ff68/Cluster.o: ../Libs/Cluster/Cluster.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/a845ff68
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/a845ff68/Cluster.o ../Libs/Cluster/Cluster.cpp
+	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/a845ff68/Cluster.o ../Libs/Cluster/Cluster.cpp
 
 ${OBJECTDIR}/_ext/a845ff68/ClusteringMetrics.o: ../Libs/Cluster/ClusteringMetrics.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/a845ff68
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/a845ff68/ClusteringMetrics.o ../Libs/Cluster/ClusteringMetrics.cpp
+	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/a845ff68/ClusteringMetrics.o ../Libs/Cluster/ClusteringMetrics.cpp
 
 ${OBJECTDIR}/_ext/a845ff68/ClusteringSOM.o: ../Libs/Cluster/ClusteringSOM.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/a845ff68
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/a845ff68/ClusteringSOM.o ../Libs/Cluster/ClusteringSOM.cpp
+	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/a845ff68/ClusteringSOM.o ../Libs/Cluster/ClusteringSOM.cpp
 
 ${OBJECTDIR}/_ext/a845ff68/SSCDataFile.o: ../Libs/Cluster/SSCDataFile.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/a845ff68
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/a845ff68/SSCDataFile.o ../Libs/Cluster/SSCDataFile.cpp
+	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/a845ff68/SSCDataFile.o ../Libs/Cluster/SSCDataFile.cpp
 
 ${OBJECTDIR}/_ext/a845ff68/SubspaceClusteringSOM.o: ../Libs/Cluster/SubspaceClusteringSOM.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/a845ff68
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/a845ff68/SubspaceClusteringSOM.o ../Libs/Cluster/SubspaceClusteringSOM.cpp
+	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/a845ff68/SubspaceClusteringSOM.o ../Libs/Cluster/SubspaceClusteringSOM.cpp
 
 ${OBJECTDIR}/_ext/a845ff68/randomnumbers.o: ../Libs/Cluster/randomnumbers.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/a845ff68
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/a845ff68/randomnumbers.o ../Libs/Cluster/randomnumbers.cpp
+	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/a845ff68/randomnumbers.o ../Libs/Cluster/randomnumbers.cpp
 
 ${OBJECTDIR}/_ext/a342a8fc/ArffData.o: ../Libs/Data/ArffData.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/a342a8fc
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/a342a8fc/ArffData.o ../Libs/Data/ArffData.cpp
+	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/a342a8fc/ArffData.o ../Libs/Data/ArffData.cpp
 
 ${OBJECTDIR}/_ext/c5140741/DebugOut.o: ../Libs/Debug/DebugOut.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/c5140741
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/c5140741/DebugOut.o ../Libs/Debug/DebugOut.cpp
+	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/c5140741/DebugOut.o ../Libs/Debug/DebugOut.cpp
 
 ${OBJECTDIR}/_ext/d0624b86/Defines.o: ../Libs/Defines/Defines.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/d0624b86
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/d0624b86/Defines.o ../Libs/Defines/Defines.cpp
+	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/d0624b86/Defines.o ../Libs/Defines/Defines.cpp
 
 ${OBJECTDIR}/_ext/d0624b86/StringHelper.o: ../Libs/Defines/StringHelper.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/d0624b86
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/d0624b86/StringHelper.o ../Libs/Defines/StringHelper.cpp
+	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/d0624b86/StringHelper.o ../Libs/Defines/StringHelper.cpp
 
 ${OBJECTDIR}/_ext/8bffeb2f/MatUtils.o: ../Libs/MatMatrix/MatUtils.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/8bffeb2f
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/8bffeb2f/MatUtils.o ../Libs/MatMatrix/MatUtils.cpp
+	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/8bffeb2f/MatUtils.o ../Libs/MatMatrix/MatUtils.cpp
 
 ${OBJECTDIR}/_ext/36bbb5bc/Parameters.o: ../Libs/Parameters/Parameters.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/36bbb5bc
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/36bbb5bc/Parameters.o ../Libs/Parameters/Parameters.cpp
+	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/36bbb5bc/Parameters.o ../Libs/Parameters/Parameters.cpp
 
 ${OBJECTDIR}/_ext/15c88dff/DSNode.o: ../Libs/SOM/DSNode.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/15c88dff
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/15c88dff/DSNode.o ../Libs/SOM/DSNode.cpp
+	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/15c88dff/DSNode.o ../Libs/SOM/DSNode.cpp
 
 ${OBJECTDIR}/_ext/15c88dff/NodeW.o: ../Libs/SOM/NodeW.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/15c88dff
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/15c88dff/NodeW.o ../Libs/SOM/NodeW.cpp
+	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/15c88dff/NodeW.o ../Libs/SOM/NodeW.cpp
 
 ${OBJECTDIR}/_ext/418f266/bestMap.o: ../Libs/bestMap/bestMap.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/418f266
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/418f266/bestMap.o ../Libs/bestMap/bestMap.cpp
+	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/418f266/bestMap.o ../Libs/bestMap/bestMap.cpp
 
 ${OBJECTDIR}/_ext/418f266/bestMap_emxAPI.o: ../Libs/bestMap/bestMap_emxAPI.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/418f266
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/418f266/bestMap_emxAPI.o ../Libs/bestMap/bestMap_emxAPI.cpp
+	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/418f266/bestMap_emxAPI.o ../Libs/bestMap/bestMap_emxAPI.cpp
 
 ${OBJECTDIR}/_ext/418f266/bestMap_emxutil.o: ../Libs/bestMap/bestMap_emxutil.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/418f266
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/418f266/bestMap_emxutil.o ../Libs/bestMap/bestMap_emxutil.cpp
+	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/418f266/bestMap_emxutil.o ../Libs/bestMap/bestMap_emxutil.cpp
 
 ${OBJECTDIR}/_ext/418f266/bestMap_initialize.o: ../Libs/bestMap/bestMap_initialize.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/418f266
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/418f266/bestMap_initialize.o ../Libs/bestMap/bestMap_initialize.cpp
+	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/418f266/bestMap_initialize.o ../Libs/bestMap/bestMap_initialize.cpp
 
 ${OBJECTDIR}/_ext/418f266/bestMap_terminate.o: ../Libs/bestMap/bestMap_terminate.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/418f266
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/418f266/bestMap_terminate.o ../Libs/bestMap/bestMap_terminate.cpp
+	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/418f266/bestMap_terminate.o ../Libs/bestMap/bestMap_terminate.cpp
 
 ${OBJECTDIR}/_ext/418f266/hungarian.o: ../Libs/bestMap/hungarian.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/418f266
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/418f266/hungarian.o ../Libs/bestMap/hungarian.cpp
+	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/418f266/hungarian.o ../Libs/bestMap/hungarian.cpp
 
 ${OBJECTDIR}/_ext/418f266/rtGetInf.o: ../Libs/bestMap/rtGetInf.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/418f266
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/418f266/rtGetInf.o ../Libs/bestMap/rtGetInf.cpp
+	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/418f266/rtGetInf.o ../Libs/bestMap/rtGetInf.cpp
 
 ${OBJECTDIR}/_ext/418f266/rtGetNaN.o: ../Libs/bestMap/rtGetNaN.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/418f266
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/418f266/rtGetNaN.o ../Libs/bestMap/rtGetNaN.cpp
+	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/418f266/rtGetNaN.o ../Libs/bestMap/rtGetNaN.cpp
 
 ${OBJECTDIR}/_ext/418f266/rt_nonfinite.o: ../Libs/bestMap/rt_nonfinite.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/418f266
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/418f266/rt_nonfinite.o ../Libs/bestMap/rt_nonfinite.cpp
+	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/418f266/rt_nonfinite.o ../Libs/bestMap/rt_nonfinite.cpp
 
 ${OBJECTDIR}/_ext/dd71a7b4/hungarian.o: ../Libs/libhungarian-0.3/hungarian.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/dd71a7b4
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/dd71a7b4/hungarian.o ../Libs/libhungarian-0.3/hungarian.cpp
+	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/dd71a7b4/hungarian.o ../Libs/libhungarian-0.3/hungarian.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -I../Libs/MatMatrix -I../Libs/SOM -I../Libs/Parameters -I../Libs/Debug -I../Libs/Defines -I../Libs/Cluster -I../Libs/Data -I. -I../Libs/SOM/delete -I../Libs/CImg -I../Libs/Extern -I../Libs/bestMap -I../Libs/libhungarian-0.3 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:

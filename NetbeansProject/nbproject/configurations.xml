@@ -116,8 +116,20 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Arquivos de testes"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Arquivos importantes"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
   </logicalFolder>
   <sourceRootList>
+    <Elem>../Libs</Elem>
     <Elem>../Libs</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
@@ -130,8 +142,7 @@
       </toolsSet>
       <compileType>
         <ccTool>
-          <architecture>2</architecture>
-          <standard>11</standard>
+          <standard>8</standard>
           <commandlineTool>g++</commandlineTool>
           <incDir>
             <pElem>../Libs/MatMatrix</pElem>
@@ -152,7 +163,7 @@
         </ccTool>
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/netbeansproject</output>
-          <commandLine>-lX11 -lpthread -L/usr/local/MATLAB/R2014a/bin/glnxa64 -lmat -lmx -leng -Wl,-rpath=/usr/local/MATLAB/R2014a/bin/glnxa64 `pkg-config opencv --cflags --libs` -llapack -lblas -larmadillo </commandLine>
+          <commandLine>-lX11 -lpthread</commandLine>
         </linkerTool>
       </compileType>
       <item path="../Libs/Cluster/Cluster.cpp" ex="false" tool="1" flavor2="0">

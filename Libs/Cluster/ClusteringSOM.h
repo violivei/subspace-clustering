@@ -19,11 +19,7 @@
 #include "DSNode.h"
 #include "ClusteringMetrics.h"
 #include "mat.h"
-#include "opencv2/highgui/highgui.hpp"
-#include "opencv2/core/core.hpp" 
-#include "opencv2/imgproc/imgproc.hpp"
 #include "engine.h"
-#include <armadillo>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -35,10 +31,7 @@
 
 #include "DataDisplay.h"
 
-
-using namespace cv;
 using namespace std;
-using namespace arma;
 
 template <class SOMType>
 class ClusteringSOM {
@@ -122,189 +115,189 @@ public:
         winn.clear();
     }
     
-    bool readFileMat(std::string &filename) {
-        
-        this->filename = filename;
-        if (trainingData==NULL && !allocated) {
-            trainingData = new MatMatrix<float>();
-            allocated = true;
-        }
-           
-        std::vector<double> vectorX;
-        std::vector<double> vectorY;
-        std::vector<double> vectorS;
-        // open MAT-file
-        MATFile *pmat = matOpen(filename.c_str(), "r");
-        if (pmat == NULL) return false;
-
-        // extract the specified variable
-        mxArray *arrx = matGetVariable(pmat, "x");
-        mxArray *arry = matGetVariable(pmat, "y");
-        mwSize num;
-        double *pr;
-        if (arrx != NULL && mxIsDouble(arrx) && !mxIsEmpty(arrx)) {
-            // copy data
-            num = mxGetNumberOfElements(arrx);
-            pr = mxGetPr(arrx);
-            if (pr != NULL) {
-                vectorX.resize(num);
-                vectorX.assign(pr, pr+num);
-            }
-        }
-        
-        int dimX = mxGetDimensions_700(arrx)[2];
-        int dimY = mxGetDimensions_700(arrx)[1];
-        int dimZ = mxGetDimensions_700(arrx)[0];
-        vector<vector<vector<double> > > arrayXData;    // 3D array definition;
-        
-        // Set up sizes. (HEIGHT x WIDTH)
-        arrayXData.resize(dimX);
-        for (int i = 0; i < dimX; ++i) {
-          arrayXData[i].resize(dimY);
-
-          for (int j = 0; j < dimY; ++j)
-            arrayXData[i][j].resize(dimX);
-        }
-
-        int width_index = 0, height_index = 0, depth_index = 0;
-        for (int index=0; index<vectorX.size(); ++index){
-            width_index=index/(dimY*dimZ);  //Note the integer division . This is x
-            height_index=(index-width_index*dimY*dimZ)/dimZ; //This is y
-            depth_index=index-width_index*dimY*dimZ- height_index*dimZ;//This is z
-            //printf(" %d %d %d %f \n", depth_index, height_index, width_index, v[index]);
-            arrayXData[depth_index][height_index][width_index] = vectorX[index];
-        }
-        
-        for(int y = 0; y < mxGetDimensions_700(arrx)[1]; ++y) {
-           
-            for(int x = 0; x < mxGetDimensions_700(arrx)[0]; ++x) {
-                //printf("%f " ,arrayXData[x][y][0]);
-            }
-            //printf("\n");
-        }
-        
-        if (arry != NULL && mxIsDouble(arry) && !mxIsEmpty(arry)) {
-            // copy data
-            num = mxGetNumberOfElements(arry);
-            pr = mxGetPr(arry);
-            if (pr != NULL) {
-                vectorY.resize(num);
-                vectorY.assign(pr, pr+num);
-            }
-        }
-        
-        dimX = mxGetDimensions_700(arry)[2];
-        dimY = mxGetDimensions_700(arry)[1];
-        dimZ = mxGetDimensions_700(arry)[0];
-        vector<vector<vector<double> > > arrayYData;
-
-        // Set up sizes. (HEIGHT x WIDTH)
-        arrayYData.resize(dimX);
-        for (int i = 0; i < dimX; ++i) {
-          arrayYData[i].resize(dimY);
-
-          for (int j = 0; j < dimY; ++j)
-            arrayYData[i][j].resize(dimX);
-        }
-        
-        width_index = 0, height_index = 0, depth_index = 0;
-        for (int index=0; index<vectorY.size(); ++index){
-            width_index=index/(dimY*dimZ);  //Note the integer division . This is x
-            height_index=(index-width_index*dimY*dimZ)/dimZ; //This is y
-            depth_index=index-width_index*dimY*dimZ- height_index*dimZ;//This is z
-            //printf(" %d %d %d %f \n", depth_index, height_index, width_index, v[index]);
-            arrayYData[depth_index][height_index][width_index] = vectorY[index];
-        }
-        
-        for(int y = 0; y < mxGetDimensions_700(arry)[1]; ++y) {
-           
-            for(int x = 0; x < mxGetDimensions_700(arry)[0]; ++x) {
-                //printf("%f " ,arrayYData[x][y][0]);
-            }
-            //printf("\n");
-        }
-        
-        mxArray *s = matGetVariable(pmat, "s");
-        if (s != NULL && mxIsDouble(s) && !mxIsEmpty(s)) {
-            // copy data
-            num = mxGetNumberOfElements(s);
-            pr = mxGetPr(s);
-            if (pr != NULL) {
-                vectorS.resize(num);
-                vectorS.assign(pr, pr+num);
-            }
-        }
-        
-        for(int x = 0; x < mxGetDimensions_700(s)[0]; ++x) {
-                //printf("%f \n" ,vectorS[x]);
-            }
-        
-       arrayXData.erase(arrayXData.begin() + 2);
-       //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-       for(int y = 0; y < mxGetDimensions_700(arry)[1]; ++y) {
-           
-            for(int x = 0; x < mxGetDimensions_700(arry)[0] - 1; ++x) {
-              // printf("%f " ,arrayXData[x][y][28]);
-            }
-            //printf("\n");
-        }
-       
-       cube A(dimZ-1, dimX,dimY);
-       
-       for(int z = 0; z < dimX; ++z) {
-            for(int y = 0; y < dimY; ++y) {
-                for(int x = 0; x < dimZ - 1; ++x) {
-                    A.at(x,z,y) = arrayXData[x][y][z];                  
-                }               
-            }
-       }
-
-       mat C = reshape( mat(A.memptr(), A.n_elem, 1, false), 2*dimX, dimY);
-       //arma::mat D = C.t();
-       
-       MatMatrix<float> *data = new MatMatrix<float>();
-        for(int y = 0; y < dimY; ++y) {
-       
-            MatVector<float> row;
-            for(int x = 0; x < dimX*2; ++x) {
-                row.append(C.at(x,y));  
-                //printf("%f ", C.at(x,y));                                    
-            }
-            data->concatRows(row);
-            //printf("\n");
-            //printf("%d \n", data->size());
-        }
-        
-        //printf("%d ", data->size());
-        //printf("%d \n", trainingData->size());
-        setData(*data);
-        //printf("%d \n", trainingData->size());
-                
-        for(int x = 0; x < mxGetDimensions_700(s)[0]; ++x) {
-            //printf("%f \n" ,vectorS[x]);
-            groups.push_back(vectorS[x]);
-            bool itemFound = false;
-            int itemIndex;
-            for (std::map<int, int>::iterator it = groupLabels.begin(); it != groupLabels.end(); it++) {
-                if (it->second == vectorS[x]) {
-                    itemFound = true;
-                    itemIndex = it->first;
-                    break;
-                }
-            }
-            if (!itemFound) {
-                itemIndex = groupLabels.size();
-                //groupLabels[itemIndex] = vectorS[x];
-                groupLabels[vectorS[x]] = vectorS[x];
-            }
-            //printf("%d \n", groups[x]);            
-        }
-       
-        for (std::map<int, int>::iterator it = groupLabels.begin(); it != groupLabels.end(); it++) {
-            //printf("%d %d \n", it->first, it->second);   
-        }
-        return true;
-    }
+//    bool readFileMat(std::string &filename) {
+//        
+//        this->filename = filename;
+//        if (trainingData==NULL && !allocated) {
+//            trainingData = new MatMatrix<float>();
+//            allocated = true;
+//        }
+//           
+//        std::vector<double> vectorX;
+//        std::vector<double> vectorY;
+//        std::vector<double> vectorS;
+//        // open MAT-file
+//        MATFile *pmat = matOpen(filename.c_str(), "r");
+//        if (pmat == NULL) return false;
+//
+//        // extract the specified variable
+//        mxArray *arrx = matGetVariable(pmat, "x");
+//        mxArray *arry = matGetVariable(pmat, "y");
+//        mwSize num;
+//        double *pr;
+//        if (arrx != NULL && mxIsDouble(arrx) && !mxIsEmpty(arrx)) {
+//            // copy data
+//            num = mxGetNumberOfElements(arrx);
+//            pr = mxGetPr(arrx);
+//            if (pr != NULL) {
+//                vectorX.resize(num);
+//                vectorX.assign(pr, pr+num);
+//            }
+//        }
+//        
+//        int dimX = mxGetDimensions_700(arrx)[2];
+//        int dimY = mxGetDimensions_700(arrx)[1];
+//        int dimZ = mxGetDimensions_700(arrx)[0];
+//        vector<vector<vector<double> > > arrayXData;    // 3D array definition;
+//        
+//        // Set up sizes. (HEIGHT x WIDTH)
+//        arrayXData.resize(dimX);
+//        for (int i = 0; i < dimX; ++i) {
+//          arrayXData[i].resize(dimY);
+//
+//          for (int j = 0; j < dimY; ++j)
+//            arrayXData[i][j].resize(dimX);
+//        }
+//
+//        int width_index = 0, height_index = 0, depth_index = 0;
+//        for (int index=0; index<vectorX.size(); ++index){
+//            width_index=index/(dimY*dimZ);  //Note the integer division . This is x
+//            height_index=(index-width_index*dimY*dimZ)/dimZ; //This is y
+//            depth_index=index-width_index*dimY*dimZ- height_index*dimZ;//This is z
+//            //printf(" %d %d %d %f \n", depth_index, height_index, width_index, v[index]);
+//            arrayXData[depth_index][height_index][width_index] = vectorX[index];
+//        }
+//        
+//        for(int y = 0; y < mxGetDimensions_700(arrx)[1]; ++y) {
+//           
+//            for(int x = 0; x < mxGetDimensions_700(arrx)[0]; ++x) {
+//                //printf("%f " ,arrayXData[x][y][0]);
+//            }
+//            //printf("\n");
+//        }
+//        
+//        if (arry != NULL && mxIsDouble(arry) && !mxIsEmpty(arry)) {
+//            // copy data
+//            num = mxGetNumberOfElements(arry);
+//            pr = mxGetPr(arry);
+//            if (pr != NULL) {
+//                vectorY.resize(num);
+//                vectorY.assign(pr, pr+num);
+//            }
+//        }
+//        
+//        dimX = mxGetDimensions_700(arry)[2];
+//        dimY = mxGetDimensions_700(arry)[1];
+//        dimZ = mxGetDimensions_700(arry)[0];
+//        vector<vector<vector<double> > > arrayYData;
+//
+//        // Set up sizes. (HEIGHT x WIDTH)
+//        arrayYData.resize(dimX);
+//        for (int i = 0; i < dimX; ++i) {
+//          arrayYData[i].resize(dimY);
+//
+//          for (int j = 0; j < dimY; ++j)
+//            arrayYData[i][j].resize(dimX);
+//        }
+//        
+//        width_index = 0, height_index = 0, depth_index = 0;
+//        for (int index=0; index<vectorY.size(); ++index){
+//            width_index=index/(dimY*dimZ);  //Note the integer division . This is x
+//            height_index=(index-width_index*dimY*dimZ)/dimZ; //This is y
+//            depth_index=index-width_index*dimY*dimZ- height_index*dimZ;//This is z
+//            //printf(" %d %d %d %f \n", depth_index, height_index, width_index, v[index]);
+//            arrayYData[depth_index][height_index][width_index] = vectorY[index];
+//        }
+//        
+//        for(int y = 0; y < mxGetDimensions_700(arry)[1]; ++y) {
+//           
+//            for(int x = 0; x < mxGetDimensions_700(arry)[0]; ++x) {
+//                //printf("%f " ,arrayYData[x][y][0]);
+//            }
+//            //printf("\n");
+//        }
+//        
+//        mxArray *s = matGetVariable(pmat, "s");
+//        if (s != NULL && mxIsDouble(s) && !mxIsEmpty(s)) {
+//            // copy data
+//            num = mxGetNumberOfElements(s);
+//            pr = mxGetPr(s);
+//            if (pr != NULL) {
+//                vectorS.resize(num);
+//                vectorS.assign(pr, pr+num);
+//            }
+//        }
+//        
+//        for(int x = 0; x < mxGetDimensions_700(s)[0]; ++x) {
+//                //printf("%f \n" ,vectorS[x]);
+//            }
+//        
+//       arrayXData.erase(arrayXData.begin() + 2);
+//       //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//       for(int y = 0; y < mxGetDimensions_700(arry)[1]; ++y) {
+//           
+//            for(int x = 0; x < mxGetDimensions_700(arry)[0] - 1; ++x) {
+//              // printf("%f " ,arrayXData[x][y][28]);
+//            }
+//            //printf("\n");
+//        }
+//       
+//       cube A(dimZ-1, dimX,dimY);
+//       
+//       for(int z = 0; z < dimX; ++z) {
+//            for(int y = 0; y < dimY; ++y) {
+//                for(int x = 0; x < dimZ - 1; ++x) {
+//                    A.at(x,z,y) = arrayXData[x][y][z];                  
+//                }               
+//            }
+//       }
+//
+//       mat C = reshape( mat(A.memptr(), A.n_elem, 1, false), 2*dimX, dimY);
+//       //arma::mat D = C.t();
+//       
+//       MatMatrix<float> *data = new MatMatrix<float>();
+//        for(int y = 0; y < dimY; ++y) {
+//       
+//            MatVector<float> row;
+//            for(int x = 0; x < dimX*2; ++x) {
+//                row.append(C.at(x,y));  
+//                //printf("%f ", C.at(x,y));                                    
+//            }
+//            data->concatRows(row);
+//            //printf("\n");
+//            //printf("%d \n", data->size());
+//        }
+//        
+//        //printf("%d ", data->size());
+//        //printf("%d \n", trainingData->size());
+//        setData(*data);
+//        //printf("%d \n", trainingData->size());
+//                
+//        for(int x = 0; x < mxGetDimensions_700(s)[0]; ++x) {
+//            //printf("%f \n" ,vectorS[x]);
+//            groups.push_back(vectorS[x]);
+//            bool itemFound = false;
+//            int itemIndex;
+//            for (std::map<int, int>::iterator it = groupLabels.begin(); it != groupLabels.end(); it++) {
+//                if (it->second == vectorS[x]) {
+//                    itemFound = true;
+//                    itemIndex = it->first;
+//                    break;
+//                }
+//            }
+//            if (!itemFound) {
+//                itemIndex = groupLabels.size();
+//                //groupLabels[itemIndex] = vectorS[x];
+//                groupLabels[vectorS[x]] = vectorS[x];
+//            }
+//            //printf("%d \n", groups[x]);            
+//        }
+//       
+//        for (std::map<int, int>::iterator it = groupLabels.begin(); it != groupLabels.end(); it++) {
+//            //printf("%d %d \n", it->first, it->second);   
+//        }
+//        return true;
+//    };
 
     bool readFile(std::string &filename) {
         
