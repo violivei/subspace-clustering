@@ -1,10 +1,3 @@
-/* 
- * File:   dsWeightsDims.cpp
- * Author: hans and victor
- * 
- * Created on 26 de Setembro de 2011, 17:51
- */
-
 #include "dsWeightsDims.h"
 
 

@@ -1,10 +1,3 @@
-/* 
- * File:   DSNode.h
- * Author: hans
- *
- * Created on 28 de Março de 2012, 13:18
- */
-
 #ifndef DSNODE_H
 #define	DSNODE_H
 
@@ -27,27 +20,14 @@ public:
     TPNodeConnectionMap nodeMap;
 
     TVector a;
-    TVector mean;
-    TVector min;
-    TVector max;
     TVector ds;
-            
+
     DSNode(int idIn, const TVector &v) : NodeW(idIn, v) {
         ds.size(v.size());
         ds.fill(1);
 
         a.size(v.size());
         a.fill(0);
-
-        mean.size(v.size());
-        mean.fill(0);
-        
-        min.size(v.size());
-        min.fill(0);
-        
-        max.size(v.size());
-        max.fill(0);
-        
     };    
     
     void write(std::ofstream &file) {

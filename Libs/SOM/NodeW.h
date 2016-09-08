@@ -1,10 +1,3 @@
-/* 
- * File:   NodeW.h
- * Author: hans
- *
- * Created on 29 de Março de 2012, 10:31
- */
-
 #ifndef NODEW_H
 #define	NODEW_H
 
@@ -24,12 +17,7 @@ public:
     typedef std::map<NodeW*, TConnection*> TPNodeConnectionMap; //Para mapeamento local dos n�s e conex�es ligadas a this
     TPNodeConnectionMap nodeMap;
 
-    TVector w;    
-    MatMatrix<float> *previousNodes = new MatMatrix<float>();
-    std::vector<int> *classes = new std::vector<int>();
-    double maxEucDist;
-    double minEucDist;
-    double meanEucDist;
+    TVector w;
 
     NodeW(int idIn, const TVector &v) : NodeLb(idIn), w(v) {
     };

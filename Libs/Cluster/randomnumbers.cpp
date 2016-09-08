@@ -1,10 +1,3 @@
-/* 
- * File:   randomnumbers.cpp
- * Author: hans
- *
- * Created on 23 de Setembro de 2011, 11:14
- */
-
 #include <cstdlib>
 #include <math.h>
 

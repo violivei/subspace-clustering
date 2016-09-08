@@ -1,10 +1,3 @@
-/* 
- * File:   SubspaceClusteringSOM.h
- * Author: hans
- *
- * Created on 4 de Outubro de 2011, 16:49
- */
-
 #ifndef SUBSPACECLUSTERINGSOM_H
 #define	SUBSPACECLUSTERINGSOM_H
 

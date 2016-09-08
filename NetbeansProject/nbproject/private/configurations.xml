@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="97">
+<configurationDescriptor version="94">
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="Debug" type="1">
@@ -24,18 +24,21 @@
       </nativedebugger>
       <runprofile version="9">
         <runcommandpicklist>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 20 -e 0.5 -g 0.01 -m 40.0 -s 0.5 -p 0.1 -w 0.5 -i 20 -l 0.001 -v 0.978 -f /home/victor/Documentos/Validacao/MultiViewData/TEXAS.arff</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 20 -e 0.5 -g 0.01 -m 50.0 -s 0.5 -p 0.1 -w 0.5 -i 20 -l 0.001 -v 0.978 -f /home/victor/Documentos/Validacao/MultiViewData/TEXAS.arff</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 20 -e 0.5 -g 0.01 -m 75.0 -s 0.5 -p 0.1 -w 0.5 -i 20 -l 0.001 -v 0.978 -f /home/victor/Documentos/Validacao/MultiViewData/TEXAS.arff</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 20 -e 0.5 -g 0.01 -m 100.0 -s 0.5 -p 0.1 -w 0.5 -i 20 -l 0.001 -v 0.978 -f /home/victor/Documentos/Validacao/MultiViewData/TEXAS.arff</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 20 -e 0.5 -g 0.01 -m 200.0 -s 0.5 -p 0.1 -w 0.5 -i 20 -l 0.001 -v 0.978 -f /home/victor/Documentos/Validacao/MultiViewData/TEXAS.arff</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 20 -e 0.5 -g 0.01 -m 300.0 -s 0.5 -p 0.1 -w 0.5 -i 20 -l 0.001 -v 0.978 -f /home/victor/Documentos/Validacao/MultiViewData/TEXAS.arff</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 30 -e 0.1 -g 0.00001 -m 20.0 -s 0.8 -p 0.01 -w 0.1 -i 15 -l 0.001 -v 0.99 -f /home/victor/Documentos/Validacao/3M</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 30 -e 0.1 -g 0.00001 -m 5.0 -s 0.8 -p 0.01 -w 0.1 -i 15 -l 0.001 -v 0.99 -f /home/victor/Documentos/Validacao/3M</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 30 -e 0.1 -g 0.00001 -m 5.0 -s 0.8 -p 0.01 -w 0.1 -i 15 -l 0.001 -v 0.99 -f /home/victor/Documentos/Validacao/2M</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 30 -e 0.1 -g 0.00001 -m 3.0 -s 0.8 -p 0.01 -w 0.1 -i 15 -l 0.001 -v 0.99 -f /home/victor/Documentos/Validacao/2M</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 100.0 -e 5.0E-4 -g 1.0E-6 -m 20.0 -s 0.1 -p 0.001 -w 0.5 -i 10.0 -l 0.01 -v 0.999 -f ../Data/Databases/SimulatedNoClass/D05.arff</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 100.0 -e 5.0E-4 -g 1.0E-6 -m 20.0 -s 0.1 -p 0.001 -w 0.5 -i 10.0 -l 0.01 -v 0.999 -f ../Data/Databases/SimulatedNoClass/D05.arff -P</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 8 -e 0.08000937181511064 -g 0.006508018732412508 -m 10000 -s 0.07495332194212236 -p 0.07959486357230285 -w 0.08110829557838296 -i 0.91282358947732 -l 0.08250316010991925 -v 0.8624660985915694 -r 0 -f /home/hans/Dropbox/Doutorado/Projetos/Data/imagecategorization/houseobjects4.arff -P</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}"  -n 8 -e 0.06748231359735986 -g 7.185532582128283E-4 -m 10000 -s 0.08222484614772448 -p 0.08352564042695453 -w 0.023435247199603902 -i 0.12837762814303924 -l 0.08238147031742807 -v 0.9228132716034914 -r 0 -f /home/hans/Dropbox/Doutorado/Projetos/Data/imagecategorization/houseobjects4.arff -P 
+</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}"  -n 8 -e 0.06748231359735986 -g 7.185532582128283E-4 -m 10000 -s 0.08222484614772448 -p 0.08352564042695453 -w 0.023435247199603902 -i 0.12837762814303924 -l 0.08238147031742807 -v 0.9228132716034914 -r 0 -f /home/hans/Dropbox/Doutorado/Projetos/Data/imagecategorization/houseobjects4.arff -P</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 100 -e 5.0E-4 -g 5.0E-10 -m 10000 -s 0.1 -p 0.0 -w 0.5 -i 10.0 -l 0.001 -v 0.789 -r 0 -f /home/hans/Dropbox/Doutorado/Projetos/Data/Databases/Noise/N10.arff</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n	19.95946392	-e	1.87E-002	-g	6.79E-002	-m	10000	-s	0.063546907	-p	0.051453063	-w	0.07800013	-i	0.74341047	-l	0.020665403	-v	0.973853243	-r	0	-f
+ -f /home/hans/Dropbox/Doutorado/Projetos/Data/Databases/Noise/N10.arff</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n	19.95946392	-e	1.87E-002	-g	6.79E-002	-m	10000	-s	0.063546907	-p	0.051453063	-w	0.07800013	-i	0.74341047	-l	0.020665403	-v	0.973853243	-r	0	-f
+ -f /home/hans/Dropbox/Doutorado/Projetos/Data/Databases/Realdata/Shape.arff</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n	19.95946392	-e	1.87E-002	-g	6.79E-002	-m	10000	-s	0.063546907	-p	0.051453063	-w	0.07800013	-i	0.74341047	-l	0.020665403	-v	0.973853243	-r	0	 -f /home/hans/Dropbox/Doutorado/Projetos/Data/Databases/Realdata/Shape.arff</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n	19.95946392	-e	1.87E-002	-g	6.79E-002	-m	10000	-s	0.063546907	-p	0.051453063	-w	0.07800013	-i	0.74341047	-l	0.020665403	-v	0.973853243	-r	0	 -f /home/hans/Dropbox/Doutorado/Projetos/Data/Databases/Realdata/shape.arff</runcommandpicklistitem>
         </runcommandpicklist>
-        <runcommand>"${OUTPUT_PATH}" -n 30 -e 0.1 -g 0.00001 -m 3.0 -s 0.8 -p 0.01 -w 0.1 -i 15 -l 0.001 -v 0.99 -f /home/victor/Documentos/Validacao/2M</runcommand>
+        <runcommand>"${OUTPUT_PATH}" -n	19.95946392	-e	1.87E-002	-g	6.79E-002	-m	10000	-s	0.063546907	-p	0.051453063	-w	0.07800013	-i	0.74341047	-l	0.020665403	-v	0.973853243	-r	0	 -f /home/hans/Dropbox/Doutorado/Projetos/Data/Databases/Realdata/shape.arff</runcommand>
         <rundir></rundir>
         <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>
@@ -67,8 +70,53 @@
       <runprofile version="9">
         <runcommandpicklist>
           <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 100.0 -e 5.0E-4 -g 1.0E-6 -m 20.0 -s 0.1 -p 0.001 -w 0.5 -i 10.0 -l 0.060000000000000005 -v 0.975 -f ../Data/Databases/SimulatedNoClass/D05.arff</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 100.0 -e 5.0E-4 -g 1.0E-6 -m 20.0 -s 0.1 -p 0.001 -w 0.5 -i 10.0 -l 0.060000000000000005 -v 0.999 -f ../Data/Databases/SimulatedNoClass/D05.arff</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 100.0 -e 5.0E-4 -g 1.0E-6 -m 20.0 -s 0.1 -p 0.001 -w 0.5 -i 10.0 -l 0.01 -v 0.999 -f ../Data/Databases/SimulatedNoClass/D05.arff</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 100.0 -e 5.0E-4 -g 1.0E-6 -m 20.0 -s 0.1 -p 0.001 -w 0.5 -i 10.0 -l 0.01 -v 0.999 -f ../Data/Databases/SimulatedNoClass/D05.arff -P</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 8 -e 0.08000937181511064 -g 0.006508018732412508 -m 10000 -s 0.07495332194212236 -p 0.07959486357230285 -w 0.08110829557838296 -i 0.91282358947732 -l 0.08250316010991925 -v 0.8624660985915694 -r 0 -f /home/hans/Dropbox/Doutorado/Projetos/Data/imagecategorization/houseobjects4.arff -P</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 100 -e 5.0E-4 -g 5.0E-10 -m 10000 -s 0.1 -p 0.0 -w 0.5 -i 10.0 -l 0.001 -v 0.789 -r 0 -f /home/hans/Dropbox/Doutorado/Projetos/Data/Databases/Noise/N10.arff</runcommandpicklistitem>
         </runcommandpicklist>
-        <runcommand>"${OUTPUT_PATH}"</runcommand>
+        <runcommand>"${OUTPUT_PATH}" -n 100 -e 5.0E-4 -g 5.0E-10 -m 10000 -s 0.1 -p 0.0 -w 0.5 -i 10.0 -l 0.001 -v 0.789 -r 0 -f /home/hans/Dropbox/Doutorado/Projetos/Data/Databases/Noise/N10.arff</runcommand>
+        <rundir></rundir>
+        <buildfirst>true</buildfirst>
+        <terminal-type>0</terminal-type>
+        <remove-instrumentation>0</remove-instrumentation>
+        <environment>
+        </environment>
+      </runprofile>
+    </conf>
+    <conf name="Release_x64" type="1">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <platform>2</platform>
+      </toolsSet>
+      <dbx_gdbdebugger version="1">
+        <gdb_pathmaps>
+        </gdb_pathmaps>
+        <gdb_interceptlist>
+          <gdbinterceptoptions gdb_all="false" gdb_unhandled="true" gdb_unexpected="true"/>
+        </gdb_interceptlist>
+        <gdb_options>
+          <DebugOptions>
+          </DebugOptions>
+        </gdb_options>
+        <gdb_buildfirst gdb_buildfirst_overriden="false" gdb_buildfirst_old="false"/>
+      </dbx_gdbdebugger>
+      <nativedebugger version="1">
+        <engine>gdb</engine>
+      </nativedebugger>
+      <runprofile version="9">
+        <runcommandpicklist>
+          <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 100.0 -e 5.0E-4 -g 1.0E-6 -m 20.0 -s 0.1 -p 0.001 -w 0.5 -i 10.0 -l 0.060000000000000005 -v 0.975 -f ../Data/Databases/SimulatedNoClass/D05.arff</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 100.0 -e 5.0E-4 -g 1.0E-6 -m 20.0 -s 0.1 -p 0.001 -w 0.5 -i 10.0 -l 0.060000000000000005 -v 0.999 -f ../Data/Databases/SimulatedNoClass/D05.arff</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 100.0 -e 5.0E-4 -g 1.0E-6 -m 20.0 -s 0.1 -p 0.001 -w 0.5 -i 10.0 -l 0.01 -v 0.999 -f ../Data/Databases/SimulatedNoClass/D05.arff</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 100.0 -e 5.0E-4 -g 1.0E-6 -m 20.0 -s 0.1 -p 0.001 -w 0.5 -i 10.0 -l 0.01 -v 0.999 -f ../Data/Databases/SimulatedNoClass/D05.arff -P</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 8 -e 0.08000937181511064 -g 0.006508018732412508 -m 10000 -s 0.07495332194212236 -p 0.07959486357230285 -w 0.08110829557838296 -i 0.91282358947732 -l 0.08250316010991925 -v 0.8624660985915694 -r 0 -f /home/hans/Dropbox/Doutorado/Projetos/Data/imagecategorization/houseobjects4.arff -P</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -n 100 -e 5.0E-4 -g 5.0E-10 -m 10000 -s 0.1 -p 0.0 -w 0.5 -i 10.0 -l 0.001 -v 0.789 -r 0 -f /home/hans/Dropbox/Doutorado/Projetos/Data/Databases/Noise/N10.arff</runcommandpicklistitem>
+        </runcommandpicklist>
+        <runcommand>"${OUTPUT_PATH}" -n 100 -e 5.0E-4 -g 5.0E-10 -m 10000 -s 0.1 -p 0.0 -w 0.5 -i 10.0 -l 0.001 -v 0.789 -r 0 -f /home/hans/Dropbox/Doutorado/Projetos/Data/Databases/Noise/N10.arff</runcommand>
         <rundir></rundir>
         <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>

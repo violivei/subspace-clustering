@@ -1,10 +1,3 @@
-/* 
- * File:   DSSOM.h
- * Author: hans and victor
- *
- * Created on 6 de Outubro de 2010, 17:41
- */
-
 #ifndef _DSSOM_H
 #define	_DSSOM_H
 

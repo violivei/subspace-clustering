@@ -1,10 +1,3 @@
-/* 
- * File:   FNeuron.cpp
- * Author: hans and victor
- * 
- * Created on 6 de Outubro de 2010, 17:34
- */
-
 #include "DSNeuron.h" 
 
 void DSNeuron::setupWeights(uint inputSize)

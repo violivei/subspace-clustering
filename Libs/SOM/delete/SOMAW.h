@@ -1,10 +1,3 @@
-/* 
- * File:   SOMAD.h
- * Author: hans and victor
- *
- * Created on 27 de Março de 2012, 17:41
- */
-
 #ifndef _SOMAW_H
 #define	_SOMAW_H
 

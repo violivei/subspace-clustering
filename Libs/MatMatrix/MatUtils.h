@@ -9,6 +9,7 @@
 #include <time.h>
 #include <math.h>
 
+
 #define DefaultNumberType float
 #define INVALID_DIMENSION_SIZE "Dimensao invalida"
 #define DIVIDE_BY_ZERO "Divisao por zero"

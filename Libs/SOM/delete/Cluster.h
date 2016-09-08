@@ -1,10 +1,3 @@
-/* 
- * File:   Cluster.h
- * Author: hans and victor
- *
- * Created on 16 de Março de 2012, 13:38
- */
-
 #ifndef CLUSTER_H
 #define	CLUSTER_H
 

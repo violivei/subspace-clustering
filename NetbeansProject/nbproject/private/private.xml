@@ -2,20 +2,14 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <data xmlns="http://www.netbeans.org/ns/make-project-private/1">
         <activeConfTypeElem>1</activeConfTypeElem>
-        <activeConfIndexElem>0</activeConfIndexElem>
+        <activeConfIndexElem>2</activeConfIndexElem>
     </data>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/victor/Documentos/subspace-clustering/NetbeansProject/main.cpp</file>
-            <file>file:/home/victor/Documentos/subspace-clustering/Libs/Cluster/ClusteringSOM.h</file>
-            <file>file:/home/victor/Documentos/subspace-clustering/Libs/Cluster/ClusteringMetrics.h</file>
-            <file>file:/home/victor/Documentos/subspace-clustering/Libs/CImg/CImg.h</file>
-            <file>file:/home/victor/Documentos/subspace-clustering/Libs/SOM/LARFDSSOM.h</file>
-            <file>file:/home/victor/Documentos/subspace-clustering/Libs/MatMatrix/MatUtils.h</file>
-            <file>file:/home/victor/Documentos/subspace-clustering/Libs/SOM/NodeW.h</file>
-            <file>file:/home/victor/Documentos/subspace-clustering/Libs/Cluster/ClusteringSOM.cpp</file>
-            <file>file:/home/victor/Documentos/subspace-clustering/Libs/MatMatrix/MatUtils.cpp</file>
+            <file>file:/home/hans/LARFDSSOM/NetbeansProject/main.cpp</file>
+            <file>file:/home/hans/LARFDSSOM/Libs/SOM/LARFDSSOM.h</file>
         </group>
     </open-files>
 </project-private>

@@ -1,10 +1,3 @@
-/* 
- * File:   SSCDataFile.cpp
- * Author: hans
- * 
- * Created on 4 de Outubro de 2011, 16:35
- */
-
 #include "SSCDataFile.h"
 #include "Cluster.h"
 #include <cstdlib>

@@ -1,10 +1,3 @@
-/* 
- * File:   DSLVQ.h
- * Author: hans and victor
- *
- * Created on 28 de Fevereiro de 2012, 21:08
- */
-
 #ifndef DSLVQ_H
 #define	DSLVQ_H
 

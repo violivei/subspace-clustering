@@ -1,10 +1,3 @@
-/* 
- * File:   DataDisplay.h
- * Author: hans and victor
- *
- * Created on 29 de Março de 2012, 08:56
- */
-
 #ifndef DATADISPLAY_H
 #define	DATADISPLAY_H
 
@@ -69,8 +62,8 @@ public:
         now = last = 0;
         maxDataPlot = -1;
 
-        image = new CImg<unsigned char>(1000, 1000, 1, 3);
-        disp = new CImgDisplay(1000, 1000);
+        image = new CImg<unsigned char>(500, 500, 1, 3);
+        disp = new CImgDisplay(500, 500);
 
         X = 0;
         Y = 1;
@@ -310,7 +303,7 @@ private:
 
     void buildImage(SOM<DSNode> &som, int X, int Y, MatVector<float> *dataVector, bool clean = true) {
 
-        //som.enumerateNodes();
+        som.enumerateNodes();
         unsigned char bmuColor[3];
         int width = (image->width() - 2 * padding);
         int height = (image->height() - 2 * padding);
@@ -341,11 +334,11 @@ private:
                 if (bmucolor) {
                     
                     DSNode *bmu = som.getWinner(row);
-                    
+
                     int r, g, b;
                     int size = som.size()-1;
                     if (size==0) size = 1;
-                    int h = HUE_START + bmu->getId()*MAX_HUE ;
+                    int h = HUE_START + bmu->getId()*MAX_HUE / (size);
                     HSVtoRGB(&r, &g, &b, h, 255, 255);
                     bmuColor[0] = r;
                     bmuColor[1] = g;
@@ -370,7 +363,7 @@ private:
             int r, g, b;
             int size = som.size()-1;
             if (size==0) size = 1;
-            int h = HUE_START + bmu->getId()*MAX_HUE;
+            int h = HUE_START + bmu->getId()*MAX_HUE / (size);
             HSVtoRGB(&r, &g, &b, h, 255, 255);
             bmuColor[0] = r;
             bmuColor[1] = g;
@@ -388,7 +381,7 @@ private:
                 int r, g, b;
                 int size = som.size()-1;
                 if (size==0) size = 1;
-                int h = HUE_START + bmu->getId()*MAX_HUE;
+                int h = HUE_START + bmu->getId()*MAX_HUE / (size);
                 HSVtoRGB(&r, &g, &b, h, 255, 255);
                 bmuColor[0] = r;
                 bmuColor[1] = g;

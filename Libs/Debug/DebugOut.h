@@ -1,10 +1,3 @@
-/* 
- * File:   DebugOut.h
- * Author: hans and victor
- *
- * Created on 8 de Setembro de 2010, 15:22
- */
-
 #ifndef _DEBUGOUT_H
 #define	_DEBUGOUT_H
 #include <iostream>

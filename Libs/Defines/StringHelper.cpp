@@ -1,10 +1,3 @@
-/* 
- * File:   StringHelper.cpp
- * Author: hans and victor
- * 
- * Created on 18 de Novembro de 2013, 09:08
- */
-
 #include "StringHelper.h"
 #include <algorithm> 
 #include <functional> 

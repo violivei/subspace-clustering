@@ -1,11 +1,3 @@
-/* 
- * File:   TDSSOM.h
- * Author: hans and victor
- *
- * Created on 9 de Novembro de 2010, 14:48
- */
-
-
 #ifndef TDSSOM_H
 #define	TDSSOM_H
 

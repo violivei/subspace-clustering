@@ -5,3 +5,4 @@
 #
 # Debug configuration
 # Release configuration
+# Release_x64 configuration

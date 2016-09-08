@@ -15,6 +15,12 @@
                    projectFiles="true">
     </logicalFolder>
     <logicalFolder name="Libs" displayName="Libs" projectFiles="true">
+      <logicalFolder name="CImg" displayName="CImg" projectFiles="true">
+        <itemPath>../Libs/CImg/CImg.h</itemPath>
+        <itemPath>../Libs/CImg/CImg_reference.pdf</itemPath>
+        <itemPath>../Libs/CImg/DataDisplay.cpp</itemPath>
+        <itemPath>../Libs/CImg/DataDisplay.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="Cluster" displayName="Cluster" projectFiles="true">
         <itemPath>../Libs/Cluster/Cluster.cpp</itemPath>
         <itemPath>../Libs/Cluster/Cluster.h</itemPath>
@@ -65,6 +71,8 @@
         <itemPath>../Libs/SOM/DSNode.h</itemPath>
         <itemPath>../Libs/SOM/DSSOM.cpp</itemPath>
         <itemPath>../Libs/SOM/DSSOM.h</itemPath>
+        <itemPath>../Libs/SOM/GDSSOM.h</itemPath>
+        <itemPath>../Libs/SOM/GDSSOMMW.h</itemPath>
         <itemPath>../Libs/SOM/GNGDSSOM.h</itemPath>
         <itemPath>../Libs/SOM/GNGSOM.h</itemPath>
         <itemPath>../Libs/SOM/GWRDSSOM.h</itemPath>
@@ -119,14 +127,12 @@
         <ccTool>
           <incDir>
             <pElem>../Libs/MatMatrix</pElem>
-            <pElem>../Libs/SOM</pElem>
-            <pElem>../Libs/Parameters</pElem>
-            <pElem>../Libs/Debug</pElem>
             <pElem>../Libs/Defines</pElem>
-            <pElem>../Libs/CImg</pElem>
             <pElem>../Libs/Cluster</pElem>
             <pElem>../Libs/Data</pElem>
-            <pElem>.</pElem>
+            <pElem>../Libs/Debug</pElem>
+            <pElem>../Libs/Parameters</pElem>
+            <pElem>../Libs/SOM</pElem>
           </incDir>
         </ccTool>
       </compileType>

@@ -1,10 +1,3 @@
-/* 
- * File:   LVQNeuron.h
- * Author: hans and victor
- *
- * Created on 28 de Fevereiro de 2012, 21:13
- */
-
 #ifndef LVQNEURON_H
 #define	LVQNEURON_H
 

@@ -1,10 +1,3 @@
-/* 
- * File:   ClusteringMetrics.h
- * Author: hans
- *
- * Created on 30 de Março de 2012, 11:29
- */
-
 #ifndef CLUSTERINGMETRICS_H
 #define	CLUSTERINGMETRICS_H
 

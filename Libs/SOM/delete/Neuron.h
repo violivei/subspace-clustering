@@ -1,10 +1,3 @@
-/* 
- * File:   Neuron.h
- * Author: hans and victor
- *
- * Created on 6 de Outubro de 2010, 17:05
- */
-
 #ifndef _NEURON_H
 #define	_NEURON_H
 

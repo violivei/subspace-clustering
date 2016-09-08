@@ -197,20 +197,6 @@ public:
 
         return false;
     }
-    
-    void setStartNode() {
-        using namespace std;
-
-        uint wSize = (*meshNodeSet.begin())->w.size();
-         
-        int i = 0;
-        typename TPNodeSet::iterator it;
-        for (it = meshNodeSet.begin(); it != meshNodeSet.end(); it++) {
-            for (uint j = 0; j < wSize; j++)
-                (*it)->w[j] = 0;
-            i++;
-        }        
-    }
 
     void destroyMesh() {
         //std::cout << "Destrutor de Mesh sendo chamado\n";
@@ -578,7 +564,7 @@ template<class T1,class T2> double sumOfSquaredError(MatMatrix<T1> &data, Mesh<T
     typename Mesh<T2>::TPNodeSet::iterator it;
     
     for (int i = 0; i < data.rows(); i++) {
-        data.getRow(i, vdata);
+        data.row2Vector(i, vdata);
         
         //clusters.row2Vector(0, vcluster);
         it=clusters.meshNodeSet.begin();
@@ -595,7 +581,7 @@ template<class T1,class T2> double sumOfSquaredError(MatMatrix<T1> &data, Mesh<T
     }
     
 
-    return erro/data.rows();
+    return erro;
 }
 
 template<class T> std::ostream& operator << (std::ostream& out,const MeshStatistics<T> &mstatistics)

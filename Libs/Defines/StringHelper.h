@@ -1,10 +1,3 @@
-/* 
- * File:   StringHelper.h
- * Author: hans and victor
- *
- * Created on 18 de Novembro de 2013, 09:08
- */
-
 #ifndef STRINGHELPER_H
 #define	STRINGHELPER_H
 

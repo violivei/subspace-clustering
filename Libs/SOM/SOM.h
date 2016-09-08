@@ -12,7 +12,7 @@
 #include <set>
 #include "Mesh.h"
 #include "MatVector.h"
-#include <stdio.h>
+
 
 template<class T> class SOM :public Mesh<T>{
 public:
@@ -25,14 +25,11 @@ public:
     typedef std::set<TNode*> TPNodeSet; // mapeamento global dos n�s
     typedef std::set<TConnection*> TPConnectionSet; //Para mapeamento global das conex�es da mesh
     typedef MatMatrix<TNumber> TMatrix;
-        
-    int totalEpochs;
+
     TMatrix data;
     int step;
     int counter_i;
     int dimw;//dimensão do vetor de pessos
-    std::map<int, int> groupLavelsVector;
-    std::vector<int> classes;
     
     virtual inline TNode* getWinner(const TVector &w) {
         TNode *winner = 0;
@@ -52,26 +49,6 @@ public:
         }
 
         return winner;
-    }
-    
-    virtual inline int getWinnerId(const TVector &w) {
-        TNode *winner = 0;
-        TNumber temp = 0;
-        TNumber d = (*Mesh<TNode>::meshNodeSet.begin())->w.dist(w);
-        winner = (*Mesh<TNode>::meshNodeSet.begin());
-
-        typename TPNodeSet::iterator it;
-        it = Mesh<TNode>::meshNodeSet.begin();
-        it++;
-        for (; it != Mesh<TNode>::meshNodeSet.end(); it++) {
-            temp = (*it)->w.dist(w);
-            if (d > temp) {
-                d = temp;
-                winner = (*it);
-            }
-        }
-
-        return winner->getId();
     }
 
     virtual inline SOM& getWinners(const TVector &w, TNode* &winner1, TNode* &winner2) {
@@ -106,7 +83,7 @@ public:
 
         return *this;
     }
-        
+
     virtual inline SOM& getWinners(const TVector &w, TVector &w1, TVector &w2) {
         TNode *winner1, *winner2;
         getWinners(w,winner1,winner2);
@@ -114,30 +91,8 @@ public:
         w2=winner2->w;
         return *this;
     }
-    
-    virtual SOM& resetNodeVectors(){};
-    
-    virtual double outAccuracy(){};
-    
-    virtual void appendSamplesToWinners(){};
-    
-    virtual void printDistanceMetricBtwCentroids(const std::string filename){};
-    
-    virtual void printEucMeanNodes(const std::string filename){};
-    
-    virtual void getDimensionRelevancesVector() = 0;
-    
-    virtual SOM& createStartNodes(std::vector<int> a, std::map<int, int> b) = 0;
-    
-    virtual SOM& createStartNodesPCA(std::vector<int> a, std::vector<int> b) = 0;
-    
-    virtual SOM& createStartNodesRandom(std::vector<int> a, std::vector<int> b) = 0;
-    
-    virtual SOM& updateMap(const TVector &w, int cla) = 0;
-    
-    virtual SOM& updateMap2(const TVector &w) = 0;
-    
-    virtual void printWinners(){};
+
+    virtual SOM& updateMap(const TVector &w) = 0;
 
     SOM& trainningEach(int N = 1) {
         MatVector<int> vindex(data.rows());
@@ -151,7 +106,7 @@ public:
         for (int n = 0; n < N; n++) {
             for (uint l = 0; l < data.cols(); l++)
                 v[l] = data[vindex[n%vSize]][l];
-            updateMap(v,vindex);
+            updateMap(v);
         }
         return *this;
     }
@@ -166,41 +121,10 @@ public:
     SOM& trainningStep() {
         TVector v(data.cols());
         int vindex = rand()%data.rows();
-        for (uint l = 0; l < data.cols(); l++){
-            v[l] = data[vindex][l];
-            //printf( " %f  ", v[l]);
-        }
-                
+        for (uint l = 0; l < data.cols(); l++)
+                v[l] = data[vindex][l];
         
-        updateMap(v, vindex);
-        
-        return *this;
-    }
-    
-    SOM& trainningStep(int index) {
-        TVector v(data.cols());
-        int vindex = index;
-        for (uint l = 0; l < data.cols(); l++){
-            v[l] = data[vindex][l];
-            //printf( " %f  ", v[l]);
-        }
-        //printf( "\n\n\n" );       
-        
-        updateMap(v, vindex);
-        
-        return *this;
-    }
-    
-    SOM& trainningStep2(int index) {
-        TVector v(data.cols());
-        int vindex = index;
-        for (uint l = 0; l < data.cols(); l++){
-            v[l] = data[vindex][l];
-            //printf( " %f  ", v[l]);
-        }
-        //printf( "\n\n\n" );       
-        
-        updateMap2(v);
+        updateMap(v);
         
         return *this;
     }
@@ -306,25 +230,6 @@ public:
         }
         
         return true;
-    }
-    
-    virtual void printMeshFile(const std::string filename, int epoch) {
-        std::ofstream file;
-        file.open(filename.c_str(), std::ios::app);
-
-        if (!file.is_open()) {
-            dbgOut(0) << "Error openning output file" << endl;
-        }
-        
-        file << "\n\n\n\n" << " EPOCA: " << epoch << "\n\n\n\n";
-        
-        //std::cout << Mesh<TNode>::meshNodeSet.size() << std::endl;
-        int i=1;
-        for (it = Mesh<TNode>::meshNodeSet.begin(); it != Mesh<TNode>::meshNodeSet.end(); it++) {
-             //std::cout << i << ":" << (*it)->w.toString() << std::endl;
-             file << i << ":" << (*it)->w.toString() << std::endl;
-             i++;
-        }
     }
     
     virtual void printMesh() {

@@ -1,10 +1,3 @@
-/* 
- * File:   TDSSOM.cpp
- * Author: hans and victor
- * 
- * Created on 9 de Novembro de 2010, 14:48
- */
-
 #include "TDSSOM.h"
 #include "Defines.h"
 #include <cfloat>

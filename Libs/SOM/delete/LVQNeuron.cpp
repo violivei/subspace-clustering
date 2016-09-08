@@ -1,10 +1,3 @@
-/* 
- * File:   LVQNeuron.cpp
- * Author: hans and victor
- * 
- * Created on 28 de Fevereiro de 2012, 21:13
- */
-
 #include "LVQNeuron.h"  
 
 void LVQNeuron::setClass(int dClass) {

@@ -1,10 +1,3 @@
-/* 
- * File:   dsWeightsDims.h
- * Author: hans and victor
- *
- * Created on 26 de Setembro de 2011, 17:51
- */
-
 #ifndef DSWEIGHTSDIMS_H
 #define	DSWEIGHTSDIMS_H
 
